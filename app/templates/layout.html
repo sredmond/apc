@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+AP PHYSICS C WEBSITE for MENLO - Designed by Sam Redmond for Dr. Dann in 2013
+-->
+<meta charset="utf-8">
+{% if title %}
+<title>{{ title }} - APC</title>
+{% else %}
+<title>AP Physics C</title>
+{% endif %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="menlo, apc, dann, physics, ap, science, help">
+<meta name="description" content="">
+<meta name="author" content="Sam Redmond">
+
+<!-- Styles -->
+<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/main.css" rel="stylesheet">
+
+<!-- Touch and fav icons -->
+<link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
+
+<!-- <script src="/static/js/moment.min.js"></script> Moment.js has to load before the page does, so that it can create dates as the client renders information -->
+
+</head>
+<body>
+  <div id="wrap">
+    <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href={{ url_for('index') }}>AP Physics C</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/loghw">Class Log and HW</a></li>
+          </ul>
+        </div><!--/.navbar-collapse-->
+      </div>
+    </div>
+    <!-- End navbar -->
+    <!-- Begin Page Content -->
+    <div class="container">
+      <!--Flash any messages-->
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert warning fade in">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Info: </strong> {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <!--End message flashing-->
+      <!--Content-->
+      {% block content %}
+      {% endblock %}
+      <!--End content-->
+    </div>
+  </div>
+  <!-- Begin footer -->
+  <div id="footer">
+    <div class="container">
+      <p class="muted text-center">
+        Built by Sam Redmond. Structured on <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap v3.0.3</a>
+      </p>
+      <p class="muted text-center">
+        Code licensed under <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a> - <a href="http://glyphicons.com">Glyphicons Free</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>.
+      </p>
+    </div>
+  </div>
+  <!-- End footer -->
+
+  <!-- Scripts -->
+  <!-- Placed at the end of the document so the pages load faster-->
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
