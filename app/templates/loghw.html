@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 <!-- Nav tabs -->
+<div class="alert alert-danger">Do homework the night it is assigned. HW is due the next day.</div>
 <div id="current_week">
 	<h3>Current Week</h3>
 	<ul class="nav nav-pills nav-justified">
@@ -45,8 +46,14 @@
 <div id="quicknav">
 	<h3>Quick Navigation</h3>
 	<div class="btn-group btn-group-justified">
-		<a class="btn btn-primary" href="#unit1">Unit Title #1</a>
-		<a class="btn btn-success" href="#unit2">Unit Title #2</a>
+	{% if db %}
+		{% for unit in db['data'] %}
+
+		<a class={{ loop.cycle('btn btn-primary', 'btn btn-success', 'btn btn-info') }} href={{ "#" + unit['unit-name'] }}>{{ unit['unit-title'] }}</a>
+		
+		{% endfor %}
+	{% endif %}
+	<a class="btn btn-success" href="#unit2">Unit Title #2</a>
 		<a class="btn btn-info" href="#unit3">Unit Title #3</a>
 		<a class="btn btn-warning" href="#">Unit Title #4</a>
 		<a class="btn btn-danger" href="#">Unit Title #5</a>
@@ -54,6 +61,45 @@
 </div>
 <div id="homework">
 	<h3>Class Log and Homework</h3>
+	<div class="panel-group" id="accordion">
+	{% if db %}
+		{% for unit in db['data'] %}
+		<div class={{ loop.cycle('panel panel-primary', 'panel panel-success', 'panel panel-info') }} id={{ unit["unit-name"] }}>
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-target={{ "#" + unit['unit-name'] }}>
+						{{ unit['unit-title'] }} <!--What times does it span-->
+					</a>
+				</h4>
+			</div>
+			<div id={{ unit['unit-name'] }} class="panel-collapse collapse">
+				<div class="panel-body">
+					{{ unit['unit-description'] }}
+					<div class="panel-group" id={{ "accordion-" + unit['unit-name'] }}>
+					{% for class in unit['unit-classes'] %}
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-target={{ "#" + unit['unit-name'] + "-" + loop.index }}>
+										{{ class['pretty-time'] }}
+									</a>
+								</h4>
+							</div>
+							<div id={{ unit['unit-name'] + "-" + loop.index }} class="panel-collapse collapse">
+								<div class="panel-body">
+									Homework Body
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	{% endif %}
+	</div>
+
 	<div class="panel-group" id="accordion">
 		<div class="panel panel-primary" id="unit1">
 			<div class="panel-heading">
