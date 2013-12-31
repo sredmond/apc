@@ -4,7 +4,8 @@ from os import urandom
 from datetime import datetime
 import json
 
-# topics = json.loads('topics.json')
+with open('app/topics.json') as f:
+    topics = json.loads(f.read())
 # times = json.loads('times.json')
 
 
@@ -17,4 +18,5 @@ def index():
 @app.route('/loghw')
 def me():
     return render_template('loghw.html',
-        title='Class Log and HW')
+        title='Class Log and HW',
+        db=topics)

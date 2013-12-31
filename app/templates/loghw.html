@@ -1,4 +1,11 @@
 {% extends 'layout.html' %}
+
+{% macro display_class(class) -%}
+    <p class="text-primary"><strong>Class Log:</strong> X, Y, Z</p>
+	<p class="text-danger"><strong>Homework:</strong> {{ class['homework']|safe }}</p>
+	{% if 'additional' in class %} <p class="text-info"><strong>Additional:</strong> {{ class['additional']|safe }}</p> {%- endif %}
+{%- endmacro %}
+
 {% block content %}
 <!-- Nav tabs -->
 <div class="alert alert-danger">Do homework the night it is assigned. HW is due the next day.</div>
@@ -49,14 +56,10 @@
 	{% if db %}
 		{% for unit in db['data'] %}
 
-		<a class={{ loop.cycle('btn btn-primary', 'btn btn-success', 'btn btn-info') }} href={{ "#" + unit['unit-name'] }}>{{ unit['unit-title'] }}</a>
+		<a class="{{loop.cycle('btn btn-primary', 'btn btn-success', 'btn btn-info') }}" href={{ "#" ~ unit['unit-name'] }}>{{ unit['unit-title'] }}</a>
 		
 		{% endfor %}
 	{% endif %}
-	<a class="btn btn-success" href="#unit2">Unit Title #2</a>
-		<a class="btn btn-info" href="#unit3">Unit Title #3</a>
-		<a class="btn btn-warning" href="#">Unit Title #4</a>
-		<a class="btn btn-danger" href="#">Unit Title #5</a>
 	</div>
 </div>
 <div id="homework">
@@ -64,30 +67,30 @@
 	<div class="panel-group" id="accordion">
 	{% if db %}
 		{% for unit in db['data'] %}
-		<div class={{ loop.cycle('panel panel-primary', 'panel panel-success', 'panel panel-info') }} id={{ unit["unit-name"] }}>
+		<div class="{{ loop.cycle('panel panel-primary', 'panel panel-success', 'panel panel-info') }} id={{ unit["unit-name"] }}">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a data-toggle="collapse" data-target={{ "#" + unit['unit-name'] }}>
-						{{ unit['unit-title'] }} <!--What times does it span-->
+					<a data-toggle="collapse" data-target={{ "#" ~ unit['unit-name'] }}>
+						{{ unit['unit-title'] }} (Number of Classes) - Start Date to End Date
 					</a>
 				</h4>
 			</div>
-			<div id={{ unit['unit-name'] }} class="panel-collapse collapse">
+			<div id={{ unit['unit-name'] }} class="panel-collapse collapse in">
 				<div class="panel-body">
 					{{ unit['unit-description'] }}
-					<div class="panel-group" id={{ "accordion-" + unit['unit-name'] }}>
+					<div class="panel-group" id={{ "accordion-" ~ unit['unit-name'] }}>
 					{% for class in unit['unit-classes'] %}
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-target={{ "#" + unit['unit-name'] + "-" + loop.index }}>
-										{{ class['pretty-time'] }}
+									<a data-toggle="collapse" data-target={{ "#" ~ unit['unit-name'] ~ "-" ~ loop.index }}>
+										Pretty Time goes here
 									</a>
 								</h4>
 							</div>
-							<div id={{ unit['unit-name'] + "-" + loop.index }} class="panel-collapse collapse">
+							<div id={{ unit['unit-name'] ~ "-" ~ loop.index }} class="panel-collapse collapse in">
 								<div class="panel-body">
-									Homework Body
+									{{ display_class(class) }}
 								</div>
 							</div>
 						</div>
@@ -98,72 +101,6 @@
 		</div>
 		{% endfor %}
 	{% endif %}
-	</div>
-
-	<div class="panel-group" id="accordion">
-		<div class="panel panel-primary" id="unit1">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-target="#collapseFive">
-						Unit Title #1
-					</a>
-				</h4>
-			</div>
-			<div id="collapseFive" class="panel-collapse collapse">
-				<div class="panel-body">
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					<div class="panel-group" id="accordion2">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-target="#collapseFour">
-										Day 1: Nov 10, 2013
-									</a>
-								</h4>
-							</div>
-							<div id="collapseFour" class="panel-collapse collapse">
-								<div class="panel-body">
-									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="panel panel-success" id="unit2">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-target="#collapseTwo">
-						Unit Title #2
-					</a>
-				</h4>
-			</div>
-			<div id="collapseTwo" class="panel-collapse collapse">
-				<div class="panel-body">
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-				</div>
-			</div>
-		</div>
-		<div class="panel panel-info" id="unit3">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-target="#collapseThree">
-						CUnit Title #3
-					</a>
-				</h4>
-			</div>
-			<div id="collapseThree" class="panel-collapse collapse">
-				<div class="panel-body">
-					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-				</div>
-			</div>
-		</div>
 	</div>
 </div>
 {% endblock %}

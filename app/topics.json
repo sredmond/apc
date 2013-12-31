@@ -1,5 +1,5 @@
 {
-  "num-classes": 54,
+  "num-classes": 58,
   "data": [
     {
       "unit-title": "DC Circuits and Capacitors",
@@ -19,10 +19,10 @@
         },
         {
           "class-log": [
-            "Fun with Light Bulb Demos"
-            "Derive series and parallel (in case you miss class: here are the Vod casts: <a href='http://www.youtube.com/v/xJ_j_swDvlo' target='_blank'>R in series<\/a>, <a href='http://www.youtube.com/v/6gfUpAeoyDU' target='_blank'>R in parallel<\/a>)"
+            "Fun with Light Bulb Demos",
+            "Derive series and parallel (in case you miss class: here are the Vod casts: <a href='http://www.youtube.com/v/xJ_j_swDvlo' target='_blank'>R in series<\/a>, <a href='http://www.youtube.com/v/6gfUpAeoyDU' target='_blank'>R in parallel<\/a>)",
             "Internal Resistance (<a href='http://www.youtube.com/v/IftDnfr5ow0' target='_blank'>Vod on internal Resistance<\/a>)",
-            "Difference between a voltmeter and ammeter"
+            "Difference between a voltmeter and ammeter",
             "Mini Lab on internal resistance"
           ],
           "homework":"<a href='http://scipp.ucsc.edu/outreach/index2.html' target='_blank'>People's Physics Book Ch. 13<\/a> #4,5,8,9,11,12,13,15,16,18,20,21,23 (note: Answers in Appendix A, check your work!)"
@@ -52,6 +52,61 @@
             "Capacitor Mini - Lab (<em>Note: while your write-up can be bare bones, I expect it to be complete and everything explained. It should include all necessary schematics and calculations as well as the results</em>)"
           ],
           "homework": "Lab results write-up and Ch.30 Ex#15,18,33"
+        },
+        {
+          "class-log": [
+            "Recap Cap and cap circuits",
+            "Work day: Ch. 30 Problems #2,4,5,7,9,18 (I recommend you tackle #9 first so i can give you hints as needed in class"
+          ],
+          "homework":"Finish the above"
+        },
+        {
+          "class-log": [
+            "Quiz on DC circuits and capacitors"
+          ],
+          "homework": "TBA"
+        },
+        {
+          "class-log": [
+            "Go over Cap Quiz",
+            "RC Time Constant Demo (Video of <a href='http://www.youtube.com/v/sU2m5KtwjeI target='_blank'>RC time constant DEMO<\/a>)"
+          ],
+          "homework":"None"
+        },
+        {
+          "class-log": [
+            "Senior Retreat - No class"
+          ],
+          "homework": "None"
+        },
+        {
+          "class-log": [
+            "Recap RC time constant Demo and think through graphs",
+            "RC time Constant derivation",
+            "Start HW"
+          ],
+          "homework": "Ch.31 MC#15; Ex# 11,12,25,43,47 and  Prob #12"
+        },
+        {
+          "class-log": [
+            "HW Q's",
+            "RC Time Constant Lab",
+            "<a href='APC/Practice Tests/DC circuits/DC circuits Practice .pdf target='_blank'>Review Sheet <\/a>for Test "
+          ],
+          "homework": "Lab Write-up and finish Review Sheet (note: lab writeup is short. The graph (with work on it to get RC and compare) and half a page is what i'm expecting.",
+          "additional": "Here are the <a href='APC/Practice Tests/DC circuits/DC Circuits Practice Solutions.pdf target='_blank'>Solutions<\/a> to the Review Sheet"
+        },
+        {
+          "class-log": [
+            "Go over HW. Ex #11,25 and Prob #12Do Ch.31 Prob#1,4 and <a href='APC/Practice Tests/DC circuits/DC circuits Practice .pdf target='_blank'>Review Sheet <\/a>for Test "
+          ],
+          "homework":"finish Review Sheet. Note you can start test at beginning of break (so 10:00 am)."
+        },
+        {
+          "class-log": [
+            "Test on DC circuits"
+          ],
+          "homework":"Check out <a href='http://www.astro.ucla.edu/~wright/BBhistory.html'>History of the Universe<\/a> and Read <a href='http://www.pbs.org/wgbh/nova/elegant/view-gross.html'>David Gross' Interview<\/a> then read <a href='http://www.pbs.org/wgbh/nova/elegant/view-glashow.html' target='_blank'>Glashow's Interview<\/a> for a counter point"
         }
       ]
     },
@@ -62,25 +117,134 @@
       "unit-classes": [
         {
           "class-log": [
-            
+            "Standard Model and Big Questions",
+            "Feynman Diagrams Intro"
           ],
-          "homework": "Put homework here",
+          "homework":"<a href='http://scipp.ucsc.edu/outreach/index2.html' target='_blank'>People's Physics Book:<\/a> Feynman Diagrams and do #1-5"
+        },
+        {
+          "class-log": [
+            "Watch these 4 VODs on Feynman Diagrams: <a href='http://www.youtube.com/v/nZtgsShobxE'>Intro<\/a>, <a href='http://www.youtube.com/v/odt30kVGsbQ'>Annihilation<\/a>, <a href='http://www.youtube.com/v/NyGmePPUjXI'>Scattering<\/a>, <a href='http://www.youtube.com/v/1ZGHc1AKhsQ' target='_blank'>Neutron Decay<\/a>",
+            "Particle Detectors",
+            "More Feynman Diagrams and Standard Model",
+            "Work on <a href='http://scipp.ucsc.edu/outreach/index2.html target='_blank'>People's Physics Book<\/a>:Feynman Problems #6 -17"
+          ],
+          "homework": "Finish Feynman Diagrams",
+          "additional": "<a href='http://io9.com/so-this-physics-grad-student-made-a-mindblowing-bohemia-1333515132 target='_blank'>Bohemian Rapsody<\/a>"
+        },
+        {
+          "class-log": [
+            "HW Review",
+            "Motion in 1D and how to use derivatives",
+            "Demo: ball toss",
+            "Start HW in class"
+          ],
+          "homework":"ch. 2 MC#9,10; Ex#23,28,34,43,56,60; Prob# 13,22,23,29",
+          "additional":"If necessary, review your motion: <a href='http://phet.colorado.edu/en/simulation/moving-man'>walking man<\/a>, motion graphs: <a href='http://www.youtube.com/v/kFGfBCDr75Y'>x vs t a &gt; 0<\/a>, <a href='http://www.youtube.com/v/b_p0ZG_9w0M'>x vs t a&lt;0<\/a>, <a href='http://www.youtube.com/v/TXeL9bPkRwI target='_blank'>v vs t <\/a>"
+        },
+        {
+          "class-log": [
+            "HW Review",
+            "Rabbit and Tortoise and other problems"
+          ],
+          "homework":"Do <a href='APC/Practice Tests/Motion 1D/Kinematics_Practice Test.pdf' target='_blank'>Practice Test <\/a>(note: practice tests do not cover all that we have covered in class)",
           "additional":""
         },
         {
           "class-log": [
-            
+            "<a href='APC/Documents/Galileo's Experiment day2.doc target='_blank'>Galileo Lab<\/a>"
           ],
-          "homework": "Put homework here",
-          "additional":""
+          "homework": "<a href='APC/Documents/Galileo's Experiment day2.doc' target='_blank'>Galileo lab<\/a> and study for test tomorrow (especially the homework assigned for last weekend)",
+          "additional":"Here are <a href='APC/Practice Tests/Motion 1D/Kinematics_Practice Test Solutions.pdf target='_blank'>Solutions to Practice Test <\/a>"
+        },
+        {
+          "class-log": [
+             "Test on Kinematics"
+             ],
+          "homework": "None"
         }
       ]
     },
     {
       "unit-title": "Newton's Laws",
+      "unit-name": "newton",
       "unit-description": "Description goes here",
       "unit-classes": [
-        
+        {
+          "class-log": [
+            "Newton, the man",
+            "Newton's laws",
+            "Problem Solving technique"
+          ],
+          "homework":"Read 41 - 45, 50-52 and do Ch. 3 MC#1,2,5,8; Ex#1,6,14,20; Q#4,5,12",
+          "additional":"Review Newton's Laws, draw some Free Body Diagrams and see these two VODS*: <a href='http://www.youtube.com/v/k8ufK-ZJyCo'>Newton Problem 1<\/a>, <a href='http://www.youtube.com/v/8HQEs6lkDmM target='_blank'>Newton Problem 2<\/a> - see if you can work out the problems before seeing the VODS. Especially important if you did not take AP B physics."
+        },
+        {
+        "class-log": [
+            "HW Review",
+            "<a href='https://www.youtube.com/v/etE5urBps_w target='_blank'>James Bond Demo<\/a>",
+            "Go over Q for HW and also Q#12,31,33,39",
+            "Do problems Ch. 3 #5,6,7,8,9 and Ex#31"
+          ],
+          "homework": "Finish the above"
+        },
+        {
+          "class-log": [
+            "HW check",
+            "Air resistance derivation",
+            "Air resistance demo (rock dropped into water)",
+            "Ch.4: Q#17, 19,24,40"
+          ],
+          "homework": "Ch.4 MC#9,12; Ex#27,32"
+        },
+        {
+          "class-log": [
+            "HW Questions",
+            "Derivation of circular motion",
+            "Fc and ac=v^2/r",
+            "Q#8,12,15,31"
+          ],
+          "homework": "Ch.4 MC#17; Ex#37,38,41; Prob #20"
+        },
+        {
+          "class-log": [
+            "HW Review",
+            "Friction",
+            "Banked curves"
+          ],
+          "homework":"Ch.5 MC#7,8,9,10,11; Ex#3,15,23, 27",
+          "additional":"Some helpful review videos: <a href='http://www.youtube.com/v/uSfAut5GMq4'>Friction<\/a>, <a href='http://www.youtube.com/v/Fws5Ld9p0t8'>Friction Example<\/a> Problem, <a href='http://www.youtube.com/v/k8ufK-ZJyCo'>Example Problem<\/a>, <a href='http://www.youtube.com/v/25tJTmgYinM' target='_blank'>Free Body Diagrams <\/a>"
+        },
+        {
+        "class-log": [
+            "HW review",
+            "Bead problem without friction (w/ friction for the brave)",
+            "Ch.5 Prob #1,2,7,9,10,12,17, 18* (*=optional)"
+          ],
+          "homework": "finish above",
+          "additional":"<em>Do #1,2,9,12 tonight and save rest for tomorrow</em>"
+        },
+        {
+        "class-log": [
+            "HW check",
+            "Pseudo forces",
+            "Coriolis effect"
+          ],
+          "homework":"Ch. 5 Q #27, Ex# 39 and Prob #10, 19* (*for the brave)",
+          "additional":"For more review on Newton Law type problems do this <a href='APC/Practice Tests/Newton/Newton Practice Test.pdf' target='_blank'>Practice Test<\/a>. I worked the problems and scanned them in:<a href='APC/Practice Tests/Newton/Newton Practice Test Solutions.pdf' target='_blank'> Newton Solutions <\/a>(note; answer to 1c) should be 8kg -&gt; find my mistake! - (this should NOT dissuade you from asking questions tomorrow, i did not explain all the steps on solutions)"
+        },
+        {
+          "class-log": [
+            "Review Day"
+          ],
+          "homework":"Study for Newton's Law test"
+        },
+        {
+          "class-log": [
+            "Test on Newton's Laws"
+          ],
+          "homework":"Higgs article"
+        }
       ]
     },
     {
@@ -88,7 +252,154 @@
       "unit-name": "rot-motion",
       "unit-description": "Description goes here",
       "unit-classes": [
-        
+        {
+          "class-log": [
+            "How it works Wed. Higgs Boson"
+          ],
+          "homework": "None"
+        },
+        {
+          "class-log": [
+            "Momentum conservation",
+            "Impulse",
+            "start Hw in class"
+          ],
+          "homework":"Ch.6 MC #3; Q#2; Ex#17,18,20,25,27",
+          "additional":"(for more  on momentum see <a href='http://www.youtube.com/v/HdjxMw9bumI' target='_blank'>Momentum Conservation<\/a>,<a href='http://www.youtube.com/v/2qmv401y55Q' target='_blank'> Impulse<\/a>,<a href='http://www.youtube.com/v/seoPklidAio' target='_blank'>Impulse Demo<\/a>, <a href='http://www.youtube.com/v/bOK3NyQNkl0' target='_blank'>Elastic<\/a> Collisions, Newton's Cradle: <a href='http://www.youtube.com/v/Dria9CuEHds' target='_blank'>explanation<\/a>, <a href='http://www.youtube.com/v/zucpwrkhCV4' target='_blank'>demo<\/a>; either these or reading Ch.6 is mandatory if you did not take AP B)"
+        },
+        {
+        "class-log": [
+            "HW Q's",
+            "Demo: happy ball sad ball",
+            "Centre-of-mass",
+            "Discrete problems",
+            "Superposition"
+          ],
+          "homework": "Ch.6 MC # 6; Ex #9 Prob#3,6,14 (6* = for the brave)"
+        },
+        {
+        "class-log": [  
+            "HW Questons",
+            "Demo: Chain and force plate ",
+            "Problem solving with continuous Centre-of-Mass"
+          ],
+          "homework":"Ch.6 Prob# 17,19; Read 7-3 and 7-4 and do Ch.7 MC #4,7.9,10; Ex#10,11"
+        },
+        {
+          "class-log": [
+            "Warmup: canoe question",
+            "HW Q's",
+            "How it works",
+             "Work in class on Ch.7 Q#2, Ex#13,14; Prob #4,3 (extension: find v(x)) "
+           ],
+          "homework":"finish the above",
+          "additional":"Group Quiz on Momentum 3rd class of next week."
+        },
+        {
+          "class-log": [
+            "HW Questions",
+            "Center of mass reference system",
+            "Rocket propulsion",
+            "Ch.7 Prob #7"
+          ],
+          "homework": "Ch.6 Prob #7; Ch.7 Ex#1,4,21,23; Prob #1,7,11"
+        },
+        {
+          "class-log": [
+            "HW Check",
+            "Review day; Work out all HW problems and study in groups for momentum quiz",
+            "Start first half of  Group Quiz"
+          ],
+          "homework": "study for quiz, make sure can do all HW problems except tougher integral stuff and rocket propulsion (you do need to know COM stuff)",
+          "additional":"  Here's a practice <a href='APC/Practice Tests/Momentum/Momentum.pdf'>quiz<\/a> and solutions <a href='APC/Practice Tests/Momentum/page1.jpeg' target='_blank'>pg1<\/a> and <a href='APC/Practice Tests/Momentum/page2.jpeg' target='_blank'>pg2 <\/a>(this practice quiz covers the basics)"
+        },
+        {
+          "class-log": [
+            "Group Quiz on Momentum"
+          ],
+          "homework": "Read pgs 159 - 165 and do MC#2,5,8"
+        },
+        {
+          "class-log": [
+            "Under the Ruler",
+            "Intro Rotation",
+            "Torque"
+          ],
+          "homework":"Ch. 8 Q#2; Ex#9,13,14,19,24,31; Prob #1"
+        },
+        {
+          "class-log": [
+            "HW Q's",
+            "Gear Ratios",
+            "Demo: Moment of Inertia/Torque Demo",
+            "Moment of Inertia",
+            "Newton's 2nd Law of rotation"
+          ],
+          "homework":"Ch. 8 Prob #9,10 and Read pgs 185 - 190 then do Ch.9 MC#2,4,7; Ex#5,11",
+          "additional":"Some videos and VODS on <a href='http://www.youtube.com/v/8yMUn6RoHn4' target='_blank'>Torque<\/a>, <a href='http://www.youtube.com/v/_GrvO-Y78pk' target='_blank'>diving board<\/a>, <a href='http://www.youtube.com/v/284dlZeIx38' target='_blank'>Torque example problem<\/a>, <a href='http://www.youtube.com/v/mYWvmRj-CSg'>Ladder Problems<\/a>, <a href='https://www.youtube.com/v/uyU25DdONjo' target='_blank'>Moment of Inertia explained<\/a>"
+        },
+        {
+        "class-log": [
+            "Go over HW",
+            "Recap Moment of Inertia, torque, ...",
+            "Workday on Ch. 9 Q#2,3,7,17; Ex#24,25,28,29,30,31,32 and also Ch.8 Prob 7"
+          ],
+          "homework": "finish the above"
+        },
+        {
+        "class-log": [
+            "Go over Ch. 9 Q#2,3,7,17",
+            "Workday on  Ex#24,25,28,29,30,31,32,38 and also Ch.8 Prob 7"
+          ],
+          "homework": "finish the above"
+        },
+        {
+        "class-log": [
+            "Rotation Quiz (Group)",
+            "How it Works Wed. (yes on a fri.) by Hanson Tam"
+          ],
+          "homework": "Finish Rotation Quiz"
+        },
+        {
+        "class-log": [
+            "Momentum of inertia integration methods",
+            "Recap Moment of Inertia and Torque",
+            "Parallel and perpendicular axis theorems"
+          ],
+          "homework":"Ch.9 Q#7,9; Ex#13,15,17,19; Prob #3; "
+        },
+        {
+        "class-log": [
+            "HW Q's",
+            "parallel axis thm.",
+            "Rotation and translational Motion",
+            "Yo-yo example",
+            "Yo-yo experiment"
+          ],
+          "homework": "Ch. 9  Ex#42,43; Prob#8,22 (#16,17 are optional)",
+          "additional":"<a href='http://www.youtube.com/v/smT3teaCQ9s'>Yo-Yo Demonstration<\/a> and <a href='http://www.youtube.com/v/QJ1ho3QM6ds target='_blank'>Yo Yo Explanation<\/a> - <a href='http://www.theyoyomuseum.com/ target='_blank'>History of the Yo Yo<\/a>"
+        },
+        {
+        "class-log": [
+            "Sam goes through HW.",
+            "Bowling balls and rolling down hills",
+            "Start HW and Review"
+          ],
+          "homework": "Ch.9 Prob 19,20,21",
+          "additional":"plus (if you have time) get started on Torque test review: <a href='APC/Practice Tests/Rotation Practice Test/Review Torque.pdf' target='_blank'>Review Torque <\/a> and <a href='APC/Practice Tests/Rotation Practice Test/Review Torque Solutions.pdf' target='_blank'>Solutions<\/a> - SKIP #8 of MC and #2 of FR - (optional but provides some more practice - a bit easier than your test and HW): <a href='APC/Practice Tests/Rotation Practice Test/Rotation Test.pdf' target='_blank'>Review Torqe Test<\/a> + Solutions (<a href='APC/Practice Tests/Rotation Practice Test/page1.jpeg' target='_blank'>pg1<\/a>, <a href='APC/Practice Tests/Rotation Practice Test/page2.jpeg' target='_blank'>pg2<\/a>, <a href='APC/Practice Tests/Rotation Practice Test/page3.jpeg target='_blank'>pg3<\/a>)"
+        },
+        {
+        "class-log": [
+            "Review for Torque Test: <a href='../APC/Practice Tests/Rotation Practice Test/Review Torque.pdf'>Review Torque <\/a> and <a href='APC/Practice Tests/Rotation Practice Test/Review Torque Solutions.pdf target='_blank'>Solutions<\/a> - SKIP #8 of MC and #2 of FR"
+          ],
+          "homework":"Study (you can stay late 30 minutes if needed tomorrow -it's last class of the day)"
+        },
+        {
+          "class-log": [
+            "Test on Torque"
+          ],
+          "homework":"Chill"
+        }
       ]
     },
     {
@@ -96,7 +407,92 @@
       "unit-name": "energy-gravity",
       "unit-description": "Description goes here",
       "unit-classes": [
-        
+        {
+          "class-log": [
+            "HW Questions",
+            "Angular momentum",
+            "Ch. 10 Q#6,8 ",
+            "Ski Aerials and cat video",
+            "Start HW"
+          ],
+          "homework":"Ch. 10 MC#1,6,7,10; Ex#8,14,18,24",
+          "additional":"in case you missed class: <a href='http://www.youtube.com/v/OIoJ6mLdHnU target='_blank'>angular momentum<\/a>"
+        },
+        {
+          "class-log": [
+            "Gyroscopes",
+            "Bicycle wheel demonstration (in case you miss it, <a href='http://www.youtube.com/v/XITie2avBq0 target='_blank'>here's the video<\/a>)",
+            "AP Problem",
+            "How it Works"
+          ], 
+          "homework": "Ch.10 Problems #5,7,8,9,12"
+        },
+        {
+          "class-log": [
+            "HW Questions",
+            "Angular Momentum Quiz",
+            "Thanksgiving Story"
+          ],
+          "homework":"Optional Review Assignment Recommended for Everyone (Mandatory if you did not take APB): Read <a href='http://nova.menloschool.org/~jdann/PPBweb/PPBhomepage.htm target='_blank'>PPB on Energy and Force<\/a> and do problems #1,6,9,10,13,16,18,21,22,24,27,30"
+        },
+        {
+          "class-log": [
+            "E-conserv overview",
+            "E - conserv problems with demos: ballistic pendulum, roller coaster",
+            "Do Ch.11 MC#2,8,11; Problem #3,6"
+          ],
+          "homework":"Read pgs. 235-237 and finish the above work",
+          "additional":"see these videos for more help: <a href='http://www.youtube.com/v/A09bMRsBHO8'>Energy Conservation with rotation<\/a>, <a href='http://www.youtube.com/v/7sIE03Ac3t0 target='_blank'>Ballistic pendulum<\/a>"
+        },
+        {
+          "class-log": [
+            "Recap Energy",
+            "Questions from HW",
+            "start potential energy and Fx = -dU/dx"
+          ],
+          "homework": "Ch. 11 Prob #8,20 Ch. 12 Ex#23,28; Prob# 5,8"
+        },
+        {
+          "class-log": [
+            "How it works wed. (Ray)",
+            "Go over HW ",
+            "Mississippi river",
+            "Gravity. A paradox. Or is it"
+          ],
+          "homework": "Read 14-3, Ch. 14 Q#8; Ex#2,8"
+        },
+        {
+          "class-log": [
+            "Go Over HW problems",
+            "Gravity videos (elevator and cavendish)",
+            "Gravity recap",
+            "Integration example (stick and sphere)",
+            "Problem #22"
+          ],
+          "homework": "Ch. 14 Prob#5,9 and finish Problem #22"
+        },
+        {
+          "class-log": [
+            "Spherical Shell notes",
+            "Start HW in class"
+          ],
+          "homework":"Ch. 14 MC#7; Ex#10,11; Prob#11,13,33",
+          "additional":"Solutions to #33.  I think the book is wrong but let me know if you disagree."
+        },
+        {
+        "class-log": [
+          "Go Homework",
+          "Gravitational Potential Energy and escape velocity",
+          "Start tonights HW"
+          ],
+          "homework":"Last HW of Semester! Ch. 14 MC #8,9 Ex#13,15,19,23,27; Prob# 25, 27 and study for Test tomorrow."
+        },
+        {
+          "class-log": [
+            "Energy and Gravity Test"
+          ],
+          "homework":"Chill"
+        }
       ]
     },
     {
@@ -104,7 +500,21 @@
       "unit-name": "final",
       "unit-description": "Description goes here",
       "unit-classes": [
-        
+        {
+          "class-log": [
+            "Review for Final Exam",
+            "How it works (Ojan)"
+          ],
+          "homework": "Review Packets and study for final exam.",
+          "additional":"Practice final exam: <a href='APC/Final Review/MC98modifiedwanswers.pdf' target='_blank'>MC Test<\/a> (time your self one hour, then grade). I also recomend 2012 FR <a href='APC/APC Tests/2012/2012_frq_physics_cm.pdf' target='_blank'>Mech #2 and #3<\/a>, <a href='APC/APC Tests/2012/2012_frq_physics_cem.pdf' target='_blank'>EM #2<\/a> and 2007 <a href='APC/APC Tests/2007/ap07_physics_c_e&m_frq.pdf' target='_blank'>EM #1<\/a> and <a href='APC/APC Tests/2007/ap07_physics_c_mech_frq.pdf' target='_blank'>Mech #1,2,3<\/a - Solutions for <a href='APC/APC Tests/2012/2012_frq_physics_cm.pdf' target='_blank'>2012 Mech<\/a>, <a href='APC/APC Tests/2012/2012_frq_physics_cem.pdf' target='_blank'>2012 EM<\/a>, <a href='APC/APC Tests/2007/ap07_sg_physics_c_mech.pdf' target='_blank'>2007 Mech<\/a>, <a href='APC/APC Tests/2007/ap07_sg_physics_c_em.pdf' target='_blank'>2007 EM<\/a>"
+        },
+        {
+          "class-log": [  
+            "Review for Final"
+          ],
+          "homework":"Go find some snow",
+          "additional": "Your Final Exam is Monday Dec. 16th from 2:45 to 4:30pm in rm. a117"
+        }
       ]
     }
   ]
