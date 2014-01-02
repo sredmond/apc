@@ -1,50 +1,57 @@
 {% extends 'layout.html' %}
 
-{% macro display_class(class) -%}
-    <p class="text-primary"><strong>Class Log:</strong> X, Y, Z</p>
-	<p class="text-danger"><strong>Homework:</strong> {{ class['homework']|safe }}</p>
-	{% if 'additional' in class %} <p class="text-info"><strong>Additional:</strong> {{ class['additional']|safe }}</p> {%- endif %}
+{% macro display_class(class, verbose=False) -%}
+	<dl class="dl-horizontal">
+		{% if verbose %}
+		<dt class="text-primary">Date</dt>
+		<dd class="text-primary">{{ class['pretty-time'] }}</dd>
+		{% endif %}
+		<dt class="text-success">Class Log</dt>
+		<dd class="text-success">
+			<ul class="list-unstyled">
+	    	{% for item in class['class-log'] %}
+	    		<li>{{ item|safe }}</li>
+	    	{% endfor %}
+		    </ul>
+		</dd>
+		<dt class="text-danger">Homework</dt>
+		<dd class="text-danger">{{ class['homework']|safe }}</dd>
+		{% if 'additional' in class %}
+		<dt class="text-info">Additional</dt>
+		<dd class="text-info">{{ class['additional']|safe }}</dd>
+		{% endif %}
+	</dl>
 {%- endmacro %}
 
 {% block content %}
 <!-- Nav tabs -->
 <div class="alert alert-danger">Do homework the night it is assigned. HW is due the next day.</div>
 <div id="current_week">
-	<h3>Current Week</h3>
+	<h3>Current Week <small>(Date Range Here)</small></h3>
 	<ul class="nav nav-pills nav-justified">
-		<li><a href="#monday" data-toggle="pill">Monday</a></li>
-		<li><a href="#tuesday" data-toggle="pill">Tuesday</a></li>
-		<li class="disabled"><a href="#wednesday" data-toggle="pill">Wednesday</a></li>
-		<li><a href="#thursday" data-toggle="pill">Thursday</a></li>
-		<li><a href="#friday" data-toggle="pill">Friday</a></li>
+		<li class="{{ ('disabled' if classes[0] == None) ~ (' active' if day_of_week == 1) }}"><a href="#monday" data-toggle="pill">Monday</a></li>
+		<li class="{{ ('disabled' if classes[1] == None) ~ (' active' if day_of_week == 2) }}"><a href="#tuesday" data-toggle="pill">Tuesday</a></li>
+		<li class="{{ ('disabled' if classes[2] == None) ~ (' active' if day_of_week == 3) }}"><a href="#wednesday" data-toggle="pill">Wednesday</a></li>
+		<li class="{{ ('disabled' if classes[3] == None) ~ (' active' if day_of_week == 4) }}"><a href="#thursday" data-toggle="pill">Thursday</a></li>
+		<li class="{{ ('disabled' if classes[4] == None) ~ (' active' if (day_of_week == 5 or day_of_week == 6 or day_of_week == 0)) }}"><a href="#friday" data-toggle="pill">Friday</a></li>
 	</ul>
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="tab-content">
-				<div class="tab-pane fade in active" id="monday">
-					Words words words words words words Words words words words words words Words words words words words words
+				<div class="{{ 'tab-pane fade' ~ (' in active' if day_of_week == 1) }}" id="monday">
+					{{ display_class(classes[0], verbose=True) if classes[0] != None else "No Class Today" }}
 				</div>
-				<div class="tab-pane fade" id="tuesday">
-					Words words words words words words Words words words words words words Words words words words words words Words words words words words words
+				<div class="{{ 'tab-pane fade' ~ (' in active' if day_of_week == 2) }}" id="tuesday">
+					{{ display_class(classes[1], verbose=True) if classes[1] != None else "No Class Today" }}
 				</div>
-				<div class="tab-pane fade" id="wednesday">
-					Nothing
+				<div class="{{ 'tab-pane fade' ~ (' in active' if day_of_week == 3) }}" id="wednesday">
+					{{ display_class(classes[2], verbose=True) if classes[2] != None else "No Class Today" }}
 				</div>
-				<div class="tab-pane fade" id="thursday">
-					<ul>
-						<li>Thing #1</li>
-						<li>Thing #1</li>
-						<li>Thing #1</li>
-						<li>Thing #1</li>
-					</ul>
-					<div class="alert alert-danger">
-						<strong>Homework:</strong> Do some stuff
-					</div>
+				<div class="{{ 'tab-pane fade' ~ (' in active' if day_of_week == 4) }}" id="thursday">
+					{{ display_class(classes[3], verbose=True) if classes[3] != None else "No Class Today" }}
 				</div>
-				<div class="tab-pane fade" id="friday">
-					<p class="text-primary"><strong>Class Log:</strong> X, Y, Z</p>
-					<p class="text-danger"><strong>Homework:</strong> Do some stuff <a href="#" class="text-muted">Link</a></p>
-					<p class="text-info"><strong>Additional:</strong> Read these webpages</p>
+				<div class="{{ 'tab-pane fade' ~ (' in active' if (day_of_week == 5 or day_of_week == 6 or day_of_week == 0)) }}" id="friday">
+					{{ display_class(classes[4], verbose=True) if classes[4] != None else "No Class Today" }}
 				</div>
 			</div>
 		</div>
@@ -52,12 +59,10 @@
 </div>
 <div id="quicknav">
 	<h3>Quick Navigation</h3>
-	<div class="btn-group btn-group-justified">
+	<div class="container">
 	{% if db %}
-		{% for unit in db['data'] %}
-
-		<a class="{{loop.cycle('btn btn-primary', 'btn btn-success', 'btn btn-info') }}" href={{ "#" ~ unit['unit-name'] }}>{{ unit['unit-title'] }}</a>
-		
+		{% for unit in db %}
+		<a class="{{'col-xs-12 col-md-3 btn ' ~ loop.cycle('btn-primary', 'btn-success', 'btn-info') }}" href={{ "#" ~ unit['unit-name'] }}>{{ unit['unit-title'] }}</a>
 		{% endfor %}
 	{% endif %}
 	</div>
@@ -66,12 +71,12 @@
 	<h3>Class Log and Homework</h3>
 	<div class="panel-group" id="accordion">
 	{% if db %}
-		{% for unit in db['data'] %}
+		{% for unit in db %}
 		<div class="{{ loop.cycle('panel panel-primary', 'panel panel-success', 'panel panel-info') }} id={{ unit["unit-name"] }}">
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-target={{ "#" ~ unit['unit-name'] }}>
-						{{ unit['unit-title'] }} ({{ unit['unit-classes']|length }} classes) - Start Date to End Date
+						{{ unit['unit-title'] }} ({{ unit['unit-classes']|length }} classes)
 					</a>
 				</h4>
 			</div>
@@ -84,7 +89,7 @@
 							<div class="panel-heading">
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-target={{ "#" ~ unit['unit-name'] ~ "-" ~ loop.index }}>
-										Pretty Time goes here
+										{{ class['pretty-time'] }}
 									</a>
 								</h4>
 							</div>

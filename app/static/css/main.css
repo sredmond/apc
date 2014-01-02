@@ -30,15 +30,3 @@ html, body {
   padding-left: 20px;
   padding-right: 20px;
 }
-
-.text-primary a {
-  color: inherit;
-}
-
-.text-danger a {
-  color: inherit;
-}
-
-.text-info a {
-  color: inherit;
-}

@@ -4,7 +4,7 @@
     {
       "unit-title": "DC Circuits and Capacitors",
       "unit-name": "dc-circ-cap",
-      "unit-description": "Description goes here",
+      "unit-description": "The study of DC circuits and capacitors introduces you to the world of electronics. We'll look at things like resistance, voltage, current, and eventually discuss complex circuit characteristics like the RC time constant.",
       "unit-classes": [
         {
           "class-log": [
@@ -111,9 +111,9 @@
       ]
     },
     {
-      "unit-title": "Kinematics",
-      "unit-name": "kinematics",
-      "unit-description": "Description goes here",
+      "unit-title": "Particle Physics",
+      "unit-name": "particle-physics",
+      "unit-description": "We'll take a quick look at Feynman diagrams.",
       "unit-classes": [
         {
           "class-log": [
@@ -131,7 +131,14 @@
           ],
           "homework": "Finish Feynman Diagrams",
           "additional": "<a href='http://io9.com/so-this-physics-grad-student-made-a-mindblowing-bohemia-1333515132 target='_blank'>Bohemian Rapsody<\/a>"
-        },
+        }
+      ]
+    },
+    {
+      "unit-title": "Kinematics",
+      "unit-name": "kinematics",
+      "unit-description": "Kinematics, or the study of motion, is essential to any understanding of physical systems. Most of this is review, as we go over how calculus relates to equations of motion.",
+      "unit-classes": [
         {
           "class-log": [
             "HW Review",
@@ -166,9 +173,9 @@
       ]
     },
     {
-      "unit-title": "Newton's Laws",
-      "unit-name": "newton",
-      "unit-description": "Description goes here",
+      "unit-title": "Forces",
+      "unit-name": "forces",
+      "unit-description": "We discuss forces by looking at Newton's Laws, air resistance, uniform circular motion, and friction.",
       "unit-classes": [
         {
           "class-log": [
@@ -403,9 +410,9 @@
       ]
     },
     {
-      "unit-title": "Energy and Gravity",
-      "unit-name": "energy-gravity",
-      "unit-description": "Description goes here",
+      "unit-title": "Angular Momentum",
+      "unit-name": "angular-momentum",
+      "unit-description":"Angular momentum is the rotational counterpart to linear momentum.",
       "unit-classes": [
         {
           "class-log": [
@@ -434,7 +441,14 @@
             "Thanksgiving Story"
           ],
           "homework":"Optional Review Assignment Recommended for Everyone (Mandatory if you did not take APB): Read <a href='http://nova.menloschool.org/~jdann/PPBweb/PPBhomepage.htm target='_blank'>PPB on Energy and Force<\/a> and do problems #1,6,9,10,13,16,18,21,22,24,27,30"
-        },
+        }
+      ]
+    },
+    {
+      "unit-title": "Energy and Gravity",
+      "unit-name": "energy-gravity",
+      "unit-description": "We talk about energy conservation (potential-kinetic-spring) and the mathematical relationship between energy and force. We also look at gravity.",
+      "unit-classes": [
         {
           "class-log": [
             "E-conserv overview",
@@ -498,7 +512,7 @@
     {
       "unit-title": "Final",
       "unit-name": "final",
-      "unit-description": "Description goes here",
+      "unit-description": "You're almost done! We review for the final.",
       "unit-classes": [
         {
           "class-log": [
