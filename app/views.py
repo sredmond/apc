@@ -5,11 +5,11 @@ import time
 import json
 
 day_length = 86400
-with open('app/topics.json') as f:
+with open('app/sem2topics.json') as f:
     topics = json.loads(f.read())
 
 #the day given by times refers to 12AM of the morning of the day of class
-with open('app/times.json') as f:
+with open('app/sem2times.json') as f:
     times = json.loads(f.read())
 
 if topics['num-classes'] != times['num-classes']:
