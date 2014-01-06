@@ -1,4 +1,142 @@
 {% extends 'layout.html' %}
 {% block content %}
-Click on the Class Log link
+<div id="physics-carousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#physics-carousel" data-slide-to="0" class="active"></li>
+    <li data-target="#physics-carousel" data-slide-to="1"></li>
+    <li data-target="#physics-carousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active" height="300px">
+      <img class="carousel-img" src="http://web.mit.edu/viz/visphysics/visphysics_images/Solenoid_640.jpg" alt="Solenoid">
+      <div class="carousel-caption">
+        <h3>Solenoid</h3>
+        <p>This visualization and animation shows what happens when a current runs through a solenoid (a coil of wire or a stack of wire loops). As the current begins to flow, it creates a magnetic field. Because of the shape of the solenoid, the field is stronger on the inside of the coils. As the field grows, electromagnetic energy flows from the walls of the solenoid both inward toward the center of the solenoid and outwards into the space surrounding it.</p>
+      </div>
+    </div>
+    <div class="item">
+      <img class="carousel-img" src="http://web.mit.edu/viz/visphysics/visphysics_images/VDG_Repel_640.jpg" alt="Van de Graff Generator">
+      <div class="carousel-caption">
+        <h3>Van de Graaf Generator Repelling a Charge</h3>
+        <p>The visualization and corresponding animation shows what might happen if a positively charged ball was thrown towards the positively charged sphere of a Van de Graaff generator. As the ball approaches the sphere, the repulsive force between them causes it to slow down. Its kinetic energy then converts into potential energy, which the ball temporarily stores in the compressed field in front of it. Once the ball comes to a stop, that potential energy is converted back into kinetic energy as the pressure in the field is released and the ball is pushed back the way it came.</p>
+      </div>
+    </div>
+    <div class="item">
+      <img class="carousel-img" src="http://web.mit.edu/viz/visphysics/visphysics_images/Solenoid_640.jpg" alt="Solenoid">
+      <div class="carousel-caption">
+        <h3>Solenoid</h3>
+        <p>This visualization and animation shows what happens when a current runs through a solenoid (a coil of wire or a stack of wire loops). As the current begins to flow, it creates a magnetic field. Because of the shape of the solenoid, the field is stronger on the inside of the coils. As the field grows, electromagnetic energy flows from the walls of the solenoid both inward toward the center of the solenoid and outwards into the space surrounding it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#physics-carousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#physics-carousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<td>#</td>
+				<td>Link</td>
+				<td>Media Type</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td><a href="Documents/APC%20Outline.pdf" target="_blank">Course Outline</a> and <a href="Documents/AP C Syllabus.pdf" target="_blank">Syllabus</a></td>
+				<td>PDF</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td><a href="APC%20Tests/APC%20Tests.htm" target="_blank">Old AP Tests</a></td>
+				<td>PDF</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td><a href="http://www.youtube.com/v/k-trDF8Yldc" target="_blank">Under the Ruler</a></td>
+				<td>Video (3:01)</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td><a href="http://techchannel.att.com/play-video.cfm/2011/3/7/AT&T-Archives-Similarities-of-Wave-Behavior" target="_blank">Waves</a></td>
+				<td>Video (28:02)</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td><a href="http://www.youtube.com/v/49JwbrXcPjc" target="_blank">Visualization of a Rotating Reference Frame</a></td>
+				<td>Video (1:52)</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td><a href="http://www.youtube.com/v/1kXWFqtIr6o" target="_blank">Hurricanes</a></td>
+				<td>Video (1:09)</td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td><a href="http://www.youtube.com/v/eqjl-qRy71w" target="_blank">Kirchoff's Law is for the Birds</a> and <a href="http://www.youtube.com/v/1bUWcy8HwpM" target="_blank">Part II</a></td>
+				<td>Video (9:39/6:59)</td>
+			</tr>
+			<tr>
+				<td>8</td>
+				<td><a href="http://www.youtube.com/v/5IRfbC0RHsY" target="_blank">Faraday Cage</a> - I believe!</td>
+				<td>Video (1:00)</td>
+			</tr>
+			<tr>
+				<td>9</td>
+				<td><a href="http://phet.colorado.edu/new/index.php">PhET</a></td>
+				<td>Applets</td>
+			</tr>
+			<tr>
+				<td>10</td>
+				<td><a href="http://www.falstad.com/mathphysics.html" target="_blank">Falstad</a></td>
+				<td>Applets</td>
+			</tr>
+			<tr>
+				<td>11</td>
+				<td><a href="http://www.its.caltech.edu/%7Ephys1/java/phys1/EField/EField.html" target="_blank">Electric Field Simulation</a></td>
+				<td>Simulation</td>
+			</tr>
+			<tr>
+				<td>12</td>
+				<td><a href="http://www.youtube.com/v/17jymDn0W6U" target="_blank">Known Universe</a></td>
+				<td>Video (6:31)</td>
+			</tr>
+			<tr>
+				<td>13</td>
+				<td><a href="http://static.flabber.net/files/scale-of-the-universe-2.swf" target="_blank">Scale of Universe</a></td>
+				<td>Applet</td>
+			</tr>
+			<tr>
+				<td>14</td>
+				<td><a href="http://www.youtube.com/v/j50ZssEojtM" target="_blank">LHC Particle Rap</a></td>
+				<td>Video (4:49)</td>
+			</tr>
+			<tr>
+				<td>15</td>
+				<td><a href="http://www.youtube.com/v/qQNpucos9wc" target="_blank">LHC Accelerator</a></td>
+				<td>Video (6:16)</td>
+			</tr>
+			<tr>
+				<td>16</td>
+				<td><a href="http://www.youtube.com/v/qQNpucos9wc" target="_blank">MIT Physics Visualizations</a> (especially <a href="http://web.mit.edu/viz/visphysics/visphysics_img.htm?IMG=0" target="_blank">Solenoid</a> and <a href="http://web.mit.edu/viz/visphysics/visphysics_img.htm?IMG=1" target="_blank">Van de Graaf Generator</a>)</td>
+				<td>Visualizations</td>
+			</tr>
+			<tr>
+				<td>17</td>
+				<td><a href="../images/Earth%27s%20mag.%20field.bmp" target="_blank">Earth's Magnetic Field</td>
+				<td>Image</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 {% endblock %}

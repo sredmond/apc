@@ -5,7 +5,7 @@ html, body {
 
 /* Wrapper for page content to push down footer */
 #wrap {
-  background-color: #f0f0f0;
+  background-color: #eee;
   min-height: 100%;
   height: auto;
   /* Negative indent footer by its height */
@@ -22,6 +22,12 @@ html, body {
   background-color: #ddd;
 }
 
+/* Make images in the carousel fill the width of the carousel */
+.carousel-img {
+  width:100%;
+}
+
+
 /* Lastly, apply responsive CSS fixes as necessary */
 @media (max-width: 767px) {
 #footer {
@@ -29,4 +35,5 @@ html, body {
   margin-right: -20px;
   padding-left: 20px;
   padding-right: 20px;
+}
 }
