@@ -2,7 +2,9 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
-SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+if 'HEROKU' in os.environ:
+	timezone_correction = -8
+else:
+	timezone_correction = 0
 
 SECRET_KEY = os.urandom(24)

@@ -1,33 +1,33 @@
 {% extends 'layout.html' %}
 
 {% macro display_class(class, verbose=False) -%}
-	<dl class="dl-horizontal">
-		{% if verbose %}
-		<dt class="text-primary">Date</dt>
-		<dd class="text-primary">{{ class['pretty-time'] }}</dd>
-		{% endif %}
-		<dt class="text-success">Class Log</dt>
-		<dd class="text-success">
-			<ul class="list-unstyled">
-	    	{% for item in class['class-log'] %}
-	    		<li>{{ item|safe }}</li>
-	    	{% endfor %}
-		    </ul>
-		</dd>
-		<dt class="text-danger">Homework</dt>
-		<dd class="text-danger">{{ class['homework']|safe }}</dd>
-		{% if 'additional' in class %}
-		<dt class="text-info">Additional</dt>
-		<dd class="text-info">{{ class['additional']|safe }}</dd>
-		{% endif %}
-	</dl>
+<dl class="dl-horizontal">
+	{% if verbose %}
+	<dt class="text-primary">Date</dt>
+	<dd class="text-primary">{{ class['pretty-time'] }}</dd>
+	{% endif %}
+	<dt class="text-success">Class Log</dt>
+	<dd class="text-success">
+		<ul class="list-unstyled">
+			{% for item in class['class-log'] %}
+			<li>{{ item|safe }}</li>
+			{% endfor %}
+		</ul>
+	</dd>
+	<dt class="text-danger">Homework</dt>
+	<dd class="text-danger">{{ class['homework']|safe }}</dd>
+	{% if 'additional' in class %}
+	<dt class="text-info">Additional</dt>
+	<dd class="text-info">{{ class['additional']|safe }}</dd>
+	{% endif %}
+</dl>
 {%- endmacro %}
 
 {% block content %}
 <!-- Nav tabs -->
 <div class="alert alert-danger">Do homework the night it is assigned. HW is due the next day.</div>
 <div id="current_week">
-	<h3>Current Week <small>(Date Range Here)</small></h3>
+	<h3>Current Week</h3>
 	<ul class="nav nav-pills nav-justified">
 		<li class="{{ ('disabled' if classes[0] == None) ~ (' active' if day_of_week == 1) }}"><a href="#monday" data-toggle="pill">Monday</a></li>
 		<li class="{{ ('disabled' if classes[1] == None) ~ (' active' if day_of_week == 2) }}"><a href="#tuesday" data-toggle="pill">Tuesday</a></li>
@@ -57,55 +57,76 @@
 		</div>
 	</div>
 </div>
-<div id="quicknav">
-	<h3>Quick Navigation</h3>
-	<div class="container">
-	{% if db %}
-		{% for unit in db %}
-		<a class="{{'col-xs-12 col-md-3 btn ' ~ loop.cycle('btn-primary', 'btn-success', 'btn-info') }}" href={{ "#" ~ unit['unit-name'] }}>{{ unit['unit-title'] }}</a>
-		{% endfor %}
-	{% endif %}
-	</div>
-</div>
-<div id="homework">
-	<h3>Class Log and Homework</h3>
-	<div class="panel-group" id="accordion">
-	{% if db %}
-		{% for unit in db %}
-		<div class="{{ loop.cycle('panel panel-primary', 'panel panel-success', 'panel panel-info') }} id={{ unit["unit-name"] }}">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-target={{ "#" ~ unit['unit-name'] }}>
-						{{ unit['unit-title'] }} ({{ unit['unit-classes']|length }} classes)
+<div class="row" id="mainContent">
+	<div class="col-md-3">
+		<div class="sidebar" role="complementary" id="sidebar">
+			<ul class="nav sidenav">
+				{% if db %}
+				{% for unit in db %}
+				{% with text_color = loop.cycle('text-primary', 'text-success', 'text-info')  %}
+				<li>
+					<a href={{ "#" ~ unit['unit-name'] }}>
+						<span class="{{ text_color }}">{{ unit['unit-title'] }}</span>
 					</a>
-				</h4>
-			</div>
-			<div id={{ unit['unit-name'] }} class="panel-collapse collapse in">
-				<div class="panel-body">
-					{{ unit['unit-description'] }}
-					<div class="panel-group" id={{ "accordion-" ~ unit['unit-name'] }}>
-					{% for class in unit['unit-classes'] %}
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-target={{ "#" ~ unit['unit-name'] ~ "-" ~ loop.index }}>
-										{{ class['pretty-time'] }}
-									</a>
-								</h4>
-							</div>
-							<div id={{ unit['unit-name'] ~ "-" ~ loop.index }} class="panel-collapse collapse in">
-								<div class="panel-body">
-									{{ display_class(class) }}
+					<ul class="nav">
+						{% for class in unit['unit-classes'] %}
+						<li><a href={{ '#' ~ unit['unit-name'] ~ "-" ~ loop.index }}>
+							<span class="{{ text_color }}">{{ class['pretty-time'] }}</span>
+						</a></li>
+						{% endfor %}
+					</ul>
+				</li>
+				{% endwith %}
+				{% endfor %}
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-9" role="main">
+		<div id="homework">
+			<h3>Class Log and Homework</h3>
+			<div class="panel-group" id="accordion">
+				{% if db %}
+				{% for unit in db %}
+				<div class="{{ loop.cycle('panel panel-primary', 'panel panel-success', 'panel panel-info') }}" id="{{ 'accordion-' ~ unit['unit-name'] }}">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-target={{ "#" ~ unit['unit-name'] }}>
+								{{ unit['unit-title'] }} ({{ unit['unit-classes']|length }} classes)
+							</a>
+						</h4>
+					</div>
+					<div id={{ unit['unit-name'] }} class="panel-collapse collapse in">
+						<div class="panel-body">
+							{{ unit['unit-description'] }}
+							<div class="panel-group" id={{ "accordion-" ~ unit['unit-name'] }}>
+								{% for class in unit['unit-classes'] %}
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-target={{ "#" ~ unit['unit-name'] ~ "-" ~ loop.index }}>
+												{{ class['pretty-time'] }}
+											</a>
+										</h4>
+									</div>
+									<div id={{ unit['unit-name'] ~ "-" ~ loop.index }} class="panel-collapse collapse in">
+										<div class="panel-body">
+											{{ display_class(class) }}
+										</div>
+									</div>
 								</div>
+								{% endfor %}
 							</div>
 						</div>
-					{% endfor %}
 					</div>
 				</div>
+				{% endfor %}
+				{% endif %}
 			</div>
 		</div>
-		{% endfor %}
-	{% endif %}
 	</div>
 </div>
+{% endblock %}
+{% block scripts %}
+$('body').scrollspy({ target: '#sidebar' });
 {% endblock %}
