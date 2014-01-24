@@ -1,26 +1,27 @@
 {% extends 'layout.html' %}
-{% macro carousel_image(title, description, img_src, alt="", active=False) -%}
+{% macro carousel_image(title, description, img_src, alt, active=False) -%}
 <div class="{{'item active' if active else 'item' }}">
-    <img class="carousel-img" src="{{ img_src }}" alt="{{ alt }}">
+    <a href="{{ img_src }}"><img class="carousel-img" src="{{ img_src }}" alt="{{ alt }}"></a>
     <div class="carousel-caption">
       <h3>{{ title }}</h3>
       <p> {{ description }}</p>
     </div>
   </div>
 {%- endmacro %}
-{% block content %}
-<div id="physics-carousel" class="carousel slide" data-ride="carousel">
+{% block content -%}
+<div id="physics-carousel" class="carousel slide hidden-xs" data-ride="carousel">
   <!-- Indicators -->
-  <!-- Make sure that there are as many carousel indicators as there are images -->
   <ol class="carousel-indicators">
-    <li data-target="#physics-carousel" data-slide-to="0" class="active"></li>
-    <li data-target="#physics-carousel" data-slide-to="1"></li>
+  {% for i in range(carousel_images|length) -%}
+    <li data-target="#physics-carousel" data-slide-to="{{ loop.index0 }}" class="{{ 'active' if loop.first }}"></li>
+  {%- endfor %}
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
-  	{{ carousel_image("Solenoid", "This visualization and animation shows what happens when a current runs through a solenoid (a coil of wire or a stack of wire loops). As the current begins to flow, it creates a magnetic field. Because of the shape of the solenoid, the field is stronger on the inside of the coils. As the field grows, electromagnetic energy flows from the walls of the solenoid both inward toward the center of the solenoid and outwards into the space surrounding it.", "http://web.mit.edu/viz/visphysics/visphysics_images/Solenoid_640.jpg", alt="Solenoid", active=True) }}
-  	{{ carousel_image("Van de Graaf Generator Repelling a Charge", "The visualization and corresponding animation shows what might happen if a positively charged ball was thrown towards the positively charged sphere of a Van de Graaff generator. As the ball approaches the sphere, the repulsive force between them causes it to slow down. Its kinetic energy then converts into potential energy, which the ball temporarily stores in the compressed field in front of it. Once the ball comes to a stop, that potential energy is converted back into kinetic energy as the pressure in the field is released and the ball is pushed back the way it came.", "http://web.mit.edu/viz/visphysics/visphysics_images/VDG_Repel_640.jpg", alt="Van de Graff Generator") }}
+  {% for image in carousel_images -%}
+  	{{ carousel_image(image['title'], image['description'], image['src'], image['alt'] if 'alt' in image else image['title'], active=loop.first) }}
+  {%- endfor %}
   </div>
 
   <!-- Controls -->
@@ -43,12 +44,12 @@
 		<tbody>
 			<tr>
 				<td>1</td>
-				<td><a href="Documents/APC%20Outline.pdf" target="_blank">Course Outline</a> and <a href="Documents/AP C Syllabus.pdf" target="_blank">Syllabus</a></td>
+				<td><a href="http://nova.menloschool.org/~jdann/APC/Documents/APC%20Outline.pdf" target="_blank">Course Outline</a> and <a href="http://nova.menloschool.org/~jdann/APC/Documents/AP%20C%20Syllabus.pdf" target="_blank">Syllabus</a></td>
 				<td>PDF</td>
 			</tr>
 			<tr>
 				<td>2</td>
-				<td><a href="APC%20Tests/APC%20Tests.htm" target="_blank">Old AP Tests</a></td>
+				<td><a href="http://nova.menloschool.org/~jdann/APC/APC%20Tests/APC%20Tests.htm" target="_blank">Old AP Tests</a></td>
 				<td>PDF</td>
 			</tr>
 			<tr>
@@ -58,7 +59,7 @@
 			</tr>
 			<tr>
 				<td>4</td>
-				<td><a href="http://techchannel.att.com/play-video.cfm/2011/3/7/AT&T-Archives-Similarities-of-Wave-Behavior" target="_blank">Waves</a></td>
+				<td><a href="http://techchannel.att.com/play-video.cfm/2011/3/7/AT&amp;T-Archives-Similarities-of-Wave-Behavior" target="_blank">Waves</a></td>
 				<td>Video (28:02)</td>
 			</tr>
 			<tr>
@@ -83,7 +84,7 @@
 			</tr>
 			<tr>
 				<td>9</td>
-				<td><a href="http://phet.colorado.edu/new/index.php">PhET</a></td>
+				<td><a href="http://phet.colorado.edu/new/index.php" target="_blank">PhET</a></td>
 				<td>Applets</td>
 			</tr>
 			<tr>
@@ -123,10 +124,10 @@
 			</tr>
 			<tr>
 				<td>17</td>
-				<td><a href="../images/Earth%27s%20mag.%20field.bmp" target="_blank">Earth's Magnetic Field</td>
+				<td><a href="http://imgur.com/f8a8ORy" target="_blank">Earth's Magnetic Field</td>
 				<td>Image</td>
 			</tr>
 		</tbody>
 	</table>
 </div>
-{% endblock %}
+{%- endblock %}

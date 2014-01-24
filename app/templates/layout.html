@@ -1,29 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!--
-AP PHYSICS C WEBSITE for MENLO - Designed by Sam Redmond for Dr. Dann in 2013
--->
-<meta charset="utf-8">
-{% if title %}
-<title>{{ title }} - APC</title>
-{% else %}
-<title>AP Physics C</title>
-{% endif %}
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="keywords" content="menlo, apc, dann, physics, ap, science, help">
-<meta name="description" content="">
-<meta name="author" content="Sam Redmond">
+	<!--
+	AP PHYSICS C WEBSITE for MENLO - Designed by Sam Redmond for Dr. Dann in 2013
+	-->
+	<meta charset="utf-8">
+	{% if title -%}
+	<title>{{ title }} - APC</title>
+	{% else -%}
+	<title>AP Physics C</title>
+	{% endif -%}
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="keywords" content="menlo, apc, dann, physics, ap, science">
+	<meta name="description" content="A website for AP Physics C.">
+	<meta name="author" content="Sam Redmond">
 
-<!-- Styles -->
-<link href="/static/css/bootstrap.min.css" rel="stylesheet">
-<link href="/static/css/main.css" rel="stylesheet">
+	<!-- Styles -->
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/css/main.css" rel="stylesheet">
 
-<!-- Touch and fav icons -->
-<link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
+	<!-- Touch and fav icons -->
+	<link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
 
-<script src="/static/js/moment.min.js"></script> <!--Moment.js has to load before the page does, so that it can create dates as the client renders information-->
-
+	<!--Moment.js has to load before the page does, so that it can create dates as the client renders information-->
+	<script src="/static/js/moment.min.js"></script>
+	<script>
+		//Custom text for momentjs's calendar() function
+		moment.lang('en', {
+			calendar : {
+					lastDay : '[Yesterday]',
+					sameDay : '[Today]',
+					nextDay : '[Tomorrow]',
+					lastWeek : '[Last] dddd',
+					nextWeek : '[Upcoming] dddd',
+					sameElse : 'dddd[, ]MMMM Do'
+			}
+		});
+	</script>
 </head>
 <body>
 	<div id="wrap">
@@ -50,20 +63,20 @@ AP PHYSICS C WEBSITE for MENLO - Designed by Sam Redmond for Dr. Dann in 2013
 		<!-- Begin Page Content -->
 		<div class="container">
 			<!--Flash any messages-->
-			{% with messages = get_flashed_messages() %}
-			{% if messages %}
-			{% for message in messages %}
-			<div class="alert alert-warning alert-dismissable">
+			{% with messages = get_flashed_messages(with_categories=True) -%}
+			{% if messages -%}
+			{% for category, message in messages -%}
+			<div class="{{ 'alert alert-dismissable ' ~ {'message':'alert-success', 'info': 'alert-info', 'warning': 'alert-warning', 'error': 'alert-danger'}[category] }}">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>Info!</strong> {{ message }}
+				<strong>{{ category|capitalize }}!</strong> {{ message }}
 			</div>
-			{% endfor %}
-			{% endif %}
-			{% endwith %}
+			{% endfor -%}
+			{% endif -%}
+			{% endwith -%}
 			<!--End message flashing-->
 			<!--Content-->
-			{% block content %}
-			{% endblock %}
+			{% block content -%}
+			{%- endblock %}
 			<!--End content-->
 		</div>
 	</div>
@@ -85,9 +98,10 @@ AP PHYSICS C WEBSITE for MENLO - Designed by Sam Redmond for Dr. Dann in 2013
 	<script src="/static/js/jquery.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
 	<script src="/static/js/main.js"></script>
+	<!--Custom scripts per page-->
 	<script>
-	{% block scripts %}
-	{% endblock %}
+	{% block scripts -%}
+	{% endblock -%}
 	</script>
 </body>
 </html>

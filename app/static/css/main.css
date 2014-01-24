@@ -27,16 +27,6 @@ html, body {
   width:100%;
 }
 
-/* Lastly, apply responsive CSS fixes as necessary */
-@media (max-width: 767px) {
-  #footer {
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-}
-
 /* SIDENAV
  ********************************************************
  * Scrollspy and affixed enhanced navigation to highlight sections and secondary
@@ -62,7 +52,6 @@ html, body {
 /* All levels of nav */
 .sidebar .nav > li > a {
   display: block;
-  color: #716b7a;
   padding: 5px 20px;
 }
 .sidebar .nav > li > a:hover,
@@ -75,7 +64,6 @@ html, body {
 .sidebar .nav > .active:hover > a,
 .sidebar .nav > .active:focus > a {
   font-weight: bold;
-  /*color: #563d7c;*/
   background-color: transparent;
   border-right: 1px solid #000;
 }
@@ -108,6 +96,8 @@ html, body {
   }
   .sidebar.affix-bottom {
     position: absolute; /* Undo the static from mobile first approach */
+    top: auto;
+    bottom: 1000;
   }
   .sidebar.affix-bottom .sidenav,
   .sidebar.affix .sidenav {

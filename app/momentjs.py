@@ -3,10 +3,10 @@ from datetime import datetime
 
 class momentjs(object):
 	def __init__(self, timestamp):
-		self.timestamp = int(timestamp) #Time since epoch
+		self.timestamp = timestamp #Time since epoch
 
 	def render(self, fmt):
-		return Markup('<script>\ndocument.write(moment.unix("{0}").{1})\n</script>'.format(self.timestamp, fmt))
+		return Markup('<script>\ndocument.write(moment.unix({0}).{1})\n</script>'.format(self.timestamp, fmt))
 		# return Markup('<script>\ndocument.write(moment({0}).{1});\n</script>'.format(self.timestamp, fmt))
 
 	def format(self, fmt):

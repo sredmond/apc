@@ -1,0 +1,13 @@
+[
+	{
+		"title":"Solenoid",
+		"description":"This visualization shows what happens when a current runs through a solenoid (a coil of wire or a stack of wire loops). A current through the wires creates a magnetic field. The field is stronger on the inside of the coils because of the shape of the solenoid. As the field grows, electromagnetic energy flows from the walls of the solenoid both inward toward the center of the solenoid and outwards into the space surrounding it.",
+		"src":"http://web.mit.edu/viz/visphysics/visphysics_images/Solenoid_640.jpg"
+	},
+	{
+		"title":"Van de Graaf Generator Repelling a Charge",
+		"description":"This visualization shows what might happen if a positively charged ball were thrown towards the positively charged sphere of a Van de Graaff generator. As the ball approaches the sphere, the repulsive force between the sphere and the ball causes the ball to slow down. The ball's kinetic energy then converts into potential energy, stored temporarily in the compressed magnetic field. When the ball comes to a stop, the potential energy is converted back into kinetic energy as the pressure in the field is released and the ball is pushed back the way it came.",
+		"src":"http://web.mit.edu/viz/visphysics/visphysics_images/VDG_Repel_640.jpg",
+		"alt":"Van de Graff"
+	}
+]
