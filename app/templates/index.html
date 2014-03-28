@@ -9,18 +9,20 @@
   </div>
 {%- endmacro %}
 {% block content -%}
+<h1>Welcome to AP Physics C <small>with Dr. Dann</small></h1>
+{% if render_carousel -%}
 <div id="physics-carousel" class="carousel slide hidden-xs" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-  {% for i in range(carousel_images|length) -%}
+  {% for item in carousel_items -%}
     <li data-target="#physics-carousel" data-slide-to="{{ loop.index0 }}" class="{{ 'active' if loop.first }}"></li>
   {%- endfor %}
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
-  {% for image in carousel_images -%}
-  	{{ carousel_image(image['title'], image['description'], image['src'], image['alt'] if 'alt' in image else image['title'], active=loop.first) }}
+  {% for item in carousel_items -%}
+  	{{ carousel_image(item.title, item.description, item.src, item.alt, active=loop.first) }}
   {%- endfor %}
   </div>
 
@@ -32,6 +34,8 @@
     <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
 </div>
+{% endif -%}
+{% if render_main_links -%}
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">
 		<thead>
@@ -130,4 +134,5 @@
 		</tbody>
 	</table>
 </div>
+{% endif -%}
 {%- endblock %}

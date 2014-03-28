@@ -1,0 +1,43 @@
+{% extends 'layout.html' -%}
+{% block content -%}
+<h2>Edit Class<button type="button" class="btn btn-default pull-right" id="help" data-container="body" data-toggle="popover" data-placement="left" data-content="Lorem Ipsem">Help</button></h2>
+<form role="form" class="form-horizontal" method="post" action="{{ url_for('edit_class', class_id=id) }}">
+	<div class="form-group">
+		<label for="class-log">Class Log</label>
+	{% for item in cl.getItems() %}
+		<input type="text" class="form-control" id="{{ 'log' ~ loop.index }}" name="{{ 'log' ~ loop.index }}" value="{{ item }}" placeholder="{{ item }}">
+	{% else %}
+		No Items in Class
+	{% endfor %}
+	</div>
+	<div class="form-group">
+	    <label for="homework">Homework</label>
+	    <input type="text" class="form-control" id="homework" name="homework" value="{{ cl.homework }}" placeholder="{{ cl.homework }}">
+  </div>
+  <div class="form-group">
+    <label for="additional">Additional</label>
+    <input type="text" class="form-control" id="additional" name="additional" value="{{ cl.additional }}" placeholder="{{ cl.additional if cl.additional else 'Optional: Additional Information Here'}}">
+  </div>
+  <button type="submit" class="btn btn-primary" tabindex="-1">Update</button>
+</form>
+<h4>Old Information <small>(for copy-pasting)</small></h4>
+<dl class="dl-horizontal">
+	<dt>Class Log</dt>
+	<dd>
+		<ul class="list-unstyled">
+		{% for item in cl.getItems() %}
+			<li>{{ item }}</li>
+		{% else %}
+			<li>No items in class log</li>
+		{% endfor %}
+		</ul>
+	</dd>
+	<dt>Homework</dt>
+	<dd>{{ cl.homework }}</dd>
+	<dt>Additional</dt>
+	<dd>{{ cl.additional }}</dd>
+</dl>
+{% endblock %}
+{% block scripts %}
+$('#help').popover();
+{% endblock %}

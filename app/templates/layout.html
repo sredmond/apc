@@ -40,6 +40,7 @@
 </head>
 <body>
 	<div id="wrap">
+		{% if render_navbar -%}
 		<div class="navbar navbar-default" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -59,6 +60,7 @@
 				</div><!--/.navbar-collapse-->
 			</div>
 		</div>
+		{% endif -%}
 		<!-- End navbar -->
 		<!-- Begin Page Content -->
 		<div class="container">
@@ -80,6 +82,7 @@
 			<!--End content-->
 		</div>
 	</div>
+	{% if render_footer -%}
 	<!-- Begin footer -->
 	<div id="footer">
 		<div class="container">
@@ -92,12 +95,14 @@
 		</div>
 	</div>
 	<!-- End footer -->
-
+	{% endif %}
 	<!-- Scripts -->
 	<!-- Placed at the end of the document so the pages load faster-->
 	<script src="/static/js/jquery.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/ace.js"></script>
 	<script src="/static/js/main.js"></script>
+
 	<!--Custom scripts per page-->
 	<script>
 	{% block scripts -%}

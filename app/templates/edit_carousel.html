@@ -1,0 +1,20 @@
+{% extends 'layout.html' -%}
+{% block content -%}
+<h2>Change Carousel Items<button type="button" class="btn btn-default pull-right" id="help" data-container="body" data-toggle="popover" data-placement="left" data-content="All carousel items need a title, a description, a src (which points to an image), and (optionally) alt text">Help</button></h2>
+<div id="editor">function foo(items) {
+    var x = "All this is syntax highlighted";
+    return x;
+}</div>
+
+<form role="form" class="form-horizontal" method="post" action="{{ url_for('edit_carousel') }}">
+	<textarea class="form-control" rows="3" placeholder="Enter JSON Here">{{ items }}</textarea>
+  <a type="button" class="btn btn-info" tabindex="-1">Preview</a>
+  <button type="submit" class="btn btn-primary" tabindex="-1">Update</button>
+</form>
+{% endblock %}
+{% block scripts %}
+$('#help').popover();
+var editor = ace.edit("editor");
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/javascript");
+{% endblock %}

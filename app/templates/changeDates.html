@@ -1,0 +1,7 @@
+{% extends 'layout.html' -%}
+{% block content -%}
+<h2>Change Dates <button type="button" class="btn btn-default pull-right" id="help" data-container="body" data-toggle="popover" data-placement="left" data-content="Sample Popover Text">Help</button></h2>
+<form role="form" class="form-horizontal" method="post" action="{{ url_for('changeDates') }}">
+	<input type="textarea" />
+</form>
+{% endblock %}

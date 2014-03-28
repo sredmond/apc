@@ -4,26 +4,27 @@
 <dl class="dl-horizontal">
 	{% if verbose -%}
 	<dt class="text-primary">Date</dt>
-	<dd class="text-primary">{{ momentjs(class['time']).format('MMMM[, ] dddd Do') }}</dd>
+	<dd class="text-primary">{{ momentjs(class.epoch_time).format('dddd[, ]MMMM Do') }}</dd>
 	{%- endif %}
 	<dt class="text-success">Class Log</dt>
 	<dd class="text-success">
 		<ul class="list-unstyled">
-			{% for item in class['class-log'] -%}
-			<li>{{ item|safe }}</li>
-			{%- endfor %}
+			{% for item in class.getItems() %}
+				<li>{{ item|safe }}</li>
+			{% else %}
+				<li>None</li>
+			{% endfor %}
 		</ul>
 	</dd>
 	<dt class="text-danger">Homework</dt>
-	<dd class="text-danger">{{ class['homework']|safe }}</dd>
-	{% if 'additional' in class -%}
+	<dd class="text-danger">{{ class.homework|safe }}</dd>
 	<dt class="text-info">Additional</dt>
-	<dd class="text-info">{{ class['additional']|safe }}</dd>
-	{%- endif %}
+	<dd class="text-info">{{ class.additional|safe }}</dd>
 </dl>
 {%- endmacro %}
 
 {% block content -%}
+{% if render_current_week_schedule -%}
 <!-- Nav tabs -->
 <div class="alert alert-danger">Do homework the night it is assigned. HW is due the next day.</div>
 <div id="current_week">
@@ -57,58 +58,59 @@
 		</div>
 	</div>
 </div>
+{% endif -%}
 <div class="row" id="mainContent">
+	{% if render_scrollspy -%}
 	<div class="col-md-3">
 		<div class="sidebar" role="complementary" id="sidebar">
 			<ul class="nav sidenav">
-			{% if db -%}
-			{% for unit in db -%}
-			{% with -%}
-				{% set text_color = loop.cycle('text-primary', 'text-success', 'text-info')  -%}
-				{% set ind = loop.index %}
+			{% if units -%}
+			{% for unit in units -%}
+			{% set text_color = loop.cycle('text-primary', 'text-success', 'text-info')  -%}
+			{% set ind = loop.index %}
 				<li>
 					<a href={{ "#heading-" ~ ind }}>
-						<span class="{{ text_color }}">{{ unit['unit-title'] }}</span>
+						<span class="{{ text_color }}">{{ unit.title }}</span>
 					</a>
 					<ul class="nav">
-						{% for class in unit['unit-classes'] -%}
+						{% for class in unit.classes.all() -%}
 						<li><a href={{ '#heading-' ~ ind ~ "-" ~ loop.index }}>
-							<span class="{{ text_color }}">{{ momentjs(class['time']).calendar() }}</span>
+							<span class="{{ text_color }}">{{ momentjs(class.epoch_time).calendar() }}</span>
 						</a></li>
 						{% endfor -%}
 					</ul>
 				</li>
-			{%- endwith %}
 			{%- endfor %}
 			{%- endif %}
 			</ul>
 		</div>
 	</div>
-	<div class="col-md-9" role="main">
+	{% endif -%}
+	<div class="{{ 'col-md-9' if render_scrollspy else 'col-md-12' }}" role="main">
 		<div id="homework">
 			<h3>Class Log and Homework</h3>
 			<div class="panel-group" id="accordion">
-				{% if db -%}
-				{% for unit in db -%}
+				{% if units -%}
+				{% for unit in units -%}
 				{% with ind = loop.index -%}
 				<div class="{{ loop.cycle('panel panel-primary', 'panel panel-success', 'panel panel-info') }}" id="{{ 'accordion-' ~ ind }}">
 					<div class="panel-heading" id="{{ 'heading-' ~ ind }}" >
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-target="{{ '#' ~ ind }}">
-								{{ unit['unit-title'] }} ({{ unit['unit-classes']|length }} classes)
+								{{ unit.title }}
 							</a>
 						</h4>
 					</div>
 					<div id="{{ ind }}" class="panel-collapse collapse in">
 						<div class="panel-body">
-							{{ unit['unit-description'] }}
+							{{ unit.description }}
 							<div class="panel-group" id="{{ 'accordion-' ~ unit['unit-name'] }}">
-								{% for class in unit['unit-classes'] -%}
+								{% for class in unit.classes.all() -%}
 								<div class="panel panel-default">
 									<div class="panel-heading" id="{{ 'heading-' ~ ind ~ '-' ~ loop.index }}">
 										<h4 class="panel-title">
 											<a data-toggle="collapse" data-target="{{ '#' ~ ind ~ '-' ~ loop.index }}">
-												{{ momentjs(class['time']).format('dddd[ - ]MMMM Do') }}
+												{{ momentjs(class.epoch_time).format('dddd[ - ]MMMM Do') }}
 											</a>
 										</h4>
 									</div>

@@ -38,5 +38,15 @@ nosetests.xml
 # Virtual Environment
 venv
 
+#Progress images
+progress
+
 # Folder Cruft
 .DS_Store
+
+#Database stuff
+app.db
+db_*
+
+#Random file
+system_requirements.txt
