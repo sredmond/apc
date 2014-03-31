@@ -6,14 +6,17 @@ Gotta make the rendering_options universal
 '''
 
 #Import useful packages and objects
-from flask import render_template, flash, redirect, url_for, request
-from app import app, db
+from flask import render_template, flash, redirect, url_for, request, Response
+from functools import wraps
+from app import app, db, bcrypt
 from models import Unit, Class, CarouselItem
 from datetime import datetime as dt
 import time
 from calendar import timegm
 import json
 from rendering_options import *
+
+pw_hash = '$2a$12$QI8bQfqc1Bscon9RjULyCu7umaBG4iLyghgC/0MnYkpADnXFaQen.' #Hashed admin password
 
 #8 hours, in seconds
 pst_offset = 8 * 60 * 60
@@ -44,6 +47,28 @@ try:
 except Exception:
   print "Oh no! We've encountered an error."
   raise Exception("There are too many classes in the topics JSON file and not enough dates in the times JSON file. Ensure that there are at least as many dates as there are Physics classes.")
+
+###############
+#Authorization#
+###############
+def check_auth(username, password):
+    #Checks to see if a username/password combination is valid
+    return username == 'jdann' and bcrypt.check_password_hash(pw_hash, password)
+
+def authenticate():
+    """Sends a 401 response that enables basic auth"""
+    return Response("Error! Could not verify your access level for that URL. You have to login with proper credentials.",
+    401, #Response code
+    {'WWW-Authenticate': 'Basic realm="Login Required"'}) #Headers
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization #Have they validated previously?
+        if not auth or not check_auth(auth.username, auth.password):
+            return authenticate()
+        return f(*args, **kwargs)
+    return decorated
 
 @app.route('/')
 @app.route('/index/')
@@ -111,6 +136,7 @@ def refreshJSON():
 
 #FOR ADMIN USE ONLY
 @app.route('/admin/')
+@requires_auth
 def admin():
   return render_template('admin.html',
     title="Administrator",
@@ -118,14 +144,8 @@ def admin():
     classes=Class.query.all(),
     items=CarouselItem.query.all())
 
-@app.route('/addClass/', methods=['GET', 'POST'])
-def add_class():
-  if request.method == 'GET': #GET method
-    return "template for adding a class"
-  else: #POST method
-    return "Hello"
-
 @app.route('/units/edit/<int:unit_id>/', methods=['GET', 'POST'])
+@requires_auth
 def edit_unit(unit_id):
   #Make sure that the class we're looking at exists
   the_unit = Unit.query.get(unit_id)
@@ -153,6 +173,7 @@ def edit_unit(unit_id):
 
 
 @app.route('/classes/edit/<int:class_id>/', methods=['GET', 'POST'])
+@requires_auth
 def edit_class(class_id):
   #Make sure that the class we're looking at exists
   the_class = Class.query.get(class_id)
@@ -184,6 +205,7 @@ def edit_class(class_id):
     return redirect(url_for('admin'))
 
 @app.route("/changeDates/", methods=['GET','POST'])
+@requires_auth
 def changeDates():
   if request.method == 'GET': #GET method
     return render_template("changeDates.html")
@@ -196,6 +218,7 @@ def changeDates():
 
 #As JSON
 @app.route("/edit_carousel/", methods=['GET','POST'])
+@requires_auth
 def edit_carousel():
   items = CarouselItem.query.all()
   #Build our JSON
@@ -207,7 +230,7 @@ def edit_carousel():
     d['src'] = item.src
     d['alt'] = item.alt
     l.append(d)
-  s = json.dumps(l)
+  s = json.dumps(l, sort_keys=True, indent=4)
   print s
   if request.method == 'GET': #GET method
     return render_template("edit_carousel.html",
@@ -217,6 +240,7 @@ def edit_carousel():
 
 #One Item
 @app.route("/carousel_items/edit/<int:item_id>", methods=['GET','POST'])
+@requires_auth
 def edit_carousel_item(item_id):
   #Make sure that the class we're looking at exists
   the_item = CarouselItem.query.get(item_id)

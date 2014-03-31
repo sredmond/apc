@@ -9,7 +9,7 @@
 		<div class="panel-heading">
 			<h4 class="panel-title">
 				<a data-toggle="collapse" data-target="{{ '#collapse-unit' ~ loop.index }}">
-				(#{{u.id}}) {{ u.title }}
+				(#{{ u.id }}): {{ u.title }}
 				</a>
 				<a href="{{ url_for('edit_unit', unit_id=u.id) }}" class="pull-right">Edit Unit</a>
 			</h4>

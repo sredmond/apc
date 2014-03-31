@@ -8,9 +8,13 @@ app.config.from_object('config')
 app.jinja_env.globals['momentjs'] = momentjs #Allow Jinja templates to use momentjs
 
 db = SQLAlchemy(app)
+
+#Generate an encrypter
 bcrypt = Bcrypt(app)
-''' How to use
-pw_hash = bcrypt.generate_password_hash('hunter2')
-print bcrypt.check_password_hash(pw_hash, 'hunter2')''' # returns True'''
+'''
+bcrypt has two essential functions:
+pw_hash = bcrypt.generate_password_hash('some_string')
+bcrypt.check_password_hash(pw_hash, 'some_string) returns True
+'''
 
 from app import views, models
