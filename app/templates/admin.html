@@ -1,8 +1,8 @@
 {% extends 'layout.html' -%}
 {% block content -%}
-<h1>Administrative View <small>Only Dr. Dann should be here (but there is no checking yet).</small></h1>
+<h1>Administrative View</h1>
 <!--Units-->
-<h2>Units<a type="button" class="btn btn-default pull-right" href="#" tabindex="-1">Edit as JSON</a><a type="button" class="btn btn-default pull-right" href="#" tabindex="-1">Assign Classes</a></h2>
+<h2>Units<a type="button" class="btn btn-default pull-right" href="{{ url_for('edit_units') }}" tabindex="-1">Edit as JSON</a><a type="button" class="btn btn-default pull-right" href="{{ url_for('assign_classes') }}" tabindex="-1">Assign Classes</a></h2>
 <div class="panel-group">
 	{% for u in units %}
 	<div class="panel panel-success">
@@ -33,7 +33,7 @@
 </div>
 <!--End Units-->
 <!--Classes-->
-<h2>Classes<a type="button" class="btn btn-default pull-right" href="#" tabindex="-1">Edit as JSON</a><a type="button" class="btn btn-default pull-right" href="#" tabindex="-1">Change Dates</a></h2>
+<h2>Classes<a type="button" class="btn btn-default pull-right" href="{{ url_for('edit_classes') }}" tabindex="-1">Edit as JSON</a><a type="button" class="btn btn-default pull-right" href="{{ url_for('change_dates') }}" tabindex="-1">Change Dates</a></h2>
 <div class="panel-group">
 	{% for c in classes %}
 	<div class="panel panel-info">
@@ -111,6 +111,35 @@
 	</div>
 	{% else %}
 	<p>There are no carousel items in the database.</p>
+	{% endfor %}
+</div>
+<!--End Carousel Items-->
+<!--Carousel Items-->
+<h2>Main Page Links<a type="button" class="btn btn-default pull-right" href="{{ url_for('edit_main_links') }}" tabindex="-1">Edit as JSON</a></h2>
+<div class="panel-group">
+	{% for l in main_links %}
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-target="{{ '#collapse-link' ~ loop.index }}">
+					(#{{ l.id }}): {{ l.link }}
+				</a>
+				<!-- <a href="{{ url_for('edit_carousel_item', item_id=l.id) }}" class="pull-right">Edit Item</a> -->
+			</h4>
+		</div>
+		<div id="{{ 'collapse-link' ~ loop.index }}" class="panel-collapse collapse">
+			<div class="panel-body">
+				<dl class="dl-horizontal">
+					<dt>Title</dt>
+					<dd>{{ l.link }}</dd>
+					<dt>Media Type</dt>
+					<dd>{{ l.media_type }}</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	{% else %}
+	<p>There are no main page links in the database.</p>
 	{% endfor %}
 </div>
 <!--End Carousel Items-->

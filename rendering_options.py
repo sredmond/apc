@@ -1,6 +1,8 @@
-RENDER_NAVBAR = True
-RENDER_CAROUSEL = True
-RENDER_MAIN_LINKS = True
-RENDER_CURRENT_WEEK_SCHEDULE = True
-RENDER_SCROLLSPY = True
-RENDER_FOOTER = True
+options = {
+	'render_navbar':True,
+	'render_carousel':True,
+	'render_main_links':True,
+	'render_current_week_schedule':True,
+	'render_scrollspy':True,
+	'render_footer':True
+}

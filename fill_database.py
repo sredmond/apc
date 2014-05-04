@@ -5,7 +5,7 @@
 
 #For migrating from .json files to our database
 from app import db
-from app.models import Unit, Class, CarouselItem
+from app.models import Unit, Class, CarouselItem, MainLink
 import json
 from datetime import datetime as dt
 from calendar import timegm
@@ -46,6 +46,7 @@ for unit in topics:
 		class_model.week_of_year = int(pst_dt.strftime("%W"))
 
 		unit_model.addClass(class_model)
+	unit_model.hidden = False
 	db.session.add(unit_model)
 db.session.commit()
 
@@ -64,4 +65,17 @@ for item in items:
   if 'alt' in item:
   	new_item.alt=item['alt']
   db.session.add(new_item)
+db.session.commit()
+
+#Populate the main links
+with open('app/static/json/main_links.json') as f:
+	links = json.loads(f.read())
+
+for link in links:
+	new_link = MainLink()
+	if 'link' in link:
+		new_link.link = link['link']
+	if 'media-type' in link:
+		new_link.media_type = link['media-type']
+	db.session.add(new_link);
 db.session.commit()

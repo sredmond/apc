@@ -7,49 +7,19 @@ unit_title_default = "Unit Title"
 unit_description_default = "Unit Description"
 class_homework_default = "Homework: TBD"
 max_string_length = 65535
-# class User(db.Model):
-#     id = db.Column(db.Integer, primary_key = True)
-    
-#     #Information for logging in 
-#     email = db.Column(db.String(120), unique = True)
-#     hashed_password = db.Column(db.String(60));
-
-#     #Personal Information
-#     first_name = db.Column(db.String(20))
-#     last_name = db.Column(db.String(20))
-#     grade = db.Column(db.SmallInteger)
-    
-#     #Timing
-#     created = db.Column(db.DateTime)
-#     last_logged_in = db.Column(db.DateTime)
-
-#     #Administrative
-#     role = db.Column(db.SmallInteger, default = ROLE_USER)
-    
-#     #Necessary methods for Flask-Login
-#     def is_authenticated(self):
-#         return True
-
-#     def is_active(self):
-#         return True
-
-#     def is_anonymous(self):
-#         return False
-
-#     def get_id(self):
-#         return unicode(self.id)
-
-#     def verify_password(self, password):
-#       return bcrypt.hashpw(password, self.hashed_password) == self.hashed_password
-
-#     def __repr__(self):
-#         return '<User %r>' % (self.email)
 
 class Unit(db.Model):
   id = db.Column(db.Integer, primary_key = True)
   title = db.Column(db.String(40), default=unit_title_default)
   description = db.Column(db.String(120), default=unit_description_default)
   classes = db.relationship('Class', backref = 'unit', lazy = 'dynamic')
+  hidden = db.Column(db.Boolean, default=False)
+
+  def isHidden(self):
+    return self.hidden
+
+  def setHidden(self, isHidden):
+    self.hidden = isHidden
 
   def addClass(self, newClass):
     if not self.hasClass(newClass):
@@ -152,4 +122,11 @@ class CarouselItem(db.Model):
   def __repr__(self):
     return '<Carousel Item: %r>' % (self.title)
 
+class MainLink(db.Model):
+  id = db.Column(db.Integer, primary_key = True)
+  link = db.Column(db.String(max_string_length), default="")
+  media_type = db.Column(db.String(max_string_length), default="")
+
+  def __repr__(self):
+    return '<Main Link: %r>' % link
 

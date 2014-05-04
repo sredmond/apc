@@ -1,0 +1,8 @@
+{% extends 'layout.html' -%}
+{% block content -%}
+<h2>Edit Unit<button type="button" class="btn btn-default pull-right" id="help" data-container="body" data-toggle="popover" data-placement="left" data-content="Sample text">Help</button></h2>
+Something here
+{% endblock %}
+{% block scripts %}
+$('#help').popover();
+{% endblock %}
