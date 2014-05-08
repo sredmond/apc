@@ -15,12 +15,6 @@ class Unit(db.Model):
   classes = db.relationship('Class', backref = 'unit', lazy = 'dynamic')
   visible = db.Column(db.Boolean, default=True)
 
-  def isHidden(self):
-    return self.hidden
-
-  def setHidden(self, isHidden):
-    self.hidden = isHidden
-
   def addClass(self, newClass):
     if not self.hasClass(newClass):
       self.classes.append(newClass);

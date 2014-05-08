@@ -1,9 +1,19 @@
 '''
+HTML is only at main link text, class log, hw, and additional
+
+TODO
+Big JSON editor
+Verify MainLink content
+Revamp Class edit
+Resource files
+(Modify rendering options?)
+
 TODO
 Form validation! I need to make sure Dr. Dann doesn't enter any weird html
-Gotta make the rendering_options universal
-Add visibility to unit model and add main link model
+Add visibility to unit model edit (?) and add main link model
 Add Hopskotch help to all admin pages
+
+Verify main link content
 
 Visual
 Carousel Item
@@ -104,7 +114,7 @@ def loghw():
 
   return render_template('loghw.html',
     title='Class Log and HW',
-    units=[u for u in Unit.query.all() if not u.isHidden()],
+    units=[u for u in Unit.query.all() if u.isVisible()],
     classes=current_week_classes,
     day_of_week=current_day_of_week)
 
@@ -209,7 +219,8 @@ def getAll():
 @app.route('/units/edit/<int:unit_id>/', methods=['GET', 'POST'])
 @requires_auth
 def edit_unit(unit_id):
-  #Make sure that the class we're looking at exists
+  
+  #Make sure that the unit we're looking at exists
   the_unit = Unit.query.get(unit_id)
   if the_unit == None: #If it doesn't exist...
     flash("Unit with ID={0} does not exist...".format(unit_id), category='error')
@@ -221,16 +232,21 @@ def edit_unit(unit_id):
       id=unit_id)
 
   else: #POST method
-    ##TODO - Sanitize inputs
     f = request.form
     if 'title' in f:
       the_unit.title = f['title']
+    else:
+      flash("Units must have an associatied title", category='error')
+      return redirect(url_for('admin'))
     if 'description' in f:
       the_unit.description = f['description']
+    else:
+      flash("Units must have an associatied description", category='error')
+      return redirect(url_for('admin'))
     db.session.add(the_unit)
     db.session.commit()
 
-    flash("Successfully updated Unit #{0}: {1}".format(unit_id, the_unit.title))
+    flash("Successfully updated Unit #{0}: {1}".format(unit_id, the_unit.title), category='message')
     return redirect(url_for('admin'))
 
 ##############
@@ -341,13 +357,36 @@ def edit_carousel_item(item_id):
 #################
 #EDIT MAIN LINKS#
 #################
-@app.route('/main_links/edit/<int:item_id>', methods=['GET','POST'])
-def edit_main_link(item_id):
-  return "Edit Main Link"
+@app.route('/main_links/edit/<int:link_id>', methods=['GET','POST'])
+def edit_main_link(link_id):
+  #Make sure that the link we're looking at exists
+  the_link = MainLink.query.get(link_id)
+  if the_link == None: #If it doesn't exist...
+    flash("Main Link with ID={0} does not exist...".format(link_id), category='error')
+    return redirect(url_for('admin'))
 
-@app.route('/edit_main_links/')
-def edit_main_links():
-  return "Edit Main Links"
+  if request.method == 'GET': #GET method
+    return render_template('edit_main_link.html',
+      l=the_link,
+      id=link_id)
+
+  else: #POST method
+    f = request.form
+    if 'link' in f:
+      the_unit.title = f['link']
+    else:
+      flash("Main Links must have an associatied link text", category='error')
+      return redirect(url_for('admin'))
+    if 'media-type' in f:
+      the_unit.description = f['media-type']
+    else:
+      flash("Main Links must have an associated media type", category='error')
+      return redirect(url_for('admin'))
+    db.session.add(the_link)
+    db.session.commit()
+
+    flash("Successfully updated Main Link #{0}: {1}".format(link_id, the_unit.title), category='message')
+    return redirect(url_for('admin'))
 
 ################
 #ERROR HANDLERS#

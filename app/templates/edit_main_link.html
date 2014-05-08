@@ -1,0 +1,22 @@
+{% extends 'layout.html' -%}
+{% block content -%}
+<h2>Edit Main Link<button type="button" class="btn btn-default pull-right" id="help" data-container="body" data-toggle="popover" data-placement="left" data-content="Sample text">Help</button></h2>
+<form role="form" class="form-horizontal" method="post" action="{{ url_for('edit_main_link', link_id=id) }}">
+	<div class="form-group">
+	    <label for="link">Link</label>
+	    <textarea class="form-control" id="link" name="link" rows="2" placeholder="{{ l.link }}" required>{{ l.link }}</textarea>
+  </div>
+  <div class="form-group">
+    <label for="media-type">Media Type <small>e.g. PDF, Video (include duration), Applet, Simulation, Visualization</small></label>
+    <input type="text" class="form-control" id="media-type" name="media-type" value="{{ l.media_type }}" placeholder="{{ l.media_type }}" required>
+  </div>
+  <button type="submit" class="btn btn-primary" tabindex="-1">Update</button>
+</form>
+<h4>Old Values<small> (for copy-pasting)</small></h4>
+<dl class="dl-horizontal">
+  <dt>Link</dt>
+  <dd>{{ l.link }}</dd>
+  <dt>Media Type</dt>
+  <dd>{{ l.media_type }}</dd>
+</dl>
+{% endblock %}

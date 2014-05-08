@@ -46,91 +46,13 @@
 			</tr>
 		</thead>
 		<tbody>
+		{% for l in main_links %}
 			<tr>
-				<td>1</td>
-				<td><a href="http://nova.menloschool.org/~jdann/APC/Documents/APC%20Outline.pdf" target="_blank">Course Outline</a> and <a href="http://nova.menloschool.org/~jdann/APC/Documents/AP%20C%20Syllabus.pdf" target="_blank">Syllabus</a></td>
-				<td>PDF</td>
+				<td>{{ loop.index }}</td>
+				<td>{{ l.link|safe }}</td>
+				<td>{{ l.media_type }}</td>
 			</tr>
-			<tr>
-				<td>2</td>
-				<td><a href="http://nova.menloschool.org/~jdann/APC/APC%20Tests/APC%20Tests.htm" target="_blank">Old AP Tests</a></td>
-				<td>PDF</td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td><a href="http://www.youtube.com/v/k-trDF8Yldc" target="_blank">Under the Ruler</a></td>
-				<td>Video (3:01)</td>
-			</tr>
-			<tr>
-				<td>4</td>
-				<td><a href="http://techchannel.att.com/play-video.cfm/2011/3/7/AT&amp;T-Archives-Similarities-of-Wave-Behavior" target="_blank">Waves</a></td>
-				<td>Video (28:02)</td>
-			</tr>
-			<tr>
-				<td>5</td>
-				<td><a href="http://www.youtube.com/v/49JwbrXcPjc" target="_blank">Visualization of a Rotating Reference Frame</a></td>
-				<td>Video (1:52)</td>
-			</tr>
-			<tr>
-				<td>6</td>
-				<td><a href="http://www.youtube.com/v/1kXWFqtIr6o" target="_blank">Hurricanes</a></td>
-				<td>Video (1:09)</td>
-			</tr>
-			<tr>
-				<td>7</td>
-				<td><a href="http://www.youtube.com/v/eqjl-qRy71w" target="_blank">Kirchoff's Law is for the Birds</a> and <a href="http://www.youtube.com/v/1bUWcy8HwpM" target="_blank">Part II</a></td>
-				<td>Video (9:39/6:59)</td>
-			</tr>
-			<tr>
-				<td>8</td>
-				<td><a href="http://www.youtube.com/v/5IRfbC0RHsY" target="_blank">Faraday Cage</a> - I believe!</td>
-				<td>Video (1:00)</td>
-			</tr>
-			<tr>
-				<td>9</td>
-				<td><a href="http://phet.colorado.edu/new/index.php" target="_blank">PhET</a></td>
-				<td>Applets</td>
-			</tr>
-			<tr>
-				<td>10</td>
-				<td><a href="http://www.falstad.com/mathphysics.html" target="_blank">Falstad</a></td>
-				<td>Applets</td>
-			</tr>
-			<tr>
-				<td>11</td>
-				<td><a href="http://www.its.caltech.edu/%7Ephys1/java/phys1/EField/EField.html" target="_blank">Electric Field Simulation</a></td>
-				<td>Simulation</td>
-			</tr>
-			<tr>
-				<td>12</td>
-				<td><a href="http://www.youtube.com/v/17jymDn0W6U" target="_blank">Known Universe</a></td>
-				<td>Video (6:31)</td>
-			</tr>
-			<tr>
-				<td>13</td>
-				<td><a href="http://static.flabber.net/files/scale-of-the-universe-2.swf" target="_blank">Scale of Universe</a></td>
-				<td>Applet</td>
-			</tr>
-			<tr>
-				<td>14</td>
-				<td><a href="http://www.youtube.com/v/j50ZssEojtM" target="_blank">LHC Particle Rap</a></td>
-				<td>Video (4:49)</td>
-			</tr>
-			<tr>
-				<td>15</td>
-				<td><a href="http://www.youtube.com/v/qQNpucos9wc" target="_blank">LHC Accelerator</a></td>
-				<td>Video (6:16)</td>
-			</tr>
-			<tr>
-				<td>16</td>
-				<td><a href="http://www.youtube.com/v/qQNpucos9wc" target="_blank">MIT Physics Visualizations</a></td>
-				<td>Visualizations</td>
-			</tr>
-			<tr>
-				<td>17</td>
-				<td><a href="http://imgur.com/f8a8ORy" target="_blank">Earth's Magnetic Field</td>
-				<td>Image</td>
-			</tr>
+		{% endfor %}
 		</tbody>
 	</table>
 </div>

@@ -21,7 +21,7 @@
 					<dd>{{ u.title }}</dd>
 					<dt>Description</dt>
 					<dd>{{ u.description }}</dd>
-					<dt>Num Classes</dt>
+					<dt>Number of Classes</dt>
 					<dd>{{ u.classes.all()|length }}</dd>
 				</dl>
 			</div>
@@ -114,7 +114,7 @@
 	{% endfor %}
 </div>
 <!--End Carousel Items-->
-<!--Carousel Items-->
+<!--Main Links-->
 <h2>Main Page Links</h2>
 <div class="panel-group">
 	{% for l in main_links %}
@@ -124,7 +124,7 @@
 				<a data-toggle="collapse" data-target="{{ '#collapse-link' ~ loop.index }}">
 					(#{{ l.id }}): {{ l.link }}
 				</a>
-				<!-- <a href="{{ url_for('edit_carousel_item', item_id=l.id) }}" class="pull-right">Edit Item</a> -->
+				<a href="{{ url_for('edit_main_link', link_id=l.id) }}" class="pull-right">Edit Link</a>
 			</h4>
 		</div>
 		<div id="{{ 'collapse-link' ~ loop.index }}" class="panel-collapse collapse">
@@ -142,5 +142,5 @@
 	<p>There are no main page links in the database.</p>
 	{% endfor %}
 </div>
-<!--End Carousel Items-->
+<!--End Main Links-->
 {%- endblock %}
