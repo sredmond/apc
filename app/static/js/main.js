@@ -16,5 +16,5 @@ $(document).ready(function()
     }
   });
   //Enable popovers
-  $('#help').popover(options)
+  $('#help').popover()
 });

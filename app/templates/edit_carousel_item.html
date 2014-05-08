@@ -1,25 +1,38 @@
 {% extends 'layout.html' -%}
 {% block content -%}
 <h2>Edit Carousel Item<button type="button" class="btn btn-default pull-right" id="help" data-container="body" data-toggle="popover" data-placement="left" data-content="Sample text">Help</button></h2>
-<form role="form" class="form-horizontal" method="post" action="{{ url_for('edit_carousel_item', item_id=id) }}">
-	<div class="form-group">
-	    <label for="title">Title</label>
-	    <input type="text" class="form-control" id="title" name="title" value="{{ item.title }}" placeholder="{{ item.title }}">
+<div class="row">
+  <div class="col-md-6">
+    <form role="form" class="form-horizontal" method="post" action="{{ url_for('edit_carousel_item', item_id=id) }}">
+    	<div class="form-group">
+    	    <label for="title">Title</label>
+    	    <input type="text" class="form-control" id="title" name="title" value="{{ item.title }}" placeholder="{{ item.title }}" required />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" rows="5" name="description" placeholder="{{ item.description }}" required>{{ item.description }}</textarea>
+      </div>
+      <div class="form-group">
+        <label for="src">Source</label>
+        <input type="text" class="form-control" id="src" name="src" value="{{ item.src }}" placeholder="{{ item.src }}" required>
+      </div>
+      <div class="form-group">
+        <label for="alt">Alt</label>
+        <input type="text" class="form-control" id="alt" name="alt" value="{{ item.alt }}" placeholder="{{ item.alt }}" />
+      </div>
+      <button type="submit" class="btn btn-primary" tabindex="-1">Update</button>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <input type="text" class="form-control" id="description" name="description" value="{{ item.description }}" placeholder="{{ item.description }}">
+  <div class="col-md-6">
+    <div class="item" id="preview">
+      <img class="carousel-img" src="{{ item.src }}" alt="{{ item.alt }}">
+      <div class="carousel-caption">
+        <h3>{{ item.title }}</h3>
+        <p> {{ item.description }}</p>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="src">Source</label>
-    <input type="text" class="form-control" id="src" name="src" value="{{ item.src }}" placeholder="{{ item.src }}">
-  </div>
-  <div class="form-group">
-    <label for="alt">Alt</label>
-    <input type="text" class="form-control" id="alt" name="alt" value="{{ item.alt }}" placeholder="{{ item.alt }}">
-  </div>
-  <button type="submit" class="btn btn-primary" tabindex="-1">Update</button>
-</form>
+</div>
 <h4>Old Values<small> (for copy-pasting)</small></h4>
 <dl class="dl-horizontal">
   <dt>Title</dt>
@@ -32,6 +45,41 @@
   <dd>{{ item.alt }}</dd>
 </dl>
 {% endblock %}
-{% block scripts %}
-$('#help').popover();
+{% block scripts%}
+<script>
+  // List of HTML entities for escaping.
+  var htmlEscapes = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '/': '&#x2F;'
+  };
+
+  // Regex containing the keys listed immediately above.
+  var htmlEscaper = /[&<>"'\/]/g;
+
+  // Escape a string for HTML interpolation.
+  escape = function(string) {
+    return ('' + string).replace(htmlEscaper, function(match) {
+      return htmlEscapes[match];
+    });
+  };
+
+  var preview = function() {
+    var title = escape($("#title").val());
+    var desc = escape($("#description").val());
+    var src = escape($("#src").val());
+    var alt = escape($("#alt").val());
+    var text =  '<img class="carousel-img" src="'+src+'" alt="'+alt+'">\
+      <div class="carousel-caption">\
+        <h3>'+title+'</h3>\
+        <p>'+desc+'</p>\
+      </div>';
+    $("#preview").html(text);
+  };
+  $("#title,#description").on('input', preview);
+  $("#src,#alt").blur(preview);
+</script>
 {% endblock %}

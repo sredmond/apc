@@ -4,6 +4,11 @@ Form validation! I need to make sure Dr. Dann doesn't enter any weird html
 Gotta make the rendering_options universal
 Add visibility to unit model and add main link model
 Add Hopskotch help to all admin pages
+
+Visual
+Carousel Item
+  Angular preview
+  Force image to be a certain size
 '''
 
 #Import useful packages and objects
@@ -166,7 +171,7 @@ def edit():
     dates=[]
     carousel_items = [carousel_item_model.toJSON() for carousel_item_model in carousel_item_models]
     main_links = [main_link_model.toJSON() for main_link_model in main_link_models]
-    print carousel_items
+
     return render_template('edit.html',
       content=formatJSON(content),
       carousel_items=formatJSON(carousel_items),

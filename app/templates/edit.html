@@ -1,44 +1,50 @@
 {% extends 'layout.html' -%}
 {% block content -%}
 <!-- Nav tabs -->
-<ul class="nav nav-tabs nav-justified">
-  <li class="active"><a href="#content" data-toggle="pill">Content (Units and Classes)</a></li>
-  <li><a href="#carousel" data-toggle="pill">Carousel Items</a></li>
-  <li><a href="#main-links" data-toggle="pill">Main Links</a></li>
-  <li><a href="#dates" data-toggle="pill">Dates</a></li>
+<ul class="nav nav-pills nav-justified">
+  <li class="active"><a id="content-tab" href="#" data-toggle="pill">Content (Units and Classes)</a></li>
+  <li><a id="carousel-item-tab" href="#" data-toggle="pill">Carousel Items</a></li>
+  <li><a id="main-link-tab" href="#" data-toggle="pill">Main Links</a></li>
+  <li><a id="date-tab" href="#" data-toggle="pill">Dates</a></li>
 </ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane fade in active" id="content"></div>
-  <div class="tab-pane fade" id="carousel">{{ carousel_items }}</div>
-  <div class="tab-pane fade" id="main-links">{{ main_links }}</div>
-  <div class="tab-pane fade" id="dates">{{ dates }}</div>
-</div>
-<div id="editor">{{ content }}</div>
+<div id="editor"></div>
 {% endblock %}
 
 {% block scripts %}
 <script src="/static/js/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
 	var editor = ace.edit("editor");
-	editor.setTheme("ace/theme/kuroir");
+	editor.setTheme('/static/js/theme-kuroir');
 	editor.getSession().setMode("ace/mode/json");
 	
 	//Fetch JSON data from the server
 	$.getJSON("/getAll/", function(data) {
-		var content = data['content'];
-		var carouselItems = data['carousel_items'];
-		var mainLinks = data['main_links'];
-		var dates = data['dates'];
-		console.log(carouselItems);
+		var content = JSON.stringify(data['content'], null, 2);
+		var carouselItems = JSON.stringify(data['carousel_items'], null, 2);
+		var mainLinks = JSON.stringify(data['main_links'], null, 2);
+		var dates = JSON.stringify(data['dates'], null, 2);
 
 		var contentSession = ace.createEditSession(content, "ace/mode/json");
 		var carouselItemSession = ace.createEditSession(carouselItems, "ace/mode/json");
 		var mainLinkSession = ace.createEditSession(mainLinks, "ace/mode/json");
 		var dateSession = ace.createEditSession(dates, "ace/mode/json");
+
 		editor.setSession(contentSession);
+
+		$("#content-tab").click(function() {
+			editor.setSession(contentSession);
+		});
+		$("#carousel-item-tab").click(function() {
+			editor.setSession(carouselItemSession);
+		});
+		$("#main-link-tab").click(function() {
+			editor.setSession(mainLinkSession);
+		});
+		$("#date-tab").click(function() {
+			editor.setSession(dateSession);
+		});
 	});
+
 
  
  //  //Fired whenever a tab is switched

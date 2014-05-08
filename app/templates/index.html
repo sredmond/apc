@@ -1,12 +1,12 @@
 {% extends 'layout.html' %}
 {% macro carousel_image(title, description, img_src, alt, active=False) -%}
 <div class="{{'item active' if active else 'item' }}">
-    <a href="{{ img_src }}"><img class="carousel-img" src="{{ img_src }}" alt="{{ alt }}"></a>
-    <div class="carousel-caption">
-      <h3>{{ title }}</h3>
-      <p> {{ description }}</p>
-    </div>
+  <a href="{{ img_src }}"><img class="carousel-img" src="{{ img_src }}" alt="{{ alt }}"></a>
+  <div class="carousel-caption">
+    <h3>{{ title }}</h3>
+    <p>{{ description }}</p>
   </div>
+</div>
 {%- endmacro %}
 {% block content -%}
 <h1>Welcome to AP Physics C <small>with Dr. Dann</small></h1>

@@ -112,7 +112,14 @@ html, body {
     width: 263px;
   }
 }
-#editor { 
+#editor {
   position: relative;
-  height: 300px;
+  height: 600px;
+  border: 1px solid black;
+}
+/* Configure textareas to only resize vertially */
+textarea {
+  resize: vertical;
+  // Safari fix
+  overflow: auto;
 }
