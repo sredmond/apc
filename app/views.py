@@ -212,7 +212,7 @@ def edit_unit(unit_id):
   #Make sure that the class we're looking at exists
   the_unit = Unit.query.get(unit_id)
   if the_unit == None: #If it doesn't exist...
-    flash("There is no unit with an id of {0}".format(unit_id), category='error')
+    flash("Unit with ID={0} does not exist...".format(unit_id), category='error')
     return redirect(url_for('admin'))
 
   if request.method == 'GET': #GET method
@@ -233,24 +233,6 @@ def edit_unit(unit_id):
     flash("Successfully updated Unit #{0}: {1}".format(unit_id, the_unit.title))
     return redirect(url_for('admin'))
 
-#Edit all units as JSON
-@app.route('/edit_units/', methods=['GET', 'POST'])
-@requires_auth
-def edit_units():
-  if request.method == 'GET': #GET method
-    return render_template('edit_units.html')
-  else: #POST method
-    return "Posted"
-
-#Assign classes to various units
-@app.route('/assign_classes/', methods=['GET', 'POST'])
-@requires_auth
-def assign_classes():
-  if request.method == 'GET': #GET method
-    return render_template('assign_classes.html')
-  else: #POST method
-    return "Posted"
-
 ##############
 #Edit Classes#
 ##############
@@ -262,7 +244,7 @@ def edit_class(class_id):
   #Make sure that the class we're looking at exists
   the_class = Class.query.get(class_id)
   if the_class == None: #If it doesn't exist...
-    flash("Class with id = {0} does not exist".format(class_id), category='error')
+    flash("Class with ID={0} does not exist...".format(class_id), category='error')
     return redirect(url_for('admin'))
 
   if request.method == 'GET': #GET method
@@ -321,54 +303,40 @@ def change_dates():
 @app.route("/carousel_items/edit/<int:item_id>", methods=['GET','POST'])
 @requires_auth
 def edit_carousel_item(item_id):
-  #Make sure that the class we're looking at exists
+  #Make sure that the item we're looking at exists
   the_item = CarouselItem.query.get(item_id)
   if the_item == None: #If it doesn't exist...
-    flash("Carousel item with id = {0} does not exist".format(item_id), category='error')
+    flash("Carousel Item with ID={0} does not exist...".format(item_id), category='error')
     return redirect(url_for('admin'))
-
   if request.method == 'GET': #GET method
     return render_template('edit_carousel_item.html',
       item=the_item,
       id=item_id)
   else: #POST method
-    #TODO - add validation here
     f = request.form
     if 'title' in f:
+      #It's totally fine to have HTML entities in the title. Jinja2 will escape them
       the_item.title = f['title']
+    else:
+      flash("Carousel items must have an associated title.", category='error')
+      return redirect(url_for('admin'))
     if 'description' in f:
       the_item.description = f['description']
+    else:
+      flash("Carousel items must have an associated description.", category='error')
+      return redirect(url_for('admin'))
     if 'src' in f:
       the_item.src = f['src']
+    else:
+      flash("Carousel items must have an associated source.", category='error')
+      return redirect(url_for('admin'))
     if 'alt' in f:
       the_item.alt = f['alt']
     db.session.add(the_item)
     db.session.commit()
 
-    flash("Successfully updated Item #{0}: {1}".format(item_id, the_item.title))
+    flash("Successfully updated Item #{0}: {1}".format(item_id, the_item.title), category='message')
     return redirect(url_for('admin'))
-
-#Edit all carousel items as JSON
-@app.route("/edit_carousel/", methods=['GET','POST'])
-@requires_auth
-def edit_carousel():
-  items = CarouselItem.query.all()
-  #Build our JSON
-  l = []
-  for item in items:
-    d = {}
-    d['title'] = item.title
-    d['description'] = item.description
-    d['src'] = item.src
-    d['alt'] = item.alt
-    l.append(d)
-  s = json.dumps(l, sort_keys=True, indent=4)
-  print s
-  if request.method == 'GET': #GET method
-    return render_template("edit_carousel.html",
-      items=s)
-  else: #POST method
-    return "Posted yo"
 
 #################
 #EDIT MAIN LINKS#
@@ -429,3 +397,6 @@ def filterClasses(filterText):
 
 def formatJSON(validJSON):
   return json.dumps(validJSON, sort_keys=True, indent=2, separators=(',', ': '))
+
+def noHTMLEntities(str):
+  return str.find('<') == -1 and str.find('>') == -1 and str.find('"') == -1 and str.find('\'') == -1 and str.find('&') == -1
