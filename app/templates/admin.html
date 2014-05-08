@@ -1,8 +1,8 @@
 {% extends 'layout.html' -%}
 {% block content -%}
-<h1>Administrative View</h1>
+<h1>Administrative View<a type="button" class="btn btn-default pull-right" href="{{ url_for('edit') }}" tabindex="-1">Edit as JSON</a></h1>
 <!--Units-->
-<h2>Units<a type="button" class="btn btn-default pull-right" href="{{ url_for('edit_units') }}" tabindex="-1">Edit as JSON</a><a type="button" class="btn btn-default pull-right" href="{{ url_for('assign_classes') }}" tabindex="-1">Assign Classes</a></h2>
+<h2>Units</h2>
 <div class="panel-group">
 	{% for u in units %}
 	<div class="panel panel-success">
@@ -33,7 +33,7 @@
 </div>
 <!--End Units-->
 <!--Classes-->
-<h2>Classes<a type="button" class="btn btn-default pull-right" href="{{ url_for('edit_classes') }}" tabindex="-1">Edit as JSON</a><a type="button" class="btn btn-default pull-right" href="{{ url_for('change_dates') }}" tabindex="-1">Change Dates</a></h2>
+<h2>Classes</h2>
 <div class="panel-group">
 	{% for c in classes %}
 	<div class="panel panel-info">
@@ -82,7 +82,7 @@
 </div>
 <!--End Classes-->
 <!--Carousel Items-->
-<h2>Carousel Items <a type="button" class="btn btn-default pull-right" href="{{ url_for('edit_carousel') }}" tabindex="-1">Edit as JSON</a></h2>
+<h2>Carousel Items</h2>
 <div class="panel-group">
 	{% for item in items %}
 	<div class="panel panel-warning">
@@ -115,7 +115,7 @@
 </div>
 <!--End Carousel Items-->
 <!--Carousel Items-->
-<h2>Main Page Links<a type="button" class="btn btn-default pull-right" href="{{ url_for('edit_main_links') }}" tabindex="-1">Edit as JSON</a></h2>
+<h2>Main Page Links</h2>
 <div class="panel-group">
 	{% for l in main_links %}
 	<div class="panel panel-default">

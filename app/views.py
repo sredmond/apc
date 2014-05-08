@@ -16,7 +16,7 @@ import time
 from calendar import timegm
 import json
 
-#Dictionary of valid username:hashed_password pairs
+#Dictionary of valid username:hashed_password pairs (using bcrypt)
 admins = {'jdann':'$2a$12$QI8bQfqc1Bscon9RjULyCu7umaBG4iLyghgC/0MnYkpADnXFaQen.'}
 
 #8 hours, in seconds
@@ -148,6 +148,54 @@ def admin():
     items=CarouselItem.query.all(),
     main_links=MainLink.query.all())
 
+####################
+#Edit All (as JSON)#
+####################
+#A full reassignment of the content of the website
+@app.route('/edit/', methods=['GET','POST'])
+@requires_auth
+def edit():
+  if request.method == 'GET':
+    unit_models = Unit.query.all();
+    class_models=Class.query.all();
+    carousel_item_models=CarouselItem.query.all();
+    main_link_models=MainLink.query.all();
+    
+    #Construct all the JSON maps
+    content=[unit_model.toJSON() for unit_model in unit_models]
+    dates=[]
+    carousel_items = [carousel_item_model.toJSON() for carousel_item_model in carousel_item_models]
+    main_links = [main_link_model.toJSON() for main_link_model in main_link_models]
+    print carousel_items
+    return render_template('edit.html',
+      content=formatJSON(content),
+      carousel_items=formatJSON(carousel_items),
+      main_links=formatJSON(main_links),
+      dates=formatJSON(dates),
+      title="Edit JSON")
+  else: #POST method
+    return redirect(url_for('admin'))
+
+@app.route('/getAll/', methods=['GET'])
+def getAll():
+  unit_models = Unit.query.all();
+  class_models=Class.query.all();
+  carousel_item_models=CarouselItem.query.all();
+  main_link_models=MainLink.query.all();
+  
+  #Construct all the JSON maps
+  content=[unit_model.toJSON() for unit_model in unit_models]
+  dates=[]
+  carousel_items = [carousel_item_model.toJSON() for carousel_item_model in carousel_item_models]
+  main_links = [main_link_model.toJSON() for main_link_model in main_link_models]
+
+  out = {}
+  out['content']=content
+  out['carousel_items']=carousel_items
+  out['main_links']=main_links
+  out['dates']=dates
+  return json.dumps(out)
+
 ############
 #Edit Units#
 ############
@@ -251,8 +299,12 @@ def edit_classes():
 @requires_auth
 def change_dates():
   if request.method == 'GET': #GET method
+    classes = Class.query.all()
+    s = []
+    for cl in classes:
+      s.append(str(cl.pst_datetime))
     return render_template("change_dates.html",
-      classes=Class.query.all())
+      text='\n'.join(s))
   else: #POST method
     return "Hello"
 
@@ -316,10 +368,30 @@ def edit_carousel():
 #################
 #EDIT MAIN LINKS#
 #################
+@app.route('/main_links/edit/<int:item_id>', methods=['GET','POST'])
+def edit_main_link(item_id):
+  return "Edit Main Link"
+
 @app.route('/edit_main_links/')
 def edit_main_links():
-  return "Hello"
+  return "Edit Main Links"
 
+################
+#ERROR HANDLERS#
+################
+
+@app.errorhandler(404) #404 = Page Not Found
+def internal_error(error):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500) #500 = Internal server error
+def internal_error(error):
+    db.session.rollback() #Rollback the database in case a database error triggered the 500
+    return render_template('500.html'), 500
+
+###################
+#UTILITY FUNCTIONS#
+###################
 
 #Not the fastest, but it'll be fine
 def getClassesFromWeek(weekNumber):
@@ -340,15 +412,15 @@ def getClassesFromWeek(weekNumber):
         week_classes[4] = cl
   return week_classes
 
-################
-#ERROR HANDLERS#
-################
+def filterClasses(filterText):
+  classes = Class.query.all()
+  matching_classes = []
+  for cl in classes:
+    for item in cl.getItems():
+      if filterText in item:
+        matching_classes.append(cl)
+        break
+  print matching_classes
 
-@app.errorhandler(404) #404 = Page Not Found
-def internal_error(error):
-    return render_template('404.html'), 404
-
-@app.errorhandler(500) #500 = Internal server error
-def internal_error(error):
-    db.session.rollback() #Rollback the database in case a database error triggered the 500
-    return render_template('500.html'), 500
+def formatJSON(validJSON):
+  return json.dumps(validJSON, sort_keys=True, indent=2, separators=(',', ': '))

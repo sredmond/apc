@@ -5,7 +5,7 @@ ROLE_ADMIN = 1
 
 unit_title_default = "Unit Title"
 unit_description_default = "Unit Description"
-class_homework_default = "Homework: TBD"
+class_homework_default = "TBD"
 max_string_length = 65535
 
 class Unit(db.Model):
@@ -13,7 +13,7 @@ class Unit(db.Model):
   title = db.Column(db.String(40), default=unit_title_default)
   description = db.Column(db.String(120), default=unit_description_default)
   classes = db.relationship('Class', backref = 'unit', lazy = 'dynamic')
-  hidden = db.Column(db.Boolean, default=False)
+  visible = db.Column(db.Boolean, default=True)
 
   def isHidden(self):
     return self.hidden
@@ -31,6 +31,19 @@ class Unit(db.Model):
 
   def hasClass(self, aClass):
     return aClass in self.classes
+
+  def isVisible(self):
+    return self.visible
+
+  def toJSON(self):
+    out = {}
+    out['title'] = self.title
+    out['description'] = self.description
+    out['visible'] = self.visible
+    out['classes'] = []
+    for class_model in self.classes.all():
+      out['classes'].append(class_model.toJSON())
+    return out
   
   def __repr__(self):
     return '<Unit %r>' % (self.title)
@@ -103,12 +116,17 @@ class Class(db.Model):
 
   def getItems(self):
     return [self.item_0, self.item_1, self.item_2, self.item_3, self.item_4, self.item_5]
-
-  # def setItems(self, items): #Relatively slow, but it won't be called that much anyway
-  #   self.clearItems()
-  #   for i in items:
-  #     self.addItem(i)
   
+  def toJSON(self):
+    out = {}
+    out['items'] = []
+    for item in self.getItems():
+      if len(item) > 0:
+        out['items'].append(item)
+    out['homework'] = self.homework
+    out['additional'] = self.additional
+    return out
+
   def __repr__(self):
     return '<Class: %r>' % (self.homework)
 
@@ -119,6 +137,14 @@ class CarouselItem(db.Model):
   src = db.Column(db.String(max_string_length), default="")
   alt = db.Column(db.String(max_string_length), default="")
 
+  def toJSON(self):
+    out = {}
+    out['title'] = self.title
+    out['description'] = self.description
+    out['src'] = self.src
+    out['alt'] = self.alt
+    return out
+
   def __repr__(self):
     return '<Carousel Item: %r>' % (self.title)
 
@@ -127,6 +153,11 @@ class MainLink(db.Model):
   link = db.Column(db.String(max_string_length), default="")
   media_type = db.Column(db.String(max_string_length), default="")
 
+  def toJSON(self):
+    out = {}
+    out['link'] = self.link
+    out['media_type'] = self.media_type
+    return out
+
   def __repr__(self):
     return '<Main Link: %r>' % link
-

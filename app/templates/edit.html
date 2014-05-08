@@ -1,0 +1,52 @@
+{% extends 'layout.html' -%}
+{% block content -%}
+<!-- Nav tabs -->
+<ul class="nav nav-tabs nav-justified">
+  <li class="active"><a href="#content" data-toggle="pill">Content (Units and Classes)</a></li>
+  <li><a href="#carousel" data-toggle="pill">Carousel Items</a></li>
+  <li><a href="#main-links" data-toggle="pill">Main Links</a></li>
+  <li><a href="#dates" data-toggle="pill">Dates</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="content"></div>
+  <div class="tab-pane fade" id="carousel">{{ carousel_items }}</div>
+  <div class="tab-pane fade" id="main-links">{{ main_links }}</div>
+  <div class="tab-pane fade" id="dates">{{ dates }}</div>
+</div>
+<div id="editor">{{ content }}</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var editor = ace.edit("editor");
+	editor.setTheme("ace/theme/kuroir");
+	editor.getSession().setMode("ace/mode/json");
+	
+	//Fetch JSON data from the server
+	$.getJSON("/getAll/", function(data) {
+		var content = data['content'];
+		var carouselItems = data['carousel_items'];
+		var mainLinks = data['main_links'];
+		var dates = data['dates'];
+		console.log("Here1");
+
+		var contentSession = ace.createEditSession(content, "ace/mode/json");
+		var carouselItemSession = ace.createEditSession(carouselItems, "ace/mode/json");
+		var mainLinkSession = ace.createEditSession(mainLinks, "ace/mode/json");
+		var dateSession = ace.createEditSession(dates, "ace/mode/json");
+		editor.setSession(contentSession);
+	});
+
+ 
+ //  //Fired whenever a tab is switched
+	// $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+	// 	var element = e.relatedTarget;
+	// 	console.log(element);
+	// 	var text = element.html();
+	//   editor.getSession.setValue(text);
+	// })
+</script>
+{% endblock %}

@@ -3,6 +3,6 @@
 <h2>Change Dates <button type="button" class="btn btn-default pull-right" id="help" data-container="body" data-toggle="popover" data-placement="left" data-content="Sample Popover Text">Help</button></h2>
 There are {{ classes|length }} class periods, so you must enter {{ classes|length }} dates. These dates must be sequential in time, and must be entered in the MM/DD/YY format
 <form role="form" class="form-horizontal" method="post" action="{{ url_for('change_dates') }}">
-	<textarea rows="{{ classes|length }}" >Stuff</textarea>
+	<textarea rows="{{ classes|length }}" >{{ text }}</textarea>
 </form>
 {% endblock %}
