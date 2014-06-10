@@ -1,6 +1,6 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-from flaskext.bcrypt import Bcrypt
+from flask.ext.bcrypt import Bcrypt
 from momentjs import momentjs
 from rendering_options import options
 

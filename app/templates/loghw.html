@@ -88,7 +88,6 @@
 	{% endif -%}
 	<div class="{{ 'col-md-9' if render_scrollspy else 'col-md-12' }}" role="main">
 		<div id="homework">
-			<h3>Class Log and Homework<a type="button" class="btn btn-default pull-right" href="#" tabindex="-1">Search</a></h3>
 			<div class="panel-group" id="accordion">
 				{% if units -%}
 				{% for unit in units -%}
@@ -134,10 +133,12 @@
 </div>
 {% endblock -%}
 {% block scripts -%}
-//Activate scrollspy behavior
-$('body').scrollspy({ target: '#sidebar' });
-//Refresh scrollspy behavior whenever an accordion object is collapsed or uncollapsed
-$('#accordion').on('shown.bs.collapse hidden.bs.collapse', function () {
-	$('body').scrollspy('refresh');
-});
+<script>
+	//Activate scrollspy behavior
+	$('body').scrollspy({ target: '#sidebar' });
+	//Refresh scrollspy behavior whenever an accordion object is collapsed or uncollapsed
+	$('#accordion').on('shown.bs.collapse hidden.bs.collapse', function () {
+		$('body').scrollspy('refresh');
+	});
+</script>
 {%- endblock %}

@@ -8,6 +8,10 @@
   <li><a id="date-tab" href="#" data-toggle="pill">Dates</a></li>
 </ul>
 <div id="editor"></div>
+<div class="btn-group btn-group-justified btn-group-lg">
+	<a class="btn btn-info" id="verify" role="button">Verify</a>
+	<a class="btn btn-primary" id="submit" role="button">Submit</a>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -43,16 +47,28 @@
 		$("#date-tab").click(function() {
 			editor.setSession(dateSession);
 		});
+
+		$("#verify").click(function() {
+
+		});
+
+		$("#submit").click(function() {
+			var contentDict = JSON.parse(contentSession.getDocument().getAllLines().join(""));
+			var carouselItemDict = JSON.parse(carouselItemSession.getDocument().getAllLines().join(""));
+			var mainLinkDict = JSON.parse(mainLinkSession.getDocument().getAllLines().join(""));
+			var dateDict = JSON.parse(dateSession.getDocument().getAllLines().join(""));
+			console.log(dateDict);
+			var all = {"content":contentDict, "carousel_items":carouselItemDict, "main_links":mainLinkDict, "dates":dateDict};
+			console.log(JSON.stringify(all));
+			$.ajax({
+		    type : "POST",
+		    url : "/edit/",
+		    data: {"all": JSON.stringify(all)},
+		    success: function(result) {
+		        console.log(result);
+		    }
+			});
+		});
 	});
-
-
- 
- //  //Fired whenever a tab is switched
-	// $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
-	// 	var element = e.relatedTarget;
-	// 	console.log(element);
-	// 	var text = element.html();
-	//   editor.getSession.setValue(text);
-	// })
 </script>
 {% endblock %}

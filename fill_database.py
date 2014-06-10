@@ -46,7 +46,7 @@ for unit in topics:
 		class_model.week_of_year = int(pst_dt.strftime("%W"))
 
 		unit_model.addClass(class_model)
-	unit_model.hidden = False
+	unit_model.visible = True
 	db.session.add(unit_model)
 db.session.commit()
 

@@ -1,6 +1,6 @@
 {% extends 'layout.html' -%}
 {% block content -%}
-<h2>Edit Carousel Item<button type="button" class="btn btn-default pull-right" id="help" data-container="body" data-toggle="popover" data-placement="left" data-content="Sample text">Help</button></h2>
+<h2>Edit Carousel Item<button type="button" class="btn btn-default pull-right help" data-container="body" data-toggle="popover" data-placement="left" data-content="A carousel item is displayed on the main page. It encapsulates an image with a title and a description, and optional alternative text.">Help</button></h2>
 <div class="row">
   <div class="col-md-6">
     <form role="form" class="form-horizontal" method="post" action="{{ url_for('edit_carousel_item', item_id=id) }}">

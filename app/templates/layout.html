@@ -55,7 +55,12 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/">Home</a></li>
-						<li><a href="/loghw">Class Log and HW</a></li>
+						<li><a href="/loghw/">Class Log and HW</a></li>
+						{% if session['authorized'] %}
+						<li><a href="/admin/">Admin</a></li>
+						<li><a href="/edit/">Edit All</a></li>
+						<li><a href="/help/">Help (coming soon)</a></li>
+						{% endif %}
 					</ul>
 				</div><!--/.navbar-collapse-->
 			</div>

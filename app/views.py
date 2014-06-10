@@ -22,7 +22,7 @@ Carousel Item
 '''
 
 #Import useful packages and objects
-from flask import render_template, flash, redirect, url_for, request, Response
+from flask import render_template, flash, redirect, url_for, request, session, Response
 from functools import wraps
 from app import app, db, bcrypt
 from models import Unit, Class, CarouselItem, MainLink
@@ -71,6 +71,7 @@ def check_auth(username, password):
     #Checks to see if a username/password combination is valid
     for admin_username, pw_hash in admins.iteritems():
       if username == admin_username and bcrypt.check_password_hash(pw_hash, password):
+        session['authorized'] = True
         return True
     return False
 
@@ -84,7 +85,7 @@ def requires_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         auth = request.authorization #Have they validated previously?
-        if not auth or not check_auth(auth.username, auth.password):
+        if not auth or not check_auth(auth.username, auth.password) or not session.get('authorized'):
             return authenticate()
         return f(*args, **kwargs)
     return decorated
@@ -149,6 +150,11 @@ def loghw():
 #   flash('JSON files successfully updated')
 #   return redirect(url_for('index'))
 
+@app.route('/tests/')
+def tests():
+  return render_template('tests.html',
+    title="Old AP Tests and Solutions")
+
 ################
 #ADMINISTRATIVE#
 ################
@@ -178,7 +184,7 @@ def edit():
     
     #Construct all the JSON maps
     content=[unit_model.toJSON() for unit_model in unit_models]
-    dates=[]
+    dates=[class_model.pst_datetime.strftime('%m/%d/%y') for class_model in class_models]
     carousel_items = [carousel_item_model.toJSON() for carousel_item_model in carousel_item_models]
     main_links = [main_link_model.toJSON() for main_link_model in main_link_models]
 
@@ -189,7 +195,89 @@ def edit():
       dates=formatJSON(dates),
       title="Edit JSON")
   else: #POST method
-    return redirect(url_for('admin'))
+    # try: #Todo - better error catching
+      data = json.loads(request.form['all'])
+
+      # for key, value in data.iteritems():
+      #   print key, value
+      content, dates, carousel_items, main_links = data['content'], data['dates'], data['carousel_items'], data['main_links']
+      print content, dates, carousel_items, main_links
+      #Seconds since epoch at which a new PST day w/ physics begins
+      epoch_day_offsets = [timegm(time.strptime(t, "%m/%d/%y")) for t in dates]
+      
+      #Zip time info into the topics dictionary
+      date_iter = iter(epoch_day_offsets)
+
+      new_units = []
+      #Populate the topics into their respective units, with the dates loaded in too
+      for unit in content:
+        unit_model = Unit()
+        unit_model.title=unit['title']
+        unit_model.description=unit['description']
+        unit_model.visible = unit['visible']
+        for cl in unit['classes']:
+          class_model = Class() #Make an empty model
+
+          #Fill it with topical values
+          for item in cl['items']:
+            class_model.addItem(item)
+          class_model.homework=cl['homework']
+          if 'additional' in cl:
+            class_model.additional = cl['additional']
+
+          #Fill it with time values (could mess up here)
+          t = date_iter.next() #Seconds since epoch of a new UTC day - could throw an error
+          pst_dt = dt.utcfromtimestamp(t) #Datetime representing the local date and time
+          class_model.epoch_time = t + pst_offset #Seconds since epoch of a new PST day
+          class_model.pst_datetime = pst_dt
+          class_model.day_of_week = int(pst_dt.strftime("%w")) #1 = Monday, 2 = Tuesday, ..., 5 = Friday
+          class_model.week_of_year = int(pst_dt.strftime("%W"))
+
+          unit_model.addClass(class_model)
+        new_units.append(unit_model)
+
+      new_carousel_items = []
+      #Add carousel items
+      for item in carousel_items:
+        new_item = CarouselItem()
+        if 'title' in item:
+          new_item.title=item['title']
+        if 'description' in item:
+          new_item.description=item['description']
+        if 'src' in item:
+          new_item.src=item['src']
+        if 'alt' in item:
+          new_item.alt=item['alt']
+        new_carousel_items.append(new_item)
+
+
+      new_main_links = []
+      for link in main_links:
+        new_link = MainLink()
+        if 'link' in link:
+          new_link.link = link['link']
+        if 'media-type' in link:
+          new_link.media_type = link['media-type']
+        new_main_links.append(new_link);
+
+      #Now that we have all the models, clear the database and push all the new values on
+      Unit.query.delete()
+      Class.query.delete()
+      CarouselItem.query.delete()
+      MainLink.query.delete()
+
+      for unit_model in new_units:
+        db.session.add(unit_model)
+      for carousel_item_model in new_carousel_items:
+        db.session.add(carousel_item_model)
+      for main_link_model in new_main_links:
+        db.session.add(main_link_model)
+      db.session.commit()
+      flash('Successfully updated database to reflect changes')
+    # # except Exception as e:
+    #   print "Error: " + repr(e)
+    #   flash('Uncaught Exception: {0}'.format(e), category='error')
+      return redirect(url_for('admin'))
 
 @app.route('/getAll/', methods=['GET'])
 def getAll():
@@ -200,7 +288,7 @@ def getAll():
   
   #Construct all the JSON maps
   content=[unit_model.toJSON() for unit_model in unit_models]
-  dates=[]
+  dates=[class_model.pst_datetime.strftime('%m/%d/%y') for class_model in class_models]
   carousel_items = [carousel_item_model.toJSON() for carousel_item_model in carousel_item_models]
   main_links = [main_link_model.toJSON() for main_link_model in main_link_models]
 
@@ -210,6 +298,49 @@ def getAll():
   out['main_links']=main_links
   out['dates']=dates
   return json.dumps(out)
+
+@app.route('/help/')
+def help():
+  return render_template('help.html',
+    title="Help")
+
+##############
+#UPLOAD FILES#
+##############
+@app.route('/upload/', methods=['GET'])
+def upload():
+  return render_template('upload.html')
+
+
+@app.route('/+upload/', methods=['GET', 'POST'])
+def uploadAux():
+  print request
+  print request.files
+  if request.method == 'GET':
+      # we are expected to return a list of dicts with infos about the already available files:
+      file_infos = []
+      for file_name in list_files():
+          file_url = url_for('download', file_name=file_name)
+          file_size = get_file_size(file_name)
+          file_infos.append(dict(name=file_name,
+                                 size=file_size,
+                                 url=file_url))
+      return jsonify(files=file_infos)
+
+  if request.method == 'POST':
+      # we are expected to save the uploaded file and return some infos about it:
+      #                              vvvvvvvvv   this is the name for input type=file
+      data_file = request.files.get('data_files')
+      file_name = data_file.filename
+      save_file(data_file, file_name)
+      file_size = get_file_size(file_name)
+      file_url = url_for('download', file_name=file_name)
+      # providing the thumbnail url is optional
+      thumbnail_url = url_for('thumbnail', file_name=file_name)
+      return jsonify(name=file_name,
+                     size=file_size,
+                     url=file_url,
+                     thumbnail=thumbnail_url)
 
 ############
 #Edit Units#
