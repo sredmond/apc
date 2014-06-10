@@ -8,4 +8,4 @@ context.use_privatekey_file('/usr/share/menlo/apphysics.menloschool.org.key')
 context.use_certificate_file('/usr/share/menlo/apphysics.menloschool.org.crt')
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', debug=True, ssl_context=context)
+	app.run(host='0.0.0.0', debug=False, ssl_context=context)

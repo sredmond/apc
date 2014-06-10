@@ -1,10 +1,14 @@
 Flask==0.10.1
+Flask-Bcrypt==0.6.0
+Flask-SQLAlchemy==1.0
 Jinja2==2.7.1
 MarkupSafe==0.18
+SQLAlchemy==0.9.4
 Tempita==0.5.1
 Werkzeug==0.9.4
 decorator==3.4.0
 gunicorn==18.0
 itsdangerous==0.23
 pbr==0.5.23
+py-bcrypt==0.4
 wsgiref==0.1.2
