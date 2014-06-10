@@ -1,0 +1,10 @@
+#List of folders and files to ignore when rsyncing over to the APC server
+progress
+*/.DS_Store
+venv
+app.db
+Procfile
+runp-heroku.py
+requirements.txt
+*.pyc
+app/*.pyc
