@@ -1,4 +1,4 @@
-#!venv/bin/python
+#!/usr/bin/env python
 
 #Let's assume all JSON files are perfectly formatted, shall we?
 # (this also means we have more times than class periods)
