@@ -1,5 +1,5 @@
-{% extends 'layout.html' -%}
-{% block content -%}
+{% extends 'layout.html' %}
+{% block content %}
 <!-- Nav tabs -->
 <ul class="nav nav-pills nav-justified">
   <li class="active"><a id="content-tab" href="#" data-toggle="pill">Content (Units and Classes)</a></li>
@@ -49,7 +49,11 @@
 		});
 
 		$("#verify").click(function() {
-
+			var contentDict = JSON.parse(contentSession.getDocument().getAllLines().join(""));
+			var carouselItemDict = JSON.parse(carouselItemSession.getDocument().getAllLines().join(""));
+			var mainLinkDict = JSON.parse(mainLinkSession.getDocument().getAllLines().join(""));
+			var dateDict = JSON.parse(dateSession.getDocument().getAllLines().join(""));
+			//Verify Content
 		});
 
 		$("#submit").click(function() {
@@ -65,7 +69,7 @@
 		    url : "/edit/",
 		    data: {"all": JSON.stringify(all)},
 		    success: function(result) {
-		        console.log(result);
+		    	alert("Updated Information");
 		    }
 			});
 		});

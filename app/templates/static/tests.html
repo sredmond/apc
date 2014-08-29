@@ -1,5 +1,5 @@
-{% extends 'layout.html' -%}
-{% block content -%}
+{% extends 'layout.html' %}
+{% block content %}
 <h1>Old AP Tests and Solutions</h1>
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">
@@ -13,13 +13,20 @@
 			</tr>
 		</thead>
 		<tbody>
+		{% for year in tests %}
 			<tr>
-				<td>1999</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>{{ year }}</td>
+				{% for type in ['MQ','EMQ','MS','EMS'] %}
+				<td>
+				{% if tests[year][type] %}
+					<a href="{{ tests[year][type] }}">Click Me!</a>
+				{% else %}
+					Unavailable
+				{% endif %}
+				</td>
+				{% endfor %}
 			</tr>
+		{% endfor %}
 		</tbody>
 	</table>
 </div>

@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% macro carousel_image(title, description, img_src, alt, active=False) -%}
+{% macro carousel_image(title, description, img_src, alt, active=False) %}
 <div class="{{'item active' if active else 'item' }}">
   <a href="{{ img_src }}"><img class="carousel-img" src="{{ img_src }}" alt="{{ alt }}"></a>
   <div class="carousel-caption">
@@ -7,23 +7,23 @@
     <p>{{ description }}</p>
   </div>
 </div>
-{%- endmacro %}
-{% block content -%}
+{% endmacro %}
+{% block content %}
 <h1>Welcome to AP Physics C <small>with Dr. Dann</small></h1>
-{% if render_carousel -%}
+{% if render_carousel %}
 <div id="physics-carousel" class="carousel slide hidden-xs" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-  {% for item in carousel_items -%}
+  {% for item in carousel_items %}
     <li data-target="#physics-carousel" data-slide-to="{{ loop.index0 }}" class="{{ 'active' if loop.first }}"></li>
-  {%- endfor %}
+  {% endfor %}
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
-  {% for item in carousel_items -%}
+  {% for item in carousel_items %}
   	{{ carousel_image(item.title, item.description, item.src, item.alt, active=loop.first) }}
-  {%- endfor %}
+  {% endfor %}
   </div>
 
   <!-- Controls -->
@@ -34,27 +34,27 @@
     <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
 </div>
-{% endif -%}
-{% if render_main_links -%}
+{% endif %}
+{% if render_references %}
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
 				<td>#</td>
-				<td>Link</td>
+				<td>Reference</td>
 				<td>Media Type</td>
 			</tr>
 		</thead>
 		<tbody>
-		{% for l in main_links %}
+		{% for ref in references %}
 			<tr>
 				<td>{{ loop.index }}</td>
-				<td>{{ l.link|safe }}</td>
-				<td>{{ l.media_type }}</td>
+				<td><a href="{{ ref.href }}">{{ ref.title }}</td>
+				<td>{{ ref.media_type }}</td>
 			</tr>
 		{% endfor %}
 		</tbody>
 	</table>
 </div>
-{% endif -%}
-{%- endblock %}
+{% endif %}
+{% endblock %}

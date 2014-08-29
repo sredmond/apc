@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Edit Lesson</h2>
+<form role="form" class="form-horizontal" method="post" action="{{ url_for('edit_lesson', lesson_id=id) }}">
+	<div class="form-group">
+		<label for="class-log">Class Log</label>
+	{% for item in lesson.get_all_items() %}
+		<input type="text" class="form-control" id="{{ 'log' ~ loop.index }}" name="{{ 'log' ~ loop.index }}" value="{{ item }}" placeholder="{{ item }}">
+	{% endfor %}
+	</div>
+	<div class="form-group">
+	    <label for="homework">Homework</label>
+	    <input type="text" class="form-control" id="homework" name="homework" value="{{ lesson.homework }}" placeholder="{{ lesson.homework }}">
+  </div>
+  <div class="form-group">
+    <label for="additional">Additional</label>
+    <input type="text" class="form-control" id="additional" name="additional" value="{{ lesson.additional }}" placeholder="{{ lesson.additional if lesson.additional else 'Optional: Additional Information Here' }}">
+  </div>
+  <button type="submit" class="btn btn-primary" tabindex="-1">Update</button>
+</form>
+{% endblock %}

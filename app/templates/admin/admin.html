@@ -1,6 +1,6 @@
-{% extends 'layout.html' -%}
-{% block content -%}
-<h1>Administrative View<a type="button" class="btn btn-default pull-right" href="{{ url_for('edit') }}" tabindex="-1">Edit as JSON</a></h1>
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Administrative View<a role="button" class="btn btn-default pull-right" href="{{ url_for('edit') }}" tabindex="-1">Edit as JSON</a></h1>
 <!--Units-->
 <h2>Units</h2>
 <div class="panel-group">
@@ -9,7 +9,7 @@
 		<div class="panel-heading">
 			<h4 class="panel-title">
 				<a data-toggle="collapse" data-target="{{ '#collapse-unit' ~ loop.index }}">
-				(#{{ u.id }}): {{ u.title }}
+				(#{{ u.id }}): {{ u.title }} (Starts {{ momentjs(u.lessons.first().epoch_time).calendar() }})
 				</a>
 				<a href="{{ url_for('edit_unit', unit_id=u.id) }}" class="pull-right">Edit Unit</a>
 			</h4>
@@ -21,8 +21,10 @@
 					<dd>{{ u.title }}</dd>
 					<dt>Description</dt>
 					<dd>{{ u.description }}</dd>
-					<dt>Number of Classes</dt>
-					<dd>{{ u.classes.all()|length }}</dd>
+					<dt>Number of Lessons</dt>
+					<dd>{{ u.lessons.all()|length }}</dd>
+					<dt>Visible?</dt>
+					<dd>{{ u.visible }}</dd>
 				</dl>
 			</div>
 		</div>
@@ -32,55 +34,51 @@
 	{% endfor %}
 </div>
 <!--End Units-->
-<!--Classes-->
-<h2>Classes</h2>
+<!--Lessons-->
+<h2>Lessons</h2>
 <div class="panel-group">
-	{% for c in classes %}
+	{% for lesson in lessons %}
 	<div class="panel panel-info">
 		<div class="panel-heading">
 			<h4 class="panel-title">
-				<a data-toggle="collapse" data-target="{{ '#collapse-class' ~ loop.index }}">
-					(#{{ c.id }}): {{ momentjs(c.epoch_time).calendar() }}
+				<a data-toggle="collapse" data-target="{{ '#collapse-lesson' ~ loop.index }}">
+					(#{{ lesson.id }}): {{ momentjs(lesson.epoch_time).calendar() }}
 				</a>
-				<a href="{{ url_for('edit_class', class_id=c.id) }}" class="pull-right">Edit Class</a>
+				<a href="{{ url_for('edit_lesson', lesson_id=lesson.id) }}" class="pull-right">Edit Lesson</a>
 			</h4>
 		</div>
-		<div id="{{ 'collapse-class' ~ loop.index }}" class="panel-collapse collapse">
+		<div id="{{ 'collapse-lesson' ~ loop.index }}" class="panel-collapse collapse">
 			<div class="panel-body">
 				<dl class="dl-horizontal">
-					<dt>Class Log</dt>
+					<dt>Items</dt>
 					<dd>
 						<ul class="list-unstyled">
-						{% for item in c.getItems() %}
+						{% for item in lesson.get_items() %}
 							<li>{{ item }}</li>
 						{% else %}
-							<li>No items in class log</li>
+							<li>No items in log</li>
 						{% endfor %}
 						</ul>
 					</dd>
 					<dt>Homework</dt>
-					<dd>{{ c.homework }}</dd>
+					<dd>{{ lesson.homework }}</dd>
 					<dt>Additional</dt>
-					<dd>{{ c.additional }}</dd>
-					<dt>Unit</dt>
-					<dd>#{{ c.unit_id }}</dd>
+					<dd>{{ lesson.additional }}</dd>
+					<dt>Belongs To: </dt>
+					<dd>Unit #{{ lesson.unit_id }}</dd>
 					<dt>Date</dt>
-					<dd>{{ momentjs(c.epoch_time).format('dddd[, ]MMMM Do') }}</dd>
-					<dt>Day of Week</dt>
-					<dd>{{ c.day_of_week }}</dd>
+					<dd>{{ momentjs(lesson.epoch_time).format('dddd[, ]MMMM Do') }}</dd>
 					<dt>Week of Year</dt>
-					<dd>{{ c.week_of_year }}</dd>
-					<dt>Seconds Since Epoch</dt>
-					<dd>{{ c.epoch_time }}</dd>
+					<dd>{{ lesson.week_of_year }}</dd>
 				</dl>
 			</div>
 		</div>
 	</div>
 	{% else %}
-	<p>There are no classes in the database.</p>
+	<p>There are no lessons in the database.</p>
 	{% endfor %}
 </div>
-<!--End Classes-->
+<!--End Lessons-->
 <!--Carousel Items-->
 <h2>Carousel Items</h2>
 <div class="panel-group">
@@ -91,7 +89,7 @@
 				<a data-toggle="collapse" data-target="{{ '#collapse-item' ~ loop.index }}">
 					(#{{ item.id }}): {{ item.title }}
 				</a>
-				<a href="{{ url_for('edit_carousel_item', item_id=item.id) }}" class="pull-right">Edit Item</a>
+				<a href="{{ url_for('edit_carousel', item_id=item.id) }}" class="pull-right">Edit Item</a>
 			</h4>
 		</div>
 		<div id="{{ 'collapse-item' ~ loop.index }}" class="panel-collapse collapse">
@@ -114,33 +112,35 @@
 	{% endfor %}
 </div>
 <!--End Carousel Items-->
-<!--Main Links-->
-<h2>Main Page Links</h2>
+<!--References-->
+<h2>References</h2>
 <div class="panel-group">
-	{% for l in main_links %}
+	{% for ref in references %}
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4 class="panel-title">
-				<a data-toggle="collapse" data-target="{{ '#collapse-link' ~ loop.index }}">
-					(#{{ l.id }}): {{ l.link }}
+				<a data-toggle="collapse" data-target="{{ '#collapse-ref' ~ loop.index }}">
+					(#{{ ref.id }}): {{ ref.title }}
 				</a>
-				<a href="{{ url_for('edit_main_link', link_id=l.id) }}" class="pull-right">Edit Link</a>
+				<a href="{{ url_for('edit_reference', reference_id=ref.id) }}" class="pull-right">Edit Reference</a>
 			</h4>
 		</div>
-		<div id="{{ 'collapse-link' ~ loop.index }}" class="panel-collapse collapse">
+		<div id="{{ 'collapse-ref' ~ loop.index }}" class="panel-collapse collapse">
 			<div class="panel-body">
 				<dl class="dl-horizontal">
 					<dt>Title</dt>
-					<dd>{{ l.link }}</dd>
+					<dd>{{ ref.title }}</dd>
+					<dt>Link</dt>
+					<dd>{{ ref.href }}</dd>
 					<dt>Media Type</dt>
-					<dd>{{ l.media_type }}</dd>
+					<dd>{{ ref.media_type }}</dd>
 				</dl>
 			</div>
 		</div>
 	</div>
 	{% else %}
-	<p>There are no main page links in the database.</p>
+	<p>There are no references in the database.</p>
 	{% endfor %}
 </div>
-<!--End Main Links-->
-{%- endblock %}
+<!--End References-->
+{% endblock %}

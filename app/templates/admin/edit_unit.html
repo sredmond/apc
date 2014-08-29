@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Edit Unit</h2>
+<form role="form" class="form-horizontal" method="POST" action="{{ url_for('edit_unit', unit_id=unit.id) }}">
+	<div class="form-group">
+	    <label for="title">Title</label>
+	    <input type="text" class="form-control" id="title" name="title" value="{{ unit.title }}" placeholder="{{ unit.title }}" required>
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea type="text" class="form-control" id="description" name="description" rows="3" placeholder="{{ unit.description }}" required>{{ unit.description }}</textarea> 
+  </div>
+  <button type="submit" class="btn btn-primary" tabindex="-1">Update!</button>
+</form>
+<h4>Associated lessons</h4>
+<div class="panel-group">
+	{% for lesson in unit.lessons.all() %}
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-target="{{ '#collapse-lesson' ~ loop.index }}">
+					(#{{ lesson.id }}): {{ momentjs(lesson.epoch_time).calendar() }}
+				</a>
+				<a href="{{ url_for('edit_lesson', lesson_id=lesson.id) }}" class="pull-right">Edit Lesson</a>
+			</h4>
+		</div>
+		<div id="{{ 'collapse-lesson' ~ loop.index }}" class="panel-collapse collapse">
+			<div class="panel-body">
+				<dl class="dl-horizontal">
+					<dt>Class Log</dt>
+					<dd>
+						<ul class="list-unstyled">
+						{% for item in lesson.get_items() %}
+							<li>{{ item }}</li>
+						{% else %}
+							<li>No items in log</li>
+						{% endfor %}
+						</ul>
+					</dd>
+					<dt>Homework</dt>
+					<dd>{{ lesson.homework }}</dd>
+					<dt>Additional</dt>
+					<dd>{{ lesson.additional }}</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	{% else %}
+	<p>None</p>
+	{% endfor %}
+</div>
+{% endblock %}
