@@ -1,10 +1,10 @@
 [
   {
-    "unit-title":"Relativity",
-    "unit-description":"Dr. Dann, write a description to go here.",
-    "unit-classes":[
+    "title":"Relativity",
+    "description":"Dr. Dann, write a description to go here.",
+    "lessons":[
       {
-        "class-log":[
+        "items":[
           "Pass back finals (Note: You can come by after school to go over thoroughly)",
           "Seeing relativity",
           "Problems with classical physics",
@@ -13,13 +13,13 @@
         "homework":"How it works wed. articles and mini- papers"
       },
       {
-        "class-log":[
+        "items":[
           "How it works Wed."
         ],
         "homework":"Read Relativity hand out Ch. 1"
       },
       {
-        "class-log":[
+        "items":[
           "Recap speed of light and the idea of an Invariant, free float frame and the bizarre universe we live in",
           "Relativity triangle",
           "EPR Paradox",
@@ -30,7 +30,7 @@
         "homework":"Relativity HW: 1-3,1-5,1-7,1-9"
       },
       {
-        "class-log":[
+        "items":[
           "Go over HW",
           "Recap Big Ideas of Relativity",
           "Twin Paradox",
@@ -41,7 +41,7 @@
         "homework":"Read Ch. 2 of handout pgs 25-29 and do 2-1,2-3,2-4. Also Read Ch. 3 of handout 53-65 in packet and 3-1,3-3,3-4,3-6"
       },
       {
-        "class-log":[
+        "items":[
           "Go over HW",
           "Derive time dialation and length contraction from invariant",
           "Simultaneity and spark paradox",
@@ -51,7 +51,7 @@
         "homework":"Read rest of packet pgs 71-77 and do 3-5,3-7,3-8,3-14, 3-11* (*=optional)"
       },
       {
-        "class-log":[
+        "items":[
           "How it works",
           "3-7 (class problem)",
           "Pole and barn paradox presented and partially resovled...",
@@ -61,7 +61,7 @@
         "additional":"<a href='https://www.youtube.com/v/lsCbaXn6Jew'>Barn-Pole paradox resolved qualitatively </a>"
       },
       {
-        "class-log":[
+        "items":[
           "Go over HW",
           "Space-Time Diagrams",
           "Barn paradox resolved with Space-Time Diagram",
@@ -70,13 +70,13 @@
         "homework":"Do 5-4, 5-2, 5-5* and 5-6* (* optional. Make sure have done others and understand them)"
       },
       {
-        "class-log":[
+        "items":[
           "Relativity Review Day"
         ],
         "homework":"Study for Relativity Quiz"
       },
       {
-        "class-log":[
+        "items":[
           "Relativity Test"
         ],
         "homework":"Chill"
@@ -84,11 +84,11 @@
     ]
   },
   {
-    "unit-title":"Simple Harmonic Motion",
-    "unit-description":"Dr. Dann, write a description to go here.",
-    "unit-classes":[
+    "title":"Simple Harmonic Motion",
+    "description":"Dr. Dann, write a description to go here.",
+    "lessons":[
       {
-        "class-log":[
+        "items":[
           "harmonic and simple harmonic motion (SHM)",
           "Demo of mass on a spring",
           "Solving 2nd order differential equations and solving for x(t) in SHM",
@@ -97,7 +97,7 @@
         "homework":"Ch.17 MC #4,5; Ex#1,4,7,15,21"
       },
       {
-        "class-log":[
+        "items":[
           "HW review",
           "Simple Pendulums",
           "Physical and Torsion pendulums",
@@ -106,13 +106,13 @@
         "homework":"Ch. 17 Ex#17,25,27; Prob #13"
       },
       {
-        "class-log":[
+        "items":[
           "Harmonic Motion Lab (day 1)"
         ],
         "homework":"Ch. 17 Ex# 37,38; Prob# 16"
       },
       {
-        "class-log":[
+        "items":[
           "HW Questions",
           "Damping",
           "Resonance",
@@ -121,13 +121,13 @@
         "homework":"Ch.17 Q#18,19;  Ex#46,51; Prob#11,12* (*=optional)"
       },
       {
-        "class-log":[
+        "items":[
           "Harmonic Motion Lab (day 2)"
         ],
         "homework":"Lab Report due Monday"
       },
       {
-        "class-log":[
+        "items":[
           "HW Q's and/or Questions below",
           "Ch. 17 Q#5,8,13",
           "Ch. 17 #29,33,37,38 Prob# 8, 18"
@@ -136,14 +136,14 @@
         "additional":"NOTE TO SELF: PUT up one of the SHM tests for practice with Solutions. Make a new one when have time. OR fix up practice test. Must have a write the diffy Eqn. part to it... and a damping problem... Also start on this <a href='../APC/Practice Tests/SHM Practice Test/SHM_test.pdf'>Practice test</a> with Solutions: <a href='../APC/Practice Tests/SHM Practice Test/page1.jpeg'>pg1</a>, <a href='../APC/Practice Tests/SHM Practice Test/page2.jpeg'>pg2</a> (disclaimer: the quiz you will get is a little harder and includes the material on damping and resonance learned in the lab and HW)"
       },
       {
-        "class-log":[
+        "items":[
           "How it Works",
           "Review Day"
         ],
         "homework":"Study for SHM test"
       },
       {
-        "class-log":[
+        "items":[
           "Test on SHM"
         ],
         "homework":"Chill"
@@ -151,11 +151,11 @@
     ]
   },
   {
-    "unit-title":"Electrostatics",
-    "unit-description":"Dr. Dann, write a description to go here.",
-    "unit-classes":[
+    "title":"Electrostatics",
+    "description":"Dr. Dann, write a description to go here.",
+    "lessons":[
       {
-        "class-log":[
+        "items":[
           "Intro Electrostatics",
           "3rd Conservation Law",
           "Coulomb's Law both discrete and continuous (begin)",
@@ -164,7 +164,7 @@
         "homework":"Ch 25 Q# 1,2,3,6,13,16; MC# 1,4,5,6,7; Ex#1,5; Prob #5,6"
       },
       {
-        "class-log":[
+        "items":[
           "How it Works (chris Sauer)",
           "Continuous Charge distribution",
           "the rod, the ring and the disk"
@@ -173,14 +173,14 @@
         "additional":"Check out our <a href='http://www.nytimes.com/interactive/2012/02/06/science/a-replacement-bridge-rises-on-the-bay.html?ref=science'>new Bay Bridge</a> and here's the <a href='http://www.nytimes.com/2012/02/07/science/to-survive-a-quake-new-bay-bridge-span-will-offer-least-resistance.html?_r=1&emc=eta1'>full article</a>"
       },
       {
-        "class-log":[
+        "items":[
           "HW Q's",
           "Workday on Ch.25 Ex#23,25; Prob#8,9,11"
         ],
         "homework":"Finish above and read pgs 587 - 590 MC #7,8,9"
       },
       {
-        "class-log":[
+        "items":[
           "Recap Coulomb's",
           "HW questions",
           "electrostatics demonstrations: charge by contact, polarizing, induction,"
@@ -188,7 +188,7 @@
         "homework":"Study for Quiz on coulomb'law"
       },
       {
-        "class-log":[
+        "items":[
           "Group Quiz (note: big test will be individual, so make sure you can do it all on your own)"
         ],
         "homework":"Read pgs 587-590 and do Ch. 26 #4,18,20,21,24 (see to <a href='http://www.its.caltech.edu/~phys1/java/phys1/EField/EField.html'>E-feild simulation</a> to check your answers)"
@@ -196,18 +196,18 @@
     ]
   },
   {
-    "unit-title":"Gauss's Law",
-    "unit-description":"Dr. Dann, write a description to go here.",
-    "unit-classes":[
+    "title":"Gauss's Law",
+    "description":"Dr. Dann, write a description to go here.",
+    "lessons":[
       {
-        "class-log":[
+        "items":[
           "How it Works Sharon",
           "How it Works Chris"
         ],
         "homework":"ead pgs 587-590 and do Ch. 26 #4,18,20,21,24 (see to <a href='http://www.its.caltech.edu/~phys1/java/phys1/EField/EField.html'>E-feild simulation</a> to check your answers);"
       },
       {
-        "class-log":[
+        "items":[
           "HW and Reading questions",
           "Electric Field",
           "Dipole moments",
@@ -216,7 +216,7 @@
         "homework":"Ch.26 Ex#16,36,37, 39; Prob 7,12 (note that 7,12 are basically redundant to two problems done in last chapter. So refer there if having trouble)"
       },
       {
-        "class-log":[
+        "items":[
           "HW questions",
           "Do problems #4 and #10 in ch. 26",
           "(if time) intro Gauss' Law",
@@ -226,7 +226,7 @@
         "additional":"VOD on Gauss's Law"
       },
       {
-        "class-log":[
+        "items":[
           "Go over Questions",
           "Gauss' Law",
           "Warmup: Ex#10,15,17,19 and time to ask HW questions",
@@ -236,14 +236,14 @@
         "homework":"Ch. 27 MC#4,12,13; Ex#18,24,25; Prob #5"
       },
       {
-        "class-log":[
+        "items":[
           "How it works Wed",
           "Recap and Questions"
         ],
         "homework":"Finish HW from Class 2"
       },
       {
-        "class-log":[
+        "items":[
           "<a href='http://research.physics.illinois.edu/per/PHYS212/Player/'>Visuals from smart physics</a>:  Gauss's Law and Electric Fields",
           "Warmup: Ex#10,15,17,19 and time to ask HW questions",
           "Gauss' Law: conductors, dielectrics and the co-axial cable",
@@ -252,7 +252,7 @@
         "homework":"Finish the above problems started in class"
       },
       {
-        "class-log":[
+        "items":[
           "HW Q's and hints",
           "AP problem"
         ],
@@ -260,14 +260,14 @@
         "additional":"Also check out these mini lectures from <a href='../Visuals from smart physics'>smart physics</a>.  The visuals are real good. Study especially Gauss' Law and the electric field visuals and the integral technique of a line charge."
       },
       {
-        "class-log":[
+        "items":[
           "how it works",
           "Review for test"
         ],
         "homework":"Study up!"
       },
       {
-        "class-log":[
+        "items":[
           "Test on Gauss Law"
         ],
         "homework":"Chill"
@@ -275,11 +275,11 @@
     ]
   },
   {
-    "unit-title":"Electric Potential",
-    "unit-description":"Dr. Dann, write a description to go here.",
-    "unit-classes":[
+    "title":"Electric Potential",
+    "description":"Dr. Dann, write a description to go here.",
+    "lessons":[
       {
-        "class-log":[
+        "items":[
           "Cayley's unfortunate squirrel",
           "Electric Potential notes",
           "Ch. 28 Q # 1,2,4,8,12"
@@ -287,7 +287,7 @@
         "homework":"Ch. 28 Study table 28-1 and figure 28-5 also do MC#3,5,7,9; Ex#4,5,7 (recall Q=mL, L=80cal/g for water), 9, 13,19"
       },
       {
-        "class-log":[
+        "items":[
           " HW review",
           "Demo: understand equipotential -feel the pain!",
           "Demo: move the plates, increase the Volts, light the bulb!",
@@ -298,7 +298,7 @@
         "additional":"Julia don't even ask to change things tomorrow, we are in a time crunch... OK, you know i'm afraid of you... PLEASE don't ask"
       },
       {
-        "class-log":[
+        "items":[
           "How it works Wed.",
           "Quiz on Electropotential"
         ],
@@ -307,23 +307,23 @@
     ]
   },
   {
-    "unit-title":"Magnetism",
-    "unit-description":"Dr. Dann, write a description to go here.",
-    "unit-classes":[
+    "title":"Magnetism",
+    "description":"Dr. Dann, write a description to go here.",
+    "lessons":[
       {
-        "class-log":[
+        "items":[
           "Go over Q's on Potential Test",
           "Magnetism, domains and monopoles",
           "Demo: <a href='http://www.youtube.com/v/AKKpvVvvxkY'>electron laser</a> and helmholtz coils",
           "Demo: <a href='http://www.youtube.com/v/cUN1UHl8_u8'>Hall Effect</a>",
           "Hall Effect and force on a current carrying wire",
-          "Start HW "
+          "Start HW"
         ],
         "homework":"h. 32 Read pgs 725 - 732; and pgs. 735 - 740 and do MC#2,3,10,11,12; Ex#1,2,4,7,11,13,15, 25,26",
-        "additional":"See this video to recap <a href='http://www.youtube.com/v/JjO_VvBxzig'>Right Hand Rule"
+        "additional":"See this video to recap <a href='http://www.youtube.com/v/JjO_VvBxzig'>Right Hand Rule</a>"
       },
       {
-        "class-log":[
+        "items":[
           " HW Review",
           "Ch. 32 Q# 12,17,18,20,22",
           "Workday on Ch. 32 Prob#6,9,10*(*for the brave),11, 19"
@@ -331,7 +331,7 @@
         "homework":"Finish the above before tomorrow and do Ex #31,37"
       },
       {
-        "class-log":[
+        "items":[
           "Review: Ch. 32 Prob#19",
           "Demo: Oestard's surprise",
           "Paradox: momentum conservation apparent violation ",
@@ -340,13 +340,13 @@
         "homework":"Read pgs. 749 - 752 and do Ch. 33 MC#1.3,4;  Ex#5"
       },
       {
-        "class-log":[
+        "items":[
           "Biot Savart Law (be scared)"
         ],
         "homework":"Ch. 33  Q#4,13; Ex#21; Prob#1,3 and finish HW from previous night"
       },
       {
-        "class-log":[
+        "items":[
           "HW Q's and exercises",
           "B-field calculations: straight wire, solenoids",
           "Force between two wires"
@@ -354,7 +354,7 @@
         "homework":"Read 756-758 and do Ch. 33 MC#5,7,8-10; Ex#8,10,15,18; Prob#2"
       },
       {
-        "class-log":[
+        "items":[
           "HW Q's",
           "Ampere's law",
           "Ch.33 Q#17,24",
@@ -363,7 +363,7 @@
         "homework":"Ch.33 MC#12,13; Q#21; Ex#24,31,33,35,37; Prob#12"
       },
       {
-        "class-log":[
+        "items":[
           "How it works (Julia presenting. You best be doing your sheets. Yes that means you Hiro)",
           "HW Questions",
           "Workday on AP Problems (94E3)",
@@ -372,7 +372,7 @@
         "homework":"Ch. 33 Ex #23,26, Prob#11 also read section 33-6, we'll discuss tomorrow"
       },
       {
-        "class-log":[
+        "items":[
           "HW Questions",
           "Faraday's Law of Induction pg1",
           "Ring Launcher Demo and the lies we tell",
@@ -382,7 +382,7 @@
         "additional":"Partial <a href='../APC/Practice Tests/Review_Bfield_Forces_Solutions.pdf'>Solutions</a> to Review sheet "
       },
       {
-        "class-log":[
+        "items":[
           "Big Test on Magnetism"
         ],
         "homework":"Ch. 34 MC #1,3,6,7,10; Q#12,21; Ex#4,8,10 (unless you actually did it over the wkd. then take a night off and heckle your classmates who have HW tonight)"
@@ -390,11 +390,11 @@
     ]
   },
   {
-    "unit-title":"Faraday's Law and Inductance",
-    "unit-description":"Dr. Dann, write a description to go here.",
-    "unit-classes":[
+    "title":"Faraday's Law and Inductance",
+    "description":"Dr. Dann, write a description to go here.",
+    "lessons":[
       {
-        "class-log":[
+        "items":[
           "Go over questions",
           "Faraday's Law of Induction recap",
           "Eddy Currents",
@@ -403,7 +403,7 @@
         "homework":"h.34 Q#9; Ex# 13,17,22,23;"
       },
       {
-        "class-log":[
+        "items":[
           "Go over questions",
           "HW Review (work in class helping eachother with HW questions)",
           "Back Emf",
@@ -413,7 +413,7 @@
         "homework":"ch.34 Q#25; ; Prob#5,9"
       },
       {
-        "class-log":[
+        "items":[
           "HW Review",
           "there are electric fields and then there are electric fields ...",
           "Kirkoff's Law is for the Birds!",
@@ -423,7 +423,7 @@
         "homework":"Ch. 34 Ex#29; Prob#8,11,13 (quiz tomorrow, it can be a group quiz if someone compliments my shoes)"
       },
       {
-        "class-log":[
+        "items":[
           "Inductor circuits",
           "Demo: resonant circuit"
         ],
@@ -431,7 +431,7 @@
         "additional":"VOD on <a href='https://www.youtube.com/v/b5NmxLVu8lQ'>LR Circuits</a>"
       },
       {
-        "class-log":[
+        "items":[
           "Go over Questions",
           "Work HW Problems",
           "Ch. 36 Ex#18,19,41,44"
@@ -439,7 +439,7 @@
         "homework":"Finish the above"
       },
       {
-        "class-log":[
+        "items":[
           "Quiz on Faraday's Law and Inductance"
         ],
         "homework":"Chill"
@@ -447,62 +447,62 @@
     ]
   },
   {
-    "unit-title":"Review and Final",
-    "unit-description":"Dr. Dann, write a description to go here.",
-    "unit-classes":[
+    "title":"Review and Final",
+    "description":"Dr. Dann, write a description to go here.",
+    "lessons":[
       {
-        "class-log":[
+        "items":[
           "Lazar How it works",
           "Start Mechanics Review"
         ],
         "homework":"Go to my <a href='http://nova.menloschool.org/~jdann/APC/APC%20Tests/APC%20Tests.htm'>AP TEST</a> Site and do 2009 Mechanics Test all three FR problems.  Time yourself (45 minutes) and grade yourself."
       },
       {
-        "class-log":[
+        "items":[
           "Go over 2009 test",
           "Mech MC Test Practice (go over every 10 q's)"
         ],
         "homework":"Go to my <a href='http://nova.menloschool.org/~jdann/APC/APC%20Tests/APC%20Tests.htm'>AP TEST</a> Site and do 2010 Mechanics Test all three FR problems.  Time yourself (45 minutes) and grade yourself. We'll go over your Q's tomorrow on this. Study for the Final Exam Part I tomorrow."
       },
       {
-        "class-log":[
+        "items":[
           "Mech MC Test in Class. Mech FR Test during Tutorial period"
         ],
         "homework":"EM MC Test (time yourself -45 minutes)"
       },
       {
-        "class-log":[
+        "items":[
           "EM Review Questions",
           "Go Over 2009 EM MC Test"
         ],
         "homework":"Go to my <a href='http://nova.menloschool.org/~jdann/APC/APC%20Tests/APC%20Tests.htm'>AP TEST</a> Site and do 2010 EM Test all three FR problems.  Time yourself (45 minutes) and grade yourself.  Also do part d) of the one we did in class with dart and pendulum. Solutions are online (check them!)."
       },
       {
-        "class-log":[
+        "items":[
           "EM MC Test"
         ],
         "homework":"Chill."
       },
       {
-        "class-log":[
+        "items":[
           "EM FR Test"
         ],
         "homework":"Do as Many AP problems as possible and grade yourself"
       },
       {
-        "class-log":[
+        "items":[
           "Calc Test/Go over what ya want"
         ],
         "homework":"Do as Many AP problems as possible and grade yourself"
       },
       {
-        "class-log":[
+        "items":[
           "Go Over Mech Final Exam"
         ],
         "homework":"Do as Many AP problems as possible and grade yourself"
       },
       {
-        "class-log":[
+        "items":[
           "Go Over EM Final Exam"
         ],
         "homework":"Do as Many AP problems as possible and grade yourself",

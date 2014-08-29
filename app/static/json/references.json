@@ -1,0 +1,98 @@
+[
+	{
+		"href":"/static/resources/outline.pdf",
+		"title":"Course Outline",
+		"media-type":"PDF"
+	},
+	{
+		"href":"/static/resources/syllabus.pdf",
+		"title":"Syllabus",
+		"media-type":"PDF"
+	},
+	{
+		"href":"/tests",
+		"title":"Old AP Tests",
+		"media-type":"PDFs"
+	},
+	{
+		"href":"http://www.youtube.com/v/k-trDF8Yldc",
+		"title":"Under the Ruler",
+		"media-type":"Video (3:01)"
+	},
+	{
+		"href":"http://techchannel.att.com/play-video.cfm/2011/3/7/AT&amp;T-Archives-Similarities-of-Wave-Behavior",
+		"title":"Waves",
+		"media-type":"Video (28:02)"
+	},
+	{
+		"href":"http://www.youtube.com/v/49JwbrXcPjc",
+		"title":"Visualization of a Rotating Reference Frame",
+		"media-type":"Video (1:52)"
+	},
+	{
+		"href":"http://www.youtube.com/v/1kXWFqtIr6o",
+		"title":"Hurricanes",
+		"media-type":"Video (1:09)"
+	},
+	{
+		"href":"http://www.youtube.com/v/eqjl-qRy71w",
+		"title":"Kirchoff's Law is for the Birds",
+		"media-type":"Video (9:39)"
+	},
+	{
+		"href":"http://www.youtube.com/v/1bUWcy8HwpM",
+		"title":"Part II",
+		"media-type":"Video (6:59)"
+	},
+	
+	{
+		"href":"http://www.youtube.com/v/5IRfbC0RHsY",
+		"title":"Faraday Cage - I believe!",
+		"media-type":"Video (1:00)"
+	},
+	{
+		"href":"http://phet.colorado.edu/new/index.php",
+		"title":"PhET",
+		"media-type":"Applets"
+	},
+	{
+		"href":"http://www.falstad.com/mathphysics.html",
+		"title":"Falstad",
+		"media-type":"Applets"
+	},
+	{
+		"href":"http://www.its.caltech.edu/%7Ephys1/java/phys1/EField/EField.html",
+		"title":"Electric Field Simulation",
+		"media-type":"Simulation"
+	},
+	{
+		"href":"http://www.youtube.com/v/17jymDn0W6U",
+		"title":"Known Universe",
+		"media-type":"Video (6:31)"
+	},
+	{
+		"href":"http://static.flabber.net/files/scale-of-the-universe-2.swf",
+		"title":"Scale of Universe",
+		"media-type":"Applet"
+	},
+	{
+		"href":"http://www.youtube.com/v/j50ZssEojtM",
+		"title":"LHC Particle Rap",
+		"media-type":"Video (4:49)"
+	},
+	{
+		"href":"https://www.youtube.com/v/qQNpucos9wc",
+		"title":"LHC Accelerator",
+		"media-type":"Video (6:16)"
+	},
+	{
+		"href":"http://web.mit.edu/8.02t/www/802TEAL3D/visualizations/electrostatics/",
+		"title":"MIT Physics Visualizations",
+		"media-type":"Visualization"
+	},
+	{
+		"href":"http://imgur.com/f8a8ORy",
+		"title":"Earth's Magnetic Field",
+		"media-type":"Visualization"
+	}
+]
