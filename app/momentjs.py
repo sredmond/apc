@@ -6,8 +6,7 @@ class momentjs(object):
 		self.timestamp = timestamp #Time since epoch
 
 	def render(self, fmt):
-		return Markup('<script>\ndocument.write(moment.unix({0}).{1})\n</script>'.format(self.timestamp, fmt))
-		# return Markup('<script>\ndocument.write(moment({0}).{1});\n</script>'.format(self.timestamp, fmt))
+		return Markup('<script>document.write(moment.unix({0}).{1})</script>'.format(self.timestamp, fmt))
 
 	def format(self, fmt):
 		return self.render('format("{0}")'.format(fmt))

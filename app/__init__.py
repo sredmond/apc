@@ -11,6 +11,10 @@ app.jinja_env.globals['momentjs'] = momentjs #Allow Jinja templates to use momen
 for key, value in options.iteritems():
 	app.jinja_env.globals[key] = value
 
+# Tell Jinja to strip whitespace
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
+
 db = SQLAlchemy(app)
 
 #Generate an encrypter

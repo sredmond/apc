@@ -9,6 +9,7 @@ progress
 
 # Database stuff
 app.db
+db_repository
 
 # Environmental Variables
 .env
