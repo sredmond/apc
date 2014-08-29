@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Physics Content",
+  "description": "The set of all information for a Physics class",
+  "type": "array",
+  "items": {
+    "title":"Unit",
+    "description":"One Physics Unit",
+    "type":"object",
+    "properties": {
+      "title": {
+        "type":"string"
+      },
+      "description": {
+        "type":"string"
+      },
+      "classes": {
+        "title":"Unit Classes",
+        "description":"All classes in a given unit",
+        "type":"array",
+        "items": {
+          "type":"object",
+          "properties": {
+            "items": {
+              "type":"array",
+              "items": {
+                "type":"string"
+              }
+            },
+            "homework": {
+              "type":"string"
+            },
+            "additional": {
+              "type":"string"
+            }
+          },
+          "required":["items", "homework"]
+        }
+      },
+      "visible": {
+        "type":"boolean"
+      }
+    },
+    "required":["title","description","classes","visible"]
+  }
+}
+
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Carousel Items",
+  "description": "The set of carousel items",
+  "type": "array",
+  "items": {
+    "title":"Carousel Item",
+    "description":"A single carousel item",
+    "type":"object",
+    "properties": {
+      "title": {
+        "type":"string"
+      },
+      "description": {
+        "type":"string"
+      },
+      "src": {
+        "type":"string"
+      },
+      "alt": {
+        "type":"string"
+      }
+    },
+    "required":["title","description","src"]
+  }
+}
+
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Dates",
+  "description": "The days on which a physics class meets",
+  "type": "array",
+  "items": {
+    "type":"string",
+    "pattern":"^[0?[1-9]|1[0-2]]/[[1-9]|1-2]\\d|3[0-1]]/[20]?\\d{2}"
+  }
+}
+
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Main Page Links",
+  "description": "The references that appear on the homepage",
+  "type": "array",
+  "items": {
+    "title":"References",
+    "description":"One particular reference"
+    "type":"object",
+    "properties": {
+      "link": {
+        "type":"string"
+      },
+      "media_type": {
+        "type":"string"
+      }
+    },
+    "required":["link","media_type"]
+  }
+}
+
