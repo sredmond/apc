@@ -1,52 +1,14 @@
+# Compiled Python files
 *.py[cod]
 
-# C extensions
-*.so
-
-# Packages
-*.egg
-*.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
-lib
-lib64
-__pycache__
-
-# Installer logs
-pip-log.txt
-
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
-
-# Translations
-*.mo
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
-
-# Virtual Environment
-venv
-
-#Progress images
+# Progress images
 progress
 
 # Folder Cruft
 .DS_Store
 
-#Database stuff
+# Database stuff
 app.db
-db_*
 
-#Random file
-system_requirements.txt
+# Environmental Variables
+.env
