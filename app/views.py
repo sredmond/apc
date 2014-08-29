@@ -2,16 +2,12 @@
 HTML is only at main link text, class log, hw, and additional
 
 TODO
-Big JSON editor
 Verify MainLink content
-Revamp Class edit
 Resource files
 (Modify rendering options?)
 
 TODO
 Form validation! I need to make sure Dr. Dann doesn't enter any weird html
-Add visibility to unit model edit (?) and add main link model
-Add Hopskotch help to all admin pages
 
 Verify main link content
 
@@ -24,55 +20,28 @@ Carousel Item
 #Import useful packages and objects
 from flask import render_template, flash, redirect, url_for, request, session, Response
 from functools import wraps
-from app import app, db, bcrypt
-from models import Unit, Class, CarouselItem, MainLink
 from datetime import datetime as dt
-import time
 from calendar import timegm
+import time
 import json
+from os import listdir
+import os.path
 
-#Dictionary of valid username:hashed_password pairs (using bcrypt)
-admins = {'jdann':'$2a$12$QI8bQfqc1Bscon9RjULyCu7umaBG4iLyghgC/0MnYkpADnXFaQen.'}
+from app import app, db, bcrypt
+from models import Unit, Lesson, CarouselItem, Reference
+from config import basedir, ADMIN_USERNAME, ADMIN_PASSWORD
 
 #8 hours, in seconds
-pst_offset = 8 * 60 * 60
+PST_OFFSET = 8 * 60 * 60
 
-# with open('app/static/json/topics.json') as f:
-#   topics = json.loads(f.read())
-
-# with open('app/static/json/times.json') as f:
-#   times = json.loads(f.read())
-
-# with open('app/static/json/carousel_items.json') as f:
-#   carousel_images = json.loads(f.read())
-
-# #Seconds since epoch at which a new PST day w/ physics begins
-# epoch_day_offsets = [timegm(time.strptime(t, "%m/%d/%y")) for t in times]
-
-# #Zip time info into the topics dictionary
-# try:
-#   time_iter = iter(epoch_day_offsets)
-#   for unit in topics:
-#     for cl in unit['unit-classes']:
-#       t = time_iter.next() #Seconds since epoch of a new UTC day - could throw an error
-#       dt_obj = dt.utcfromtimestamp(t) #Datetime representing the local date and time
-#       cl['time'] = t + pst_offset #Seconds since epoch of a new PST day
-#       cl['dt-obj'] = dt_obj
-#       cl['day-of-week'] = int(dt_obj.strftime("%w")) #1 = Monday, 2 = Tuesday, ..., 5 = Friday
-#       cl['week-of-year'] = int(dt_obj.strftime("%W"))
-# except Exception:
-#   print "Oh no! We've encountered an error."
-#   raise Exception("There are too many classes in the topics JSON file and not enough dates in the times JSON file. Ensure that there are at least as many dates as there are Physics classes.")
-
-###############
-#Authorization#
-###############
+# #############
+# Authorization
+# #############
 def check_auth(username, password):
-    #Checks to see if a username/password combination is valid
-    for admin_username, pw_hash in admins.iteritems():
-      if username == admin_username and bcrypt.check_password_hash(pw_hash, password):
-        session['authorized'] = True
-        return True
+    """Checks to see if a username/password combination is valid"""
+    if username == ADMIN_USERNAME and bcrypt.check_password_hash(ADMIN_PASSWORD, password):
+      session['authorized'] = True
+      return True
     return False
 
 def authenticate():
@@ -90,89 +59,50 @@ def requires_auth(f):
         return f(*args, **kwargs)
     return decorated
 
-#############
-#MAIN ROUTES#
-#############
+# ##################
+# APPLICATION ROUTES
+# ##################
 
 @app.route('/')
 @app.route('/index/')
 def index():
-  return render_template('index.html',
+  return render_template('app/index.html',
     title = 'Home',
     carousel_items=CarouselItem.query.all(),
-    main_links=MainLink.query.all())
+    references=Reference.query.all())
 
 @app.route('/loghw/')
 def loghw():
   seconds_since_epoch = time.time()
-  current_datetime = dt.utcfromtimestamp(seconds_since_epoch - pst_offset)
+  current_datetime = dt.utcfromtimestamp(seconds_since_epoch - PST_OFFSET)
 
   current_day_of_week = int(current_datetime.strftime("%w")) #1 is monday
   current_week_of_year = int(current_datetime.strftime("%W"))
-  current_week_classes = getClassesFromWeek(current_week_of_year)
+  current_lessons = get_lessons_from_week(current_week_of_year)
 
-  flash("Beyond simple harmonic motion, the class information was copied from last year's schedule. Dr. Dann will have to update it to correspond to this year (e.g. correct days for HIWW, etc). Once he does, this warning message will disappear forever.",category='warning')
+  # flash("Beyond simple harmonic motion, the class information was copied from last year's schedule. Dr. Dann will have to update it to correspond to this year (e.g. correct days for HIWW, etc). Once he does, this warning message will disappear forever.",category='warning')
 
-  return render_template('loghw.html',
+  return render_template('app/loghw.html',
     title='Class Log and HW',
-    units=[u for u in Unit.query.all() if u.isVisible()],
-    classes=current_week_classes,
+    units=Unit.query.filter(Unit.visible).all(),
+    lessons=current_lessons,
     day_of_week=current_day_of_week)
 
-# @app.route('/refreshJSON/')
-# def refreshJSON():
-#   global topics
-#   global times
-#   global carousel_images
-#   with open('app/static/json/topics.json') as f:
-#     newTopics = json.loads(f.read())
-#   with open('app/static/json/times.json') as f:
-#     newTimes = json.loads(f.read())
-#   with open('app/static/json/carousel_items.json') as f:
-#     newImages = json.loads(f.read())
-#   epoch_day_offsets = [timegm(time.strptime(t, "%m/%d/%y")) for t in newTimes]
-#   try:
-#     time_iter = iter(epoch_day_offsets)
-#     for unit in newTopics:
-#       for cl in unit['unit-classes']:
-#         t = time_iter.next() #Seconds since epoch of a new UTC day - could throw an error
-#         dt_obj = dt.utcfromtimestamp(t) #Datetime representing the local date and time
-#         cl['time'] = t + pst_offset #Seconds since epoch of a new PST day
-#         cl['dt-obj'] = dt_obj
-#         cl['day-of-week'] = int(dt_obj.strftime("%w")) #1 = Monday, 2 = Tuesday, ..., 5 = Friday
-#         cl['week-of-year'] = int(dt_obj.strftime("%W"))
-#   except Exception:
-#     flash("Oh no! There are too many classes in the topics JSON file and not enough dates in the times JSON file. Ensure that there are at least as many dates as there are Physics classes before trying again.", category='error')
-#     return redirect(url_for('index'))
-#   topics = newTopics
-#   times = newTimes
-#   carousel_images = newImages
-#   flash('JSON files successfully updated')
-#   return redirect(url_for('index'))
-
-@app.route('/tests/')
-def tests():
-  return render_template('tests.html',
-    title="Old AP Tests and Solutions")
-
-################
-#ADMINISTRATIVE#
-################
+# ##############
+# ADMINISTRATIVE
+# ##############
 
 @app.route('/admin/')
 @requires_auth
 def admin():
-  return render_template('admin.html',
+  return render_template('admin/admin.html',
     title="Administrator",
     units=Unit.query.all(),
-    classes=Class.query.all(),
+    lessons=Lesson.query.all(),
     items=CarouselItem.query.all(),
-    main_links=MainLink.query.all())
+    references=Reference.query.all())
 
-####################
-#Edit All (as JSON)#
-####################
-#A full reassignment of the content of the website
+# Edit the database as JSON
 @app.route('/edit/', methods=['GET','POST'])
 @requires_auth
 def edit():
@@ -228,7 +158,7 @@ def edit():
           #Fill it with time values (could mess up here)
           t = date_iter.next() #Seconds since epoch of a new UTC day - could throw an error
           pst_dt = dt.utcfromtimestamp(t) #Datetime representing the local date and time
-          class_model.epoch_time = t + pst_offset #Seconds since epoch of a new PST day
+          class_model.epoch_time = t + PST_OFFSET #Seconds since epoch of a new PST day
           class_model.pst_datetime = pst_dt
           class_model.day_of_week = int(pst_dt.strftime("%w")) #1 = Monday, 2 = Tuesday, ..., 5 = Friday
           class_model.week_of_year = int(pst_dt.strftime("%W"))
@@ -301,12 +231,12 @@ def getAll():
 
 @app.route('/help/')
 def help():
-  return render_template('help.html',
+  return render_template('admin/help.html',
     title="Help")
 
-##############
-#UPLOAD FILES#
-##############
+# ############
+# Upload Files
+# ############
 @app.route('/upload/', methods=['GET'])
 def upload():
   return render_template('upload.html')
@@ -342,231 +272,190 @@ def uploadAux():
                      url=file_url,
                      thumbnail=thumbnail_url)
 
-############
-#Edit Units#
-############
+# ###########################
+# Edit/Update Model Instances
+# ###########################
 
-#Edit a particular unit
+# Edit a particular Unit
 @app.route('/units/edit/<int:unit_id>/', methods=['GET', 'POST'])
 @requires_auth
 def edit_unit(unit_id):
-  
-  #Make sure that the unit we're looking at exists
-  the_unit = Unit.query.get(unit_id)
-  if the_unit == None: #If it doesn't exist...
-    flash("Unit with ID={0} does not exist...".format(unit_id), category='error')
+  # Does this unit exist?
+  unit = Unit.query.get(unit_id)
+  if not unit:
+    flash("Unit with ID of `{0}` does not exist.".format(unit_id), category='error')
     return redirect(url_for('admin'))
 
-  if request.method == 'GET': #GET method
-    return render_template('edit_unit.html',
-      u=the_unit,
-      id=unit_id)
-
-  else: #POST method
+  # Edit
+  if request.method == 'GET':
+    return render_template('admin/edit_unit.html',
+      unit=unit)
+  # Update
+  else:
     f = request.form
-    if 'title' in f:
-      the_unit.title = f['title']
-    else:
-      flash("Units must have an associatied title", category='error')
+    if 'title' not in f or 'description' not in f or 'media-type' not in f:
+      flash("A Unit must contain a title and description. Did not update Unit {0}".format(unit_id), category='error')
       return redirect(url_for('admin'))
-    if 'description' in f:
-      the_unit.description = f['description']
-    else:
-      flash("Units must have an associatied description", category='error')
-      return redirect(url_for('admin'))
-    db.session.add(the_unit)
+    unit.title = f['title']
+    unit.description = f['description']
+    db.session.add(unit)
     db.session.commit()
 
-    flash("Successfully updated Unit #{0}: {1}".format(unit_id, the_unit.title), category='message')
+    flash("Successfully updated Unit #{0}: {1}".format(unit_id, unit.title), category='message')
     return redirect(url_for('admin'))
 
-##############
-#Edit Classes#
-##############
-
-#Edit a particular class
-@app.route('/classes/edit/<int:class_id>/', methods=['GET', 'POST'])
+# Edit a particular Lesson
+@app.route('/lessons/edit/<int:lesson_id>/', methods=['GET', 'POST'])
 @requires_auth
-def edit_class(class_id):
-  #Make sure that the class we're looking at exists
-  the_class = Class.query.get(class_id)
-  if the_class == None: #If it doesn't exist...
-    flash("Class with ID={0} does not exist...".format(class_id), category='error')
+def edit_lesson(lesson_id):
+  # Does this lesson exist?
+  lesson = Lesson.query.get(lesson_id)
+  if not lesson:
+    flash("A Lesson with ID of `{0}` does not exist.".format(lesson_id), category='error')
     return redirect(url_for('admin'))
 
-  if request.method == 'GET': #GET method
-    return render_template('edit_class.html',
-      cl=the_class,
-      id=class_id)
-  else: #POST method
-    #TODO - add validation here
-
-    #There is a better way to do this, rather than clear all logs and then add them back
-    the_class.clearItems()
-    items = [request.form['log1'],request.form['log2'],request.form['log3'],request.form['log4'],request.form['log5'],request.form['log6']]
+  # Edit
+  if request.method == 'GET': 
+    return render_template('admin/edit_lesson.html',
+      lesson=lesson)
+  # Update
+  else:
+    # All fields can contain HTML, so we need to validate here.
+    # TODO More efficient method
+    f = request.form
+    lesson.clearItems()
+    items = [f['log1'],f['log2'],f['log3'],f['log4'],f['log5'],f['log6']]
     for i in items:
       i = i.strip()
-      if (i != ""):
-        the_class.addItem(i)
+      # TODO Additional validation
+      if i != "":
+        lesson.addItem(i)
 
-    the_class.homework = request.form['homework']
-    the_class.additional = request.form['additional']
-    db.session.add(the_class)
+    lesson.homework = request.form['homework'] # TODO Additional validation
+    lesson.additional = request.form['additional'] # TODO Additional validation
+    db.session.add(lesson)
     db.session.commit()
 
-    flash("Successfully updated class #{0}".format(class_id))
+    flash("Successfully updated Lesson #{0}".format(class_id))
     return redirect(url_for('admin'))
 
-#Edit all classes as JSON
-@app.route('/edit_classes/', methods=['GET','POST'])
+# Edit a particular CarouselItem
+@app.route("/carousel/edit/<int:item_id>", methods=['GET','POST'])
 @requires_auth
-def edit_classes():
-  if request.method == 'GET': #GET method
-    return render_template('edit_classes.html',
-      classes=Class.query.all())
-  else: #POST method
-    return "Posted"
-
-
-#Change the dates associated with the classes
-@app.route("/change_dates/", methods=['GET','POST'])
-@requires_auth
-def change_dates():
-  if request.method == 'GET': #GET method
-    classes = Class.query.all()
-    s = []
-    for cl in classes:
-      s.append(str(cl.pst_datetime))
-    return render_template("change_dates.html",
-      text='\n'.join(s))
-  else: #POST method
-    return "Hello"
-
-#####################
-#Edit Carousel Items#
-#####################
-
-#Edit one particular carousel item
-@app.route("/carousel_items/edit/<int:item_id>", methods=['GET','POST'])
-@requires_auth
-def edit_carousel_item(item_id):
-  #Make sure that the item we're looking at exists
-  the_item = CarouselItem.query.get(item_id)
-  if the_item == None: #If it doesn't exist...
-    flash("Carousel Item with ID={0} does not exist...".format(item_id), category='error')
+def edit_carousel(item_id):
+  # Does this carousel item exist?
+  item = CarouselItem.query.get(item_id)
+  if not item:
+    flash("Carousel Item with ID of `{0}` does not exist.".format(item_id), category='error')
     return redirect(url_for('admin'))
+  
+  # Edit
   if request.method == 'GET': #GET method
     return render_template('edit_carousel_item.html',
-      item=the_item,
-      id=item_id)
-  else: #POST method
+      item=item)
+  # Update
+  else:
     f = request.form
-    if 'title' in f:
-      #It's totally fine to have HTML entities in the title. Jinja2 will escape them
-      the_item.title = f['title']
-    else:
-      flash("Carousel items must have an associated title.", category='error')
+    if 'title' not in f or 'description' not in f or 'src' not in f:
+      flash("A Carousel Item must contain a title, description, and src. Did not update Carousel Item {0}".format(item_id), category='error')
       return redirect(url_for('admin'))
-    if 'description' in f:
-      the_item.description = f['description']
-    else:
-      flash("Carousel items must have an associated description.", category='error')
-      return redirect(url_for('admin'))
-    if 'src' in f:
-      the_item.src = f['src']
-    else:
-      flash("Carousel items must have an associated source.", category='error')
-      return redirect(url_for('admin'))
-    if 'alt' in f:
-      the_item.alt = f['alt']
-    db.session.add(the_item)
+    
+    item.title = f['title']
+    item.description = f['description']
+    item.src = f['src']
+    item.alt = f.get('alt')  # Could be None
+    db.session.add(item)
     db.session.commit()
 
-    flash("Successfully updated Item #{0}: {1}".format(item_id, the_item.title), category='message')
+    flash("Successfully updated Carousel Item #{0}: {1}".format(item_id, item.title), category='message')
     return redirect(url_for('admin'))
 
-#################
-#EDIT MAIN LINKS#
-#################
-@app.route('/main_links/edit/<int:link_id>', methods=['GET','POST'])
-def edit_main_link(link_id):
-  #Make sure that the link we're looking at exists
-  the_link = MainLink.query.get(link_id)
-  if the_link == None: #If it doesn't exist...
-    flash("Main Link with ID={0} does not exist...".format(link_id), category='error')
+# Edit a particular Reference
+@app.route('/references/edit/<int:reference_id>', methods=['GET','POST'])
+def edit_reference(reference_id):
+  #Does this reference exist?
+  ref = Reference.query.get(reference_id)
+  if not ref:
+    flash("Reference with ID of `{0}` does not exist.".format(reference_id), category='error')
     return redirect(url_for('admin'))
 
-  if request.method == 'GET': #GET method
-    return render_template('edit_main_link.html',
-      l=the_link,
-      id=link_id)
-
-  else: #POST method
+  # Edit
+  if request.method == 'GET':
+    return render_template('admin/edit_reference.html',
+      ref=ref)
+  # Update
+  else:
     f = request.form
-    if 'link' in f:
-      the_unit.title = f['link']
-    else:
-      flash("Main Links must have an associatied link text", category='error')
+    if 'title' not in f or 'href' not in f or 'media-type' not in f:
+      flash("References must contain a title, href, and media-type. Did not update Reference {0}".format(reference_id), category='error')
       return redirect(url_for('admin'))
-    if 'media-type' in f:
-      the_unit.description = f['media-type']
-    else:
-      flash("Main Links must have an associated media type", category='error')
-      return redirect(url_for('admin'))
-    db.session.add(the_link)
+    ref.title = f['title']
+    ref.href = f['href']  # TODO Check for bad things here
+    ref.media_type = f['media-type']
+    db.session.add(ref)
     db.session.commit()
 
-    flash("Successfully updated Main Link #{0}: {1}".format(link_id, the_unit.title), category='message')
+    flash("Updated Reference #{0}: `{1}` ({2}) linked to `{3}`".format(reference_id, ref.title, ref.media_type, ref.href), category='message')
     return redirect(url_for('admin'))
 
-################
-#ERROR HANDLERS#
-################
-
-@app.errorhandler(404) #404 = Page Not Found
+# ##############
+# ERROR HANDLERS
+# ##############
+@app.errorhandler(404)  # 404 = Page Not Found
 def internal_error(error):
-    return render_template('404.html'), 404
+    return render_template('static/404.html'), 404
 
-@app.errorhandler(500) #500 = Internal server error
+@app.errorhandler(500)  # 500 = Internal server error
 def internal_error(error):
-    db.session.rollback() #Rollback the database in case a database error triggered the 500
-    return render_template('500.html'), 500
+    db.session.rollback()  # Rollback the database in case a database error triggered the 500
+    return render_template('static/500.html'), 500
 
-###################
-#UTILITY FUNCTIONS#
-###################
+# #############
+# MISCELLANEOUS
+# #############
+@app.route('/tests/')
+def tests():
+  # TODO better test organization
+  tests_path = os.path.join(basedir, 'app/static/resources/tests/')
+  all_tests = {}
+  for subdir in os.listdir(tests_path):
+    tests = {}
+    test_files = os.listdir(os.path.join(tests_path, subdir))
+    if 'mech_questions.pdf' in tests:
+      tests['MQ'] = 'app/static/resources/tests/{0}/mech_questions.pdf'.format(subdir)
+    if 'em_questions.pdf' in tests:
+      tests['EMQ'] = 'app/static/resources/tests/{0}/em_questions.pdf'.format(subdir)
+    if 'mech_solutions.pdf' in tests:
+      tests['MS'] = 'app/static/resources/tests/{0}/mech_solutions.pdf'.format(subdir)
+    if 'em_solutions.pdf' in tests:
+      tests['EMS'] = 'app/static/resources/tests/{0}/em_solutions.pdf'.format(subdir)
+    all_tests[subdir] = tests
+  return render_template('static/tests.html',
+    title="Old AP Tests and Solutions",
+    tests=all_tests)
+
+# #################
+# UTILITY FUNCTIONS
+# #################
 
 #Not the fastest, but it'll be fine
-def getClassesFromWeek(weekNumber):
-  all_classes = Class.query.all()
-  week_classes = [None, None, None, None, None]
-  for cl in all_classes:
-    if cl.week_of_year == weekNumber:
-      day = cl.day_of_week
+def get_lessons_from_week(weekNumber):
+  lessons = Lesson.query.all()
+  current_lessons = [None, None, None, None, None]
+  for lesson in lessons:
+    if lesson.week_of_year == weekNumber:
+      day = lesson.day_of_week
       if day == 1: #Monday
-        week_classes[0] = cl
+        current_lessons[0] = lesson
       elif day == 2: #Tuesday
-        week_classes[1] = cl
+        current_lessons[1] = lesson
       elif day == 3: #Wednesday
-        week_classes[2] = cl
+        current_lessons[2] = lesson
       elif day == 4: #Thursday
-        week_classes[3] = cl
+        current_lessons[3] = lesson
       elif day == 5: #Friday
-        week_classes[4] = cl
-  return week_classes
-
-def filterClasses(filterText):
-  classes = Class.query.all()
-  matching_classes = []
-  for cl in classes:
-    for item in cl.getItems():
-      if filterText in item:
-        matching_classes.append(cl)
-        break
-  print matching_classes
+        current_lessons[4] = lesson
+  return current_lessons
 
 def formatJSON(validJSON):
   return json.dumps(validJSON, sort_keys=True, indent=2, separators=(',', ': '))
-
-def noHTMLEntities(str):
-  return str.find('<') == -1 and str.find('>') == -1 and str.find('"') == -1 and str.find('\'') == -1 and str.find('&') == -1
