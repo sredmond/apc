@@ -1,9 +1,6 @@
 # Compiled Python files
 *.py[cod]
 
-# Progress images
-progress
-
 # Folder Cruft
 .DS_Store
 
