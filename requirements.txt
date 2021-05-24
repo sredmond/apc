@@ -8,7 +8,7 @@ Tempita==0.5.2
 Werkzeug==0.9.6
 decorator==3.4.0
 gnureadline==6.3.3
-gunicorn==19.0.0
+gunicorn==19.5.0
 ipython==2.1.0
 itsdangerous==0.24
 pbr==0.9.0
