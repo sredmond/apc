@@ -5,7 +5,7 @@ Jinja2==2.7.3
 MarkupSafe==0.23
 SQLAlchemy==0.9.6
 Tempita==0.5.2
-Werkzeug==0.9.6
+Werkzeug==0.15.5
 decorator==3.4.0
 gnureadline==6.3.3
 gunicorn==19.0.0
